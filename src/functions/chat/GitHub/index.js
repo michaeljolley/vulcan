@@ -26,13 +26,19 @@ module.exports = async function(context, req) {
   //    message: string
   // }
 
-  context.res = {
-    body: "Ok"
-  };
-
   // Send a message to the SignalR service
   const message =
     "Mike's GitHub account can be found at https://github.com/michaeljolley";
 
   // Send it
+  return {
+    target: "newMessage",
+    arguments: [
+      {
+        message,
+        messageType: "chat", // or 'whisper'
+        recipient: null // required when messageType === whisper
+      }
+    ]
+  };
 };

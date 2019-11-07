@@ -11,6 +11,12 @@
       "type": "http",
       "direction": "out",
       "name": "res"
+    },
+    {
+      "type": "signalR",
+      "name": "$return",
+      "hubName": "chat",
+      "direction": "out"
     }
   ]
 }
