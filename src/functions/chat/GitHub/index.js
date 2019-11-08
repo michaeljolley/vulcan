@@ -1,4 +1,4 @@
-module.exports = async function(context, req) {
+module.exports = async function (context, req) {
   // All chat functions will receive a payload of:
   // {
   //    channel: string,
@@ -30,15 +30,17 @@ module.exports = async function(context, req) {
   const message =
     "Mike's GitHub account can be found at https://github.com/michaeljolley";
 
+  const payload = {
+    message,
+    messageType: "chat", // or 'whisper'
+    recipient: null // required when messageType === whisper
+  };
+
   // Send it
   return {
     target: "newMessage",
     arguments: [
-      {
-        message,
-        messageType: "chat", // or 'whisper'
-        recipient: null // required when messageType === whisper
-      }
+      payload
     ]
   };
 };
