@@ -7,7 +7,7 @@ const axios = require('axios').default;
 export async function getUser(twitchLogin) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`http://user/users/${twitchLogin}`)
+      .get(`http://user/user/${twitchLogin}`)
       .then(response => {
         resolve(response);
       })

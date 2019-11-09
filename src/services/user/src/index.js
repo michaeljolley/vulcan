@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const signalR = require('@aspnet/signalr');
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -12,7 +13,7 @@ const db = require('./db');
 
 /**
  * Retrieves a user based on the provided user login
- * @param {string} login Unique Twitch user login 
+ * @param {string} login Unique Twitch user login
  */
 async function getUser(login) {
   let user;
@@ -20,8 +21,7 @@ async function getUser(login) {
   // If it exists, get the user from the cache.
   try {
     user = await cache.getUser(login);
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
   }
 
@@ -33,18 +33,16 @@ async function getUser(login) {
   // to get it out of the database.
   try {
     user = await db.getUser(login);
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
   }
 
-  // If we got the user from the database, add it to 
+  // If we got the user from the database, add it to
   // the cache for future requests and return it.
   if (user) {
     try {
       await cache.storeUser(user);
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
     }
     return user;
@@ -54,8 +52,7 @@ async function getUser(login) {
   // make a call out to the Twitch API to retrieve it.
   try {
     user = await api.getUser(login);
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
   }
 
@@ -65,8 +62,7 @@ async function getUser(login) {
     try {
       await cache.storeUser(user);
       await db.saveUser(user);
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
     }
     return user;
@@ -78,7 +74,7 @@ async function getUser(login) {
 /**
  * Refreshes the cache & database record for a user based
  * on their Twitch profile
- * @param {string} login Unique Twitch handle for the user 
+ * @param {string} login Unique Twitch handle for the user
  */
 async function refreshUser(login) {
   let user, refreshedUser;
@@ -86,13 +82,11 @@ async function refreshUser(login) {
   // Get the updated user from the Twitch API.
   try {
     refreshedUser = await api.getUser(login);
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
   }
 
   if (refreshedUser) {
-
     try {
       let dbUser = await db.getUser(login);
 
@@ -103,8 +97,7 @@ async function refreshUser(login) {
       if (user) {
         await cache.storeUser(user);
       }
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
     }
 
@@ -133,8 +126,7 @@ async function updateUser(login, user) {
     if (updatedUser) {
       await cache.storeUser(updatedUser);
     }
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
   }
 
@@ -151,8 +143,7 @@ app.get('/user/:login', async (req, res) => {
       res.json(user);
       return;
     }
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
   }
 
@@ -178,8 +169,7 @@ app.post('/user/:login', async (req, res) => {
       res.json(updatedUser);
       return;
     }
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
   }
 
@@ -190,7 +180,7 @@ app.post('/user/:login', async (req, res) => {
 
 /**
  * Refreshes a users info in the database & cache from the Twitch API
- * @param {string} login Unique Twitch user login 
+ * @param {string} login Unique Twitch user login
  */
 app.get('/refresh/:login', async (req, res) => {
   const login = req.params.login.toLocaleLowerCase();
@@ -202,8 +192,7 @@ app.get('/refresh/:login', async (req, res) => {
       res.json(user);
       return;
     }
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
   }
 
@@ -213,3 +202,29 @@ app.get('/refresh/:login', async (req, res) => {
 });
 
 app.listen(port, () => console.log(`User service listening on port ${port}.`));
+
+// Build connection to SignalR service
+const signalRConnection = new signalR.HubConnectionBuilder()
+  .withUrl('/chat')
+  .build();
+
+/**
+ * When users need to be updated.  Payload will look like:
+ * {
+ *  user
+ * }
+ */
+signalRConnection.on('updateUser', async data => {
+  console.log(data);
+
+  if (data.user) {
+    try {
+      await updateUser(data.user.login, data.user);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+});
+
+// Connect to SignalR service
+signalRConnection.start();

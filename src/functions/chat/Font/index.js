@@ -27,9 +27,9 @@ module.exports = async function (context, req) {
   //    user: User
   // }
 
-  // Send a message to the SignalR service
+  // Send a messag e to the SignalR service
   const message =
-    "Mike's GitHub account can be found at https://github.com/michaeljolley";
+    "Mike is using the Fira Code font.  You can find it at https://github.com/tonsky/FiraCode";
 
   const payload = {
     message,

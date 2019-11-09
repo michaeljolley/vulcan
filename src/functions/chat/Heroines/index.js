@@ -29,7 +29,7 @@ module.exports = async function (context, req) {
 
   // Send a message to the SignalR service
   const message =
-    "Mike's GitHub account can be found at https://github.com/michaeljolley";
+    "The Heroines of JavaScript cards are created by Vue Vixens and support their scholarship fund. Lauryn (13) & Layla (10) interview a new heroine every other Sunday.  Check our events to catch the next one.  You can learn more at https://women-in-tech.online/ and https://vuevixens.org";
 
   const payload = {
     message,
