@@ -20,11 +20,11 @@ Message is a string that contains the full message sent in Twitch chat that resu
 
 ### user
 
-User is an object with data relating the to user who sent the chat message. The format of this object is maintained in the [User Service](../../services/user/README.md).
+User is an object with data relating the to user who sent the chat message. The format of this object is maintained in the [User Service](../../services/user/).
 
 ### tags
 
-Tags is an object returned from [tmi.js](https://github.com/tmijs/tmi.js) in the [Chat Service](../../services/chat/README.md).
+Tags is an object returned from [tmi.js](https://github.com/tmijs/tmi.js) in the [Chat Service](../../services/chat/).
 
 ## Environment Variables
 
@@ -32,7 +32,7 @@ None currently
 
 ## Release Notes
 
-See [CHANGELOG.md](./../../CHANGELOG.md)
+See [CHANGELOG.md](../../../CHANGELOG.md)
 
 ## Contributing
 

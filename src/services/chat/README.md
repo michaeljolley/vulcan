@@ -19,7 +19,7 @@ The chat service is runs as a Node.js app in a Docker container. It is created w
 
 ## Release Notes
 
-See [CHANGELOG.md](./../../CHANGELOG.md)
+See [CHANGELOG.md](../../../CHANGELOG.md)
 
 ## Contributing
 
