@@ -1,7 +1,8 @@
 # Vulcan
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
-![Initial Design](https://user-images.githubusercontent.com/1228996/68250906-9d1d9280-ffe7-11e9-9dbf-01f7c2f0549e.png)
+![Initial Design](https://user-images.githubusercontent.com/1228996/68550586-b51b5a80-03c9-11ea-9cec-8537fb6dee2c.png)
 
 ## Contributors ✨
 
