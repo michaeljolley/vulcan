@@ -1,0 +1,106 @@
+
+# Recorded chat messages from Twitch chat
+type ChatMessage {
+    message: String!
+    timestamp: Date!
+    user: User!
+    stream: Stream!
+}
+
+# Represetns a Twitch cheer
+type Cheer {
+    user: User!
+    bits: Int!
+    stream: Stream!
+}
+
+# Represents a goal to accomplish on stream
+type Goal {
+    name: String!
+    accomplished: Boolean
+    stream: Stream!
+}
+
+# Represents a note dictated during stream
+type Note {
+    name: String!
+    user: User!
+    stream: Stream!
+}
+
+# Represents a Twitch raid
+type Raid {
+    user: User!
+    viewers: Int!
+    stream: Stream!
+}
+
+# Represents a segment of the stream
+type Segment {
+    timestamp: Date!
+    topic: String!
+    user: User!
+    stream: Stream!
+}
+
+# Unique record per Twitch stream
+type Stream {
+    streamDate: String!
+    title: String!
+
+    started_at: String
+    ended_at: String
+    replayLink: String
+
+    segments: [Segment!] @relation
+    goals: [Goal!] @relation
+    notes: [Note!] @relation
+
+    contributors: [User!] @relation(name: "stream_contributors")
+    moderators: [User!] @relation(name: "stream_moderators")
+    followers: [User!] @relation(name: "stream_followers")
+    subscribers: [Subscriber!] @relation
+    raiders: [Raid!] @relation
+    cheers: [Cheer!] @relation
+    chatMessages: [ChatMessage!] @relation
+}
+
+# Represents a Twitch subscriber
+type Subscriber {
+    user: User!
+    wasGift: Boolean
+    cumulativeMonths: Int
+    stream: Stream!
+}
+
+# Represents a Twitch user
+type User {
+    id: String! @unique
+    login: String!
+
+    broadcaster_type: String
+    comicAvatar: String
+    display_name: String
+    githubHandle: String
+    lastUpdated: String
+    liveCodersTeamMember: Boolean
+    profile_image_url: String
+    twitterHandle: String
+    raidAlert: String
+    
+    contributedStreams: [Stream!] @relation(name: "stream_contributors")
+    moderatedStreams: [Stream!] @relation(name: "stream_moderators")
+    followedStreams: [Stream!] @relation(name: "stream_followers")
+}
+
+type Query {
+    # Stream Queries
+    allStreams: [Stream!]
+    streamsByStreamDate(streamDate: String!): [Stream!]
+
+    # User Queries
+    allUsers: [User!]
+    usersByLogin(login: String!): [User!]
+    usersByGitHubHandle(githubHandle: String!): [User!]
+    usersByTwitterHandle(twitterHandle: String!): [User!]
+}

@@ -1,42 +1,81 @@
-const CosmosClient = require("@azure/cosmos").CosmosClient;
+const Lokka = require('lokka').Lokka;
+const Transport = require('lokka-transport-http').Transport;
 
 require('dotenv').config();
 
-const databaseId = process.env.COSMOS_DATABASE;
-const containerId = process.env.COSMOS_CONTAINER;
-const endpoint = process.env.COSMOS_ENDPOINT_URL;
-const key = process.env.COSMOS_KEY;
+const faunaEndpoint = process.env.FAUNADB_ENDPOINT;
+const faunaSecret = process.env.FAUNADB_SECRET;
 
-const cosmosClient = new CosmosClient({ endpoint, key });
+const headers = {
+  'Authorization': `Bearer ${faunaSecret}`
+};
+const transport = new Transport(faunaEndpoint, { headers });
+
+const client = new Lokka({
+  transport: transport
+});
 
 const db = {
   saveUser: async function (newUser) {
-    const response = await cosmosClient
-      .database(databaseId)
-      .container(containerId)
-      .items.upsert(newUser);
-
-    return response.resource || undefined;
-  },
-  getUser: async function (login) {
-    const querySpec = {
-      query: 'SELECT * FROM users u WHERE u.login = @login',
-      parameters: [
-        {
-          name: '@login',
-          value: login
+    const mutation = /* GraphQL */ `
+      ($user: UserInput!) {
+        createUser(data: $user) {
+            login
+            _id
         }
-      ]
+      }
+    `;
+
+    const variables = {
+      user: newUser
     };
 
-    const result = await cosmosClient
-      .database(databaseId)
-      .container(containerId)
-      .items.query(querySpec)
-      .fetchNext();
+    try {
+      const data = await client.mutate(
+        mutation,
+        variables
+      );
 
-    if (result && result.resources) {
-      return result.resources[0];
+      if (data.createUser &&
+        data.createUser.data) {
+        return data.createUser.data[0] || undefined;
+      }
+    }
+    catch (err) {
+      console.log(err);
+    }
+
+    return undefined;
+  },
+  getUser: async function (login) {
+    const query = /* GraphQL */ `
+      query getUserByLogin($login: String!) {
+        usersByLogin(login: $login) {
+          data {
+            login
+            display_name
+          }
+        }
+      }
+    `;
+
+    const variables = {
+      login: login
+    };
+
+    try {
+      const data = await client.query(
+        query,
+        variables
+      );
+
+      if (data.usersByLogin &&
+        data.usersByLogin.data) {
+        return data.usersByLogin.data[0] || undefined;
+      }
+    }
+    catch (err) {
+      console.log(err);
     }
 
     return undefined;

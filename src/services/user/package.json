@@ -19,10 +19,13 @@
   "homepage": "https://github.com/michaeljolley/vulcan#readme",
   "dependencies": {
     "@aspnet/signalr": "^1.1.4",
-    "@azure/cosmos": "^3.4.2",
     "axios": "^0.19.0",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "graphql": "^14.5.8",
+    "graphql-tag": "^2.10.1",
+    "lokka": "^1.7.0",
+    "lokka-transport-http": "^1.6.1"
   },
   "devDependencies": {
     "eslint": "^6.6.0",
