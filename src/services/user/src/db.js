@@ -7,7 +7,7 @@ const faunaEndpoint = process.env.FAUNADB_ENDPOINT;
 const faunaSecret = process.env.FAUNADB_SECRET;
 
 const headers = {
-  'Authorization': `Bearer ${faunaSecret}`
+  Authorization: `Bearer ${faunaSecret}`
 };
 const transport = new Transport(faunaEndpoint, { headers });
 
@@ -16,7 +16,7 @@ const client = new Lokka({
 });
 
 const db = {
-  saveUser: async function (newUser) {
+  saveUser: async function(newUser) {
     const mutation = /* GraphQL */ `
       ($user: UserInput!) {
         createUser(data: $user) {
@@ -31,29 +31,26 @@ const db = {
     };
 
     try {
-      const data = await client.mutate(
-        mutation,
-        variables
-      );
+      const data = await client.mutate(mutation, variables);
 
-      if (data.createUser &&
-        data.createUser.data) {
+      if (data.createUser && data.createUser.data) {
         return data.createUser.data[0] || undefined;
       }
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
     }
 
     return undefined;
   },
-  getUser: async function (login) {
+  getUser: async function(login) {
     const query = /* GraphQL */ `
       query getUserByLogin($login: String!) {
         usersByLogin(login: $login) {
           data {
             login
             display_name
+            profile_image_url
+            liveCodersTeamMember
           }
         }
       }
@@ -64,22 +61,17 @@ const db = {
     };
 
     try {
-      const data = await client.query(
-        query,
-        variables
-      );
+      const data = await client.query(query, variables);
 
-      if (data.usersByLogin &&
-        data.usersByLogin.data) {
+      if (data.usersByLogin && data.usersByLogin.data) {
         return data.usersByLogin.data[0] || undefined;
       }
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
     }
 
     return undefined;
   }
-}
+};
 
 module.exports = db;

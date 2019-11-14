@@ -2,7 +2,7 @@
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
-![Initial Design](https://user-images.githubusercontent.com/1228996/68550586-b51b5a80-03c9-11ea-9cec-8537fb6dee2c.png)
+![Initial Design](https://user-images.githubusercontent.com/1228996/68890012-b0191c80-06e3-11ea-9e8a-e5d040386640.png)
 
 ## Release Notes
 

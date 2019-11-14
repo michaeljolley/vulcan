@@ -15,5 +15,24 @@
   "bugs": {
     "url": "https://github.com/michaeljolley/vulcan/issues"
   },
-  "homepage": "https://github.com/michaeljolley/vulcan#readme"
+  "homepage": "https://github.com/michaeljolley/vulcan#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "graphql": "^14.5.8",
+    "graphql-tag": "^2.10.1",
+    "lokka": "^1.7.0",
+    "lokka-transport-http": "^1.6.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "prettier": "^1.18.2"
+  }
 }
