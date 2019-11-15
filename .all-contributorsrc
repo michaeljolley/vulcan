@@ -15,6 +15,16 @@
         "ideas",
         "code"
       ]
+    },
+    {
+      "login": "codephobia",
+      "name": "Martin Raymond",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/6385224?v=4",
+      "profile": "http://www.codephobia.com",
+      "contributions": [
+        "ideas",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
