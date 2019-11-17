@@ -2,19 +2,19 @@ version: "3.7"
 
 services:
   chat:
-    image: vulcan.azurecr.io/vulcan-chat:latest
+    image: vulcan.azurecr.io/vulcan-chat:661
     container_name: vulcan-chat
     init: true
     restart: always
   hub:
-    image: vulcan.azurecr.io/vulcan-hub:latest
+    image: vulcan.azurecr.io/vulcan-hub:661
     container_name: vulcan-hub
     init: true
     restart: always
   user:
-    image: vulcan.azurecr.io/vulcan-user:latest
+    image: vulcan.azurecr.io/vulcan-user:661
     container_name: vulcan-user
     init: true
     restart: always
     ports:
-      - "80:3000"
+      - "80:80"
