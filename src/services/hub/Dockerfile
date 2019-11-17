@@ -18,5 +18,4 @@ COPY ./ .
 
 RUN npm version $BUILDVERSION --allow-same-version
 
-EXPOSE 80
 CMD [ "node", "src/index.js" ]

@@ -18,6 +18,8 @@ const db = require('./db');
 async function getUser(login) {
   let user;
 
+  console.log(login);
+
   // If it exists, get the user from the cache.
   try {
     user = await cache.getUser(login);
