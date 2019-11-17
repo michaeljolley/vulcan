@@ -11,4 +11,4 @@ io.on('connection', client => {
   });
 });
 
-server.listen(80);
+server.listen(8080);

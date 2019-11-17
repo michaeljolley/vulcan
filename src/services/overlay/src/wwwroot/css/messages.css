@@ -1,0 +1,33 @@
+﻿body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+    background: #47096B;
+}
+
+div {
+    display: inline-block;
+}
+
+.title {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #AC8DC4;
+    display: block;
+}
+
+img {
+    width: 24px;
+    border: 1px solid #AC85C4;
+    margin-right: 10px;
+    float: left;
+}
+
+.user {
+    margin-top: 3px;
+}
+
+.message {
+    position: absolute;
+}

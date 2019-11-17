@@ -1,0 +1,174 @@
+﻿html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.chatWrapper {
+    display: table-cell;
+    vertical-align: bottom;
+    height: 95vh;
+    position: absolute;
+    right: 0;
+    width: 300px;
+}
+
+.chatBox {
+    max-height: 95vh;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.chatMessage {
+    font-size: 18px;
+    line-height: 1.4em;
+    margin-top: 5px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    display: none;
+}
+
+.profile {
+    position: absolute;
+    left: -25px;
+    bottom: -30px;
+    border-radius: 25px;
+}
+
+.profile img {
+    width: 50px;
+    background-color: #3c3c3c;
+    border-radius: 25px;
+    border: solid 3px rgba(66, 52, 78, 1);
+}
+
+.body {
+    width: 300px;
+    overflow: hidden;
+}
+
+.bubble {
+    text-align: left;
+    padding: 10px 15px 0px 20px;
+    background: rgba(66, 52, 78, 1);
+    color: #fff;
+    border-radius: 20px 0px;
+    padding-bottom: 30px;
+}
+
+img {
+    max-width: 250px;
+}
+
+img.emote {
+    width: 25px;
+    max-width: 25px;
+}
+
+code {
+    display: block;
+    background-color: rgba(255,255,255,.2);
+    padding: 5px;
+}
+
+.name {
+    color: rgba(255,255,255,.3);
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    bottom: 3px;
+    right: 15px;
+    text-align: right;
+    font-family: 'Titillium Web', sans-serif;
+}
+
+.message {
+    font-family: 'Roboto'
+}
+
+
+/* Mod skin start */
+
+.moderator {
+    position: absolute;
+    right: 0;
+}
+
+    .moderator svg {
+        width: 50px;
+        height: 100%;
+    }
+
+    .moderator .strokeColor {
+        stroke: rgba(255, 255, 255, .1);
+    }
+
+    .moderator .bubble {
+        background-color: #008011;
+        padding-top: 15px;
+    }
+
+    .moderator .profile img {
+        border-color: #008011;
+    }
+
+/* Mod skin end */
+
+/* Cheer skin start */
+
+.bits .bubble {
+    background-color: rgb(194, 147, 0);
+    color: #3c3c3c;
+    padding-top: 15px;
+}
+
+.bits .profile img {
+    border-color: rgb(194, 147, 0);
+}
+
+.cheer {
+    background-color: #fff;
+    border-radius: 25px;
+    height: 25px;
+    border: solid 3px rgb(194, 147, 0);
+    position: absolute;
+    right: -1px;
+    top: -14px;
+    text-align: right;
+    padding: 0px 10px;
+    font-family: 'Black Ops One', cursive;
+    color: rgb(66, 52, 78);
+}
+
+/* Cheer skin end */
+
+/* Sub skin start */
+
+
+/* Sub skin end */
+
+/* Host skin start */
+
+
+/* Host skin end */
+
+/* Raid skin start */
+
+
+/* Raid skin end */
+
+/* Bot skin start */
+
+.bot .bubble {
+    background-color: #337fad;
+}
+
+.bot .profile img {
+    border-color: #337fad;
+}
+
+/* Bot skin end */

@@ -1,0 +1,35 @@
+﻿body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+    background: #47096B;
+}
+
+.title {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #AC8DC4;
+}
+
+.user {
+    margin-top: 3px;
+}
+
+.name {
+    position: absolute;
+    display: inline-block;
+    margin-left: 8px;
+}
+
+img {
+    width: 24px;
+    border: 1px solid #AC85C4;
+}
+
+#follower, #subscriber {
+    position: absolute;
+}
+#follower {
+    display: hidden;
+}

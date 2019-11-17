@@ -4,7 +4,7 @@ const tmi = require('tmi.js');
 const func = require('./func');
 const userService = require('./user');
 
-const socket = require('socket.io-client')('http://hub');
+const socket = require('socket.io-client')('http://hub:8080');
 
 const channelName = process.env.TWITCH_CLIENT_USERNAME;
 const twitchChatClient = new tmi.Client({

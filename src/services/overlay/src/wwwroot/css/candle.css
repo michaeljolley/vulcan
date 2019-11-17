@@ -1,0 +1,74 @@
+﻿html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background: #000;
+  color: #fff;
+}
+
+#candleContent {
+  position: absolute;
+  bottom: 0;
+  width: 600px;
+}
+
+.candle {
+  width: 50px;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.candle .title {
+  transform: rotate(-45deg);
+  margin: 0px 0px 17px 17px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.candle .body {
+  text-align: center;
+  padding: 10px 0px;
+  border-radius: 25px 25px 0 0;
+}
+
+.candle:nth-child(1) .body {
+  background-color: rgba(110, 6, 150, .6);
+}
+.candle:nth-child(2) .body {
+  background-color: rgba(165, 9, 227, .6);
+}
+.candle:nth-child(3) .body {
+  background-color: rgba(136, 57, 168, .6);
+}
+.candle:nth-child(4) .body {
+  background-color: rgba(185, 77, 227, .6);
+}
+.candle:nth-child(5) .body {
+  background-color: rgba(72, 4, 99, .6);
+}
+.candle:nth-child(6) .body {
+  background-color: rgba(165, 9, 227, .6);
+}
+.candle:nth-child(7) .body {
+  background-color: rgba(110, 6, 150, .6);
+}
+
+.done .candle:not(:first-child) .body {
+  background-color: rgba(68, 68, 68, .6);
+}
+.done .candle:not(:first-child) .title {
+  color: rgba(85, 85, 85, .6);
+}
+
+.voter img {
+  background: #000;
+  padding: 3px;
+  border-radius: 18px;
+  width: 30px;
+  margin-bottom: 5px;
+}

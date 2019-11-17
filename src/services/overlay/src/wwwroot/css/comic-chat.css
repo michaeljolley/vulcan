@@ -1,0 +1,115 @@
+﻿
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
+.wrapper {
+    display: table-cell;
+    vertical-align: bottom;
+    height: 95vh;
+    position: absolute;
+    right: 0;
+    width: 300px;
+}
+
+  .strip {
+    max-height: 95vh;
+    margin-bottom: 30px;
+    overflow: hidden;
+  }
+
+  .box {
+    width: 300px;
+    height: 200px;
+    margin: 10px 10px 0 0;
+    background: linear-gradient(90deg, #fff 2px, transparent 1%) center, linear-gradient(#fff 2px, transparent 1%) center, #c0c0c0;
+    background-size: 4px 4px;
+    position: absolute;
+    overflow: hidden;
+    border: solid #111;
+
+    bottom: 0;
+    right: 0;
+    display: none;
+  }
+
+	.box.box1 {
+		border-width: 3px 4px 3px 5px;
+		border-radius:95% 4% 92% 5%/4% 95% 6% 95%;
+		transform: rotate(2deg);
+	}
+
+	.box.box2 {
+		border-width: 3px 3px 5px 5px;
+		border-radius:4% 95% 6% 95%/95% 4% 92% 5%;
+		transform: rotate(-1deg);
+	}
+
+	.box.box3 {
+		border-width: 5px 3px 3px 5px;
+		border-radius:95% 4% 97% 5%/4% 94% 3% 95%;
+		transform: rotate(2deg);
+	}
+
+	.bubble .message {
+		margin: 10px;
+		padding: 16px;
+		background-color: #fff;
+    border: solid #111;
+    text-align: center;
+
+		border-width: 2px 1px 2px 1px;
+		border-radius: 35% 35% 42% 45%/54% 35% 66% 35%;
+		transform: rotate(1deg);
+	}
+
+	.bubble .arrow {
+		height: 20px;
+		width: 15px;
+		background: #fff;
+		display: block;
+		position: absolute;
+		transition: all 0.3s ease;
+		box-sizing: border-box;
+		left: 40%;
+		margin-top: -13px;
+
+		border: solid #111;
+		border-width: 0px 1px 3px 1px;
+		border-radius: 10% 23% 100% 25%;
+		transform: rotate(10deg);
+	}
+
+  .character-strip {
+    height: 100px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+  }
+  .character-strip .character {
+    display: inline-block;
+    width: 112.5px;
+    margin: 0 15px;
+  }
+  .character-strip .character:not(:first-child) img {
+    transform: rotateY(180deg);
+  }
+  .character-strip .character .head, .character-strip .character .body {
+    text-align: center;
+  }
+  .character-strip .character .head img {
+    position: relative;
+    z-index: 10;
+  }
+  .character-strip .character .body img {
+    position: relative;
+    z-index: 5;
+    margin-top: -20%;
+  }
+  .character-strip .character img {
+    width: 45%;
+  }

@@ -1,0 +1,30 @@
+﻿body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+    background: #47096B;
+}
+
+div {
+    display: inline-block;
+}
+
+.title {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #AC8DC4;
+    display: block;
+}
+
+.user {
+    margin-top: 3px;
+}
+
+.name {
+    margin-left: 5px;
+}
+
+#twitter, #twitch, #github {
+    position: absolute;
+}

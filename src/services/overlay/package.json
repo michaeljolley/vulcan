@@ -1,19 +1,32 @@
 {
   "name": "vulcan-overlay",
   "version": "1.0.0",
-  "description": "",
+  "description": "Overlay service for Vulcan chat bot.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/michaeljolley/vulcan.git"
   },
-  "author": "Michael Jolley",
+  "author": "Michael Jolley <mike@sparcapp.io>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/michaeljolley/vulcan/issues"
   },
-  "homepage": "https://github.com/michaeljolley/vulcan#readme"
+  "homepage": "https://github.com/michaeljolley/vulcan#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "prettier": "^1.18.2"
+  }
 }
