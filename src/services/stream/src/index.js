@@ -3,15 +3,15 @@ require('dotenv').config();
 // const signalR = require('@aspnet/signalr');
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 80;
 
-const graphql = require("./graphQL");
+const graphql = require('./graphQL');
 
 app.use(express.json());
 
 app.use(graphql);
 
-app.use('/graphql', function (req, res, next) {
+app.use('/graphql', function(req, res, next) {
   next();
 });
 
