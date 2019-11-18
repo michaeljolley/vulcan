@@ -1,6 +1,6 @@
 const app = require('express')();
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 app.route('/', (req, res) => {
   res.sendStatus(200);
@@ -16,4 +16,6 @@ io.on('connection', socket => {
   });
 });
 
-server.listen(80);
+http.listen(80, function() {
+  console.log('listening in http://localhost:80');
+});
