@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var socket = io('https://vulcan-hub.azurewebsites.net');
+const socket = io.connect('https://vulcan-hub.azurewebsites.net');
 
 socket.on('onChatMessage', chatMessageEventArg => {
   console.log(JSON.stringify(chatMessageEventArg));

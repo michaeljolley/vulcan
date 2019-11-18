@@ -1,10 +1,11 @@
 require('dotenv').config();
 
+const io = require('socket.io-client');
 const tmi = require('tmi.js');
 const func = require('./func');
 const userService = require('./user');
 
-const socket = require('socket.io-client')(process.env.VULCANHUBURL);
+const socket = io.connect(process.env.VULCANHUBURL);
 
 const channelName = process.env.TWITCHCLIENTUSERNAME;
 const twitchChatClient = new tmi.Client({
