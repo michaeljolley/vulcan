@@ -2,21 +2,21 @@ version: "3.7"
 
 services:
   chat:
-    image: vulcan.azurecr.io/vulcan-chat:665
+    image: vulcan.azurecr.io/vulcan-chat:666
     container_name: vulcan-chat
     init: true
     restart: always
     depends_on:
       - user
   overlay:
-    image: vulcan.azurecr.io/vulcan-overlay:665
+    image: vulcan.azurecr.io/vulcan-overlay:666
     container_name: vulcan-overlay
     init: true
     restart: always
     ports:
       - "80:80"
   user:
-    image: vulcan.azurecr.io/vulcan-user:665
+    image: vulcan.azurecr.io/vulcan-user:666
     container_name: vulcan-user
     init: true
     restart: always
