@@ -1,6 +1,5 @@
 require('dotenv').config();
 
-const signalR = require('@aspnet/signalr');
 const express = require('express');
 const app = express();
 const port = 80;
@@ -204,29 +203,3 @@ app.get('/refresh/:login', async (req, res) => {
 });
 
 app.listen(port, () => console.log(`User service listening on port ${port}.`));
-
-// Build connection to SignalR service
-// const signalRConnection = new signalR.HubConnectionBuilder()
-//   .withUrl('/chat')
-//   .build();
-
-/**
- * When users need to be updated.  Payload will look like:
- * {
- *  user
- * }
- */
-// signalRConnection.on('updateUser', async data => {
-//   console.log(data);
-
-//   if (data.user) {
-//     try {
-//       await updateUser(data.user.login, data.user);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   }
-// });
-
-// Connect to SignalR service
-//signalRConnection.start();

@@ -4,9 +4,9 @@ const tmi = require('tmi.js');
 const func = require('./func');
 const userService = require('./user');
 
-const socket = require('socket.io-client')('http://hub:8080');
+const socket = require('socket.io-client')(process.env.VULCANHUBURL);
 
-const channelName = process.env.TWITCH_CLIENT_USERNAME;
+const channelName = process.env.TWITCHCLIENTUSERNAME;
 const twitchChatClient = new tmi.Client({
   options: { debug: true },
   connections: {
@@ -14,15 +14,24 @@ const twitchChatClient = new tmi.Client({
     secure: true
   },
   identity: {
-    username: process.env.TWITCH_BOT_USERNAME,
-    password: `oauth:${process.env.TWITCH_BOT_TOKEN}`
+    username: process.env.TWITCHBOTUSERNAME,
+    password: `oauth:${process.env.TWITCHBOTTOKEN}`
   },
   channels: [channelName]
 });
 
 // Load available functions by calling the stream function
 // that provides the dictionary of available commands
-let chatCommands = [];
+let chatCommands = [
+  {
+    uri: 'https://vulcan-chat.azurewebsites.net/api/GitHub',
+    command: 'github'
+  },
+  {
+    url: 'https://vulcan-chat.azurewebsites.net/api/Font',
+    command: 'font'
+  }
+];
 
 /**
  * On chat message, process appropriate commands and push to
@@ -31,13 +40,13 @@ let chatCommands = [];
 twitchChatClient.on('message', async (channel, tags, message, self) => {
   if (self) return;
 
-  if (chatCommands.length === 0) {
-    try {
-      chatCommands = await func.getAvailableCommands();
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  // if (chatCommands.length === 0) {
+  //   try {
+  //     chatCommands = await func.getAvailableCommands();
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
   // Get user from user service to send along with payloads
   let user = {};

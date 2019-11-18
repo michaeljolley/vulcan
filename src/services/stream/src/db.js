@@ -3,8 +3,8 @@ const Transport = require('lokka-transport-http').Transport;
 
 require('dotenv').config();
 
-const faunaEndpoint = process.env.FAUNADB_ENDPOINT;
-const faunaSecret = process.env.FAUNADB_SECRET;
+const faunaEndpoint = process.env.FAUNADBENDPOINT;
+const faunaSecret = process.env.FAUNADBSECRET;
 
 const headers = {
   Authorization: `Bearer ${faunaSecret}`
@@ -16,7 +16,7 @@ const client = new Lokka({
 });
 
 const db = {
-  query: async function (query, variables) {
+  query: async function(query, variables) {
     try {
       return await client.query(query, variables);
     } catch (err) {
@@ -25,7 +25,7 @@ const db = {
 
     return undefined;
   },
-  mutate: async function (mutation, variables) {
+  mutate: async function(mutation, variables) {
     try {
       return await client.mutate(mutation, variables);
     } catch (err) {

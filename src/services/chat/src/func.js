@@ -8,7 +8,7 @@ const func = {
   getAvailableCommands: async () => {
     return new Promise((resolve, reject) => {
       axios
-        .get(`${process.env.STREAM_FUNCTIONS_URL}/api/commands`)
+        .get(`${process.env.STREAMFUNCTIONSURL}/api/commands`)
         .then(response => {
           resolve(response);
         })

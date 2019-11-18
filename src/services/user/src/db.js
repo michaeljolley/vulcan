@@ -3,8 +3,8 @@ const Transport = require('lokka-transport-http').Transport;
 
 require('dotenv').config();
 
-const faunaEndpoint = process.env.FAUNADB_ENDPOINT;
-const faunaSecret = process.env.FAUNADB_SECRET;
+const faunaEndpoint = process.env.FAUNADBENDPOINT;
+const faunaSecret = process.env.FAUNADBSECRET;
 
 const headers = {
   Authorization: `Bearer ${faunaSecret}`
