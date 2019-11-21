@@ -1,4 +1,8 @@
-module.exports = async function (context, req) {
+const io = require("socket.io-client");
+
+const socket = io.connect(process.env.VULCANHUBURL);
+
+module.exports = async function(context, req) {
   // All chat functions will receive a payload of:
   // {
   //    channel: string,
@@ -32,7 +36,7 @@ module.exports = async function (context, req) {
   const userInfo = chatRequest.user;
 
   const lowerMessage = chatRequest.message.toLocaleLowerCase().trim();
-  const params = lowerMessage.split(' ');
+  const params = lowerMessage.split(" ");
 
   if (params.length === 1) {
     const username = userInfo.display_name || userInfo.login;
@@ -48,32 +52,25 @@ module.exports = async function (context, req) {
       message = `${message} Your GitHub handle is ${userInfo.githubHandle}.`;
     }
 
-    if (userInfo.twitterHandle === undefined &&
-      userInfo.githubHandle === undefined) {
+    if (
+      userInfo.twitterHandle === undefined &&
+      userInfo.githubHandle === undefined
+    ) {
       message = `${message} Nothing.  We know nothing. What are you trying to hide?`;
     }
 
-    // Send a message to the SignalR service
     const payload = {
       message,
       messageType: "chat", // or 'whisper'
       recipient: null // required when messageType === whisper
     };
 
-    // Send it
-    return {
-      target: "newMessage",
-      arguments: [
-        payload
-      ]
-    };
-  }
-  else if (params.length === 3) {
-
+    // Send a message to the Socket.io
+    socket.emit("newMessage", payload);
+  } else if (params.length === 3) {
     const secondWord = params[1];
 
-    if (secondWord === 'twitter' | 'github') {
-
+    if ((secondWord === "twitter") | "github") {
       let newUserData = {
         id: userInfo.id,
         login: userInfo.login
@@ -81,11 +78,11 @@ module.exports = async function (context, req) {
 
       // Send an event to update your social profiles
       switch (secondWord) {
-        case 'twitter':
+        case "twitter":
           newUserData.twitterHandle = params[2];
           break;
 
-        case 'github':
+        case "github":
           newUserData.githubHandle = params[2];
           break;
       }
@@ -98,9 +95,7 @@ module.exports = async function (context, req) {
       // Send it
       return {
         target: "updateUser",
-        arguments: [
-          payload
-        ]
+        arguments: [payload]
       };
     }
   }

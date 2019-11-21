@@ -1,5 +1,4 @@
 const io = require("socket.io-client");
-require("dotenv").config();
 
 const socket = io.connect(process.env.VULCANHUBURL);
 
@@ -43,6 +42,4 @@ module.exports = async function(context, req) {
 
   // Send a message to the Socket.io
   socket.emit("newMessage", payload);
-
-  // Return 200 response
 };

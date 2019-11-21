@@ -31,14 +31,37 @@ let chatCommands = [
   {
     uri: 'https://vulcan-chat.azurewebsites.net/api/Font',
     command: 'font'
+  },
+  {
+    uri: 'https://vulcan-chat.azurewebsites.net/api/Discord',
+    command: 'discord'
+  },
+  {
+    uri: 'https://vulcan-chat.azurewebsites.net/api/Team',
+    command: 'team'
+  },
+  {
+    uri: 'https://vulcan-chat.azurewebsites.net/api/Keyboard',
+    command: 'keyboard'
+  },
+  {
+    uri: 'https://vulcan-chat.azurewebsites.net/api/Twitter',
+    command: 'twitter'
+  },
+  {
+    uri: 'https://vulcan-chat.azurewebsites.net/api/Help',
+    command: 'help'
+  },
+  {
+    uri: 'https://vulcan-chat.azurewebsites.net/api/Profile',
+    command: 'profile'
   }
 ];
 
 // When we receive a new message to send to chat
 // from the Socket.IO hub, send it out.
 socket.on('newMessage', payload => {
-  console.dir(payload);
-  if (twitchChatClient.readyState === 'OPEN') {
+  if (twitchChatClient.readyState() === 'OPEN') {
     if (payload.messageType === 'chat') {
       twitchChatClient.say(channelName, payload.message);
     }

@@ -5,20 +5,12 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "methods": [
-        "post"
-      ]
+      "methods": ["post"]
     },
     {
       "type": "http",
       "direction": "out",
       "name": "res"
-    },
-    {
-      "type": "signalR",
-      "name": "$return",
-      "hubName": "chat",
-      "direction": "out"
     }
   ]
 }

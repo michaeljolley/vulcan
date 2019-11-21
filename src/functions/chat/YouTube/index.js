@@ -1,4 +1,8 @@
-module.exports = async function (context, req) {
+const io = require("socket.io-client");
+
+const socket = io.connect(process.env.VULCANHUBURL);
+
+module.exports = async function(context, req) {
   // All chat functions will receive a payload of:
   // {
   //    channel: string,
@@ -27,7 +31,6 @@ module.exports = async function (context, req) {
   //    user: User
   // }
 
-  // Send a messag e to the SignalR service
   const message =
     "You can catch all our streams on YouTube at https://www.youtube.com/channel/UCn2FoDbv_veJB_UbrF93_jw";
 
@@ -37,11 +40,6 @@ module.exports = async function (context, req) {
     recipient: null // required when messageType === whisper
   };
 
-  // Send it
-  return {
-    target: "newMessage",
-    arguments: [
-      payload
-    ]
-  };
+  // Send a message to the Socket.io
+  socket.emit("newMessage", payload);
 };

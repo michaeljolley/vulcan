@@ -1,4 +1,8 @@
-module.exports = async function (context, req) {
+const io = require("socket.io-client");
+
+const socket = io.connect(process.env.VULCANHUBURL);
+
+module.exports = async function(context, req) {
   // All chat functions will receive a payload of:
   // {
   //    channel: string,
@@ -27,7 +31,6 @@ module.exports = async function (context, req) {
   //    user: User
   // }
 
-  // Send a message to the SignalR service
   const message =
     "The Heroines of JavaScript cards are created by Vue Vixens and support their scholarship fund. Lauryn (13) & Layla (10) interview a new heroine every other Sunday.  Check our events to catch the next one.  You can learn more at https://women-in-tech.online/ and https://vuevixens.org";
 
@@ -37,11 +40,6 @@ module.exports = async function (context, req) {
     recipient: null // required when messageType === whisper
   };
 
-  // Send it
-  return {
-    target: "newMessage",
-    arguments: [
-      payload
-    ]
-  };
+  // Send a message to the Socket.io
+  socket.emit("newMessage", payload);
 };
