@@ -6,16 +6,7 @@ const userService = {
    * @param {string} twitchLogin Unique login of the user with Twitch
    */
   getUser: async twitchLogin => {
-    return new Promise((resolve, reject) => {
-      axios
-        .get(`http://user/user/${twitchLogin}`)
-        .then(response => {
-          resolve(response);
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
+    return axios.get(`http://user/user/${twitchLogin}`);
   }
 };
 

@@ -29,10 +29,21 @@ let chatCommands = [
     command: 'github'
   },
   {
-    url: 'https://vulcan-chat.azurewebsites.net/api/Font',
+    uri: 'https://vulcan-chat.azurewebsites.net/api/Font',
     command: 'font'
   }
 ];
+
+// When we receive a new message to send to chat
+// from the Socket.IO hub, send it out.
+socket.on('newMessage', payload => {
+  console.dir(payload);
+  if (twitchChatClient.readyState === 'OPEN') {
+    if (payload.messageType === 'chat') {
+      twitchChatClient.say(channelName, payload.message);
+    }
+  }
+});
 
 /**
  * On chat message, process appropriate commands and push to
@@ -52,7 +63,7 @@ twitchChatClient.on('message', async (channel, tags, message, self) => {
   // Get user from user service to send along with payloads
   let user = {};
   try {
-    user = await userService.getUser(tags.username);
+    user = (await userService.getUser(tags.username)).data;
   } catch (err) {
     console.log(err);
   }
@@ -61,7 +72,7 @@ twitchChatClient.on('message', async (channel, tags, message, self) => {
 
   // Is this message calling a known command?  If so,
   // submit it to the appropriate function
-  const chatCommand = chatCommands.find(f => `!${f.command}` === firstWord);
+  const chatCommand = chatCommands.find(f => `!${f.command}` == firstWord);
   if (chatCommand) {
     try {
       await func.callChatCommand(chatCommand.uri, channel, tags, message, user);
@@ -76,11 +87,3 @@ twitchChatClient.on('message', async (channel, tags, message, self) => {
 });
 
 twitchChatClient.connect();
-
-// When we receive a new message to send to chat
-// from the Socket.IO hub, send it out.
-socket.on('newMessage', message => {
-  if (twitchChatClient.readyState === 'OPEN') {
-    twitchChatClient.say(channelName, message);
-  }
-});

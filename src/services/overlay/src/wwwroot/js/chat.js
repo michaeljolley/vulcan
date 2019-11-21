@@ -55,7 +55,7 @@ socket.on('onChatMessage', chatMessageEventArg => {
 
   // If this chat message is from the bot then handle it separately from
   // all other skins
-  if (chatMessageEventArg.userInfo.login === 'b3_bot') {
+  if (chatMessageEventArg.user.login === 'b3_bot') {
     newChatMessage.classList.add('bot');
     name.innerText = 'IO';
   }

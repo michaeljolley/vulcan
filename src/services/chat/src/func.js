@@ -27,29 +27,20 @@ const func = {
    * @param {UserInfo} user User object from user service
    */
   callChatCommand: async (uri, channel, tags, message, user) => {
-    return new Promise((resolve, reject) => {
-      axios
-        .post(
-          uri,
-          {
-            channel,
-            tags,
-            message,
-            user
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          }
-        )
-        .then(response => {
-          resolve(response);
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
+    return axios.post(
+      uri,
+      {
+        channel,
+        tags,
+        message,
+        user
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
   }
 };
 

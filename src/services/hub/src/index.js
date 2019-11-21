@@ -8,11 +8,13 @@ app.route('/', (req, res) => {
 
 io.on('connection', socket => {
   socket.on('onChatMessage', payload => {
+    console.log(`onChatMessage: ${JSON.stringify(payload)}`);
     io.emit('onChatMessage', payload);
   });
 
-  socket.on('newMessage', message => {
-    io.emit('newMessage', message);
+  socket.on('newMessage', payload => {
+    console.log(`newMessage: ${JSON.stringify(payload)}`);
+    io.emit('newMessage', payload);
   });
 });
 
