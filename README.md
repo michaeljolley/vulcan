@@ -1,6 +1,6 @@
 # Vulcan
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 
 ![Initial Design](https://user-images.githubusercontent.com/1228996/68890012-b0191c80-06e3-11ea-9e8a-e5d040386640.png)
 
@@ -20,6 +20,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://michaeljolley.com/"><img src="https://avatars2.githubusercontent.com/u/1228996?v=4" width="100px;" alt="Michael Jolley"/><br /><sub><b>Michael Jolley</b></sub></a><br /><a href="https://github.com/MichaelJolley/vulcan/commits?author=MichaelJolley" title="Documentation">📖</a> <a href="#ideas-MichaelJolley" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/MichaelJolley/vulcan/commits?author=MichaelJolley" title="Code">💻</a></td>
     <td align="center"><a href="http://www.codephobia.com"><img src="https://avatars1.githubusercontent.com/u/6385224?v=4" width="100px;" alt="Martin Raymond"/><br /><sub><b>Martin Raymond</b></sub></a><br /><a href="#ideas-codephobia" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/MichaelJolley/vulcan/commits?author=codephobia" title="Code">💻</a></td>
+    <td align="center"><a href="https://arnoschutijzer.io"><img src="https://avatars1.githubusercontent.com/u/4173364?v=4" width="100px;" alt="Arno Schutijzer"/><br /><sub><b>Arno Schutijzer</b></sub></a><br /><a href="https://github.com/MichaelJolley/vulcan/commits?author=arnoschutijzer" title="Code">💻</a></td>
   </tr>
 </table>
 
