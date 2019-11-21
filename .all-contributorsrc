@@ -25,6 +25,15 @@
         "ideas",
         "code"
       ]
+    },
+    {
+      "login": "arnoschutijzer",
+      "name": "Arno Schutijzer",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/4173364?v=4",
+      "profile": "https://arnoschutijzer.io",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
