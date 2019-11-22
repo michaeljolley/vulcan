@@ -1,13 +1,13 @@
 # User Service
 
-The user service is runs as a Node.js express app in a Docker container. It responds to HTTP endpoints and also listens for SignalR events. It is the system of record for user data throughout the system.
+The user service is runs as a Node.js express app in a Docker container. It responds to HTTP endpoints and also listens for Socket.IO events. It is the system of record for user data throughout the system.
 
 ## Environment Variables
 
-| Variable         | Description                                         |
-| ---------------- | --------------------------------------------------- |
-| FAUNADB_ENDPOINT | The endpoint for the FaunaDB containing stream data |
-| FAUNADB_SECRET   | The FaunaDB container secret to use on calls        |
+| Variable        | Description                                         |
+| --------------- | --------------------------------------------------- |
+| FAUNADBENDPOINT | The endpoint for the FaunaDB containing stream data |
+| FAUNADBSECRET   | The FaunaDB container secret to use on calls        |
 
 ## Endpoints
 
@@ -17,7 +17,7 @@ Returns a stream object as JSON from the database based on the provided stream d
 
 Will return a 404 if the stream cannot be found.
 
-## SignalR Events
+## Socket.IO Events
 
 The service listens to the following endpoints and handles appropriately.
 

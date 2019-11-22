@@ -7,15 +7,16 @@ The chat service is runs as a Node.js app in a Docker container. It is created w
 
 ## Environment Variables
 
-| Variable               | Description                                           |
-| ---------------------- | ----------------------------------------------------- |
-| TWITCH_CLIENT_ID       | Twitch API Client Id. Found at https://dev.twitch.tv/ |
-| TWITCH_CLIENT_TOKEN    | OAuth token for the Twitch channel (not the bot)      |
-| TWITCH_CLIENT_USERNAME | Twitch channel login                                  |
-| TWITCH_CLIENT_USER_ID  | Twitch's unique identifier for the channel login      |
-| TWITCH_BOT_USERNAME    | Twitch bot login                                      |
-| TWITCH_BOT_TOKEN       | OAuth token for the Twitch account used as a bot      |
-| STREAM_FUNCTIONS_URL   | Uri for the stream functions                          |
+| Variable             | Description                                           |
+| -------------------- | ----------------------------------------------------- |
+| TWITCHCLIENTID       | Twitch API Client Id. Found at https://dev.twitch.tv/ |
+| TWITCHCLIENTTOKEN    | OAuth token for the Twitch channel (not the bot)      |
+| TWITCHCLIENTUSERNAME | Twitch channel login                                  |
+| TWITCHCLIENTUSERID   | Twitch's unique identifier for the channel login      |
+| TWITCHBOTUSERNAME    | Twitch bot login                                      |
+| TWITCHBOTTOKEN       | OAuth token for the Twitch account used as a bot      |
+| STREAMFUNCTIONSURL   | Uri for the stream functions                          |
+| VULCANHUBURL         | Uri to reach the socket.io hub service                |
 
 ## Release Notes
 

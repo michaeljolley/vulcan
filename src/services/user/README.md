@@ -1,13 +1,15 @@
 # User Service
 
-The user service is runs as a Node.js express app in a Docker container. It responds to HTTP endpoints and also listens for SignalR events.  It is the system of record for user data throughout the system.
+The user service is runs as a Node.js express app in a Docker container. It responds to HTTP endpoints and also listens for Socket.IO events. It is the system of record for user data throughout the system.
 
 ## Environment Variables
 
-| Variable               | Description                                           |
-| ---------------------- | ----------------------------------------------------- |
-| TWITCH_CLIENT_ID       | Twitch API Client Id. Found at https://dev.twitch.tv/ |
-| TWITCH_CLIENT_TOKEN    | OAuth token for the Twitch channel (not the bot)      |
+| Variable          | Description                                           |
+| ----------------- | ----------------------------------------------------- |
+| FAUNADBENDPOINT   | Endpoint for FaunaDB GraphQL calls                    |
+| FAUNADBSECRET     | FaunaDB secret                                        |
+| TWITCHCLIENTID    | Twitch API Client Id. Found at https://dev.twitch.tv/ |
+| TWITCHCLIENTTOKEN | OAuth token for the Twitch channel (not the bot)      |
 
 ## Endpoints
 
@@ -29,7 +31,7 @@ Updates the Twitch information about a user from the Twitch API
 
 Will return a 404 if the user cannot be found.
 
-## SignalR Events
+## Socket.IO Events
 
 The service listens to the following endpoints and handles appropriately.
 
