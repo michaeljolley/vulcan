@@ -1,8 +1,12 @@
-# Vulcan
+<p align="center">
+    <img style="width:180px" src="https://user-images.githubusercontent.com/1228996/69392249-09142200-0c9b-11ea-996b-2b86c9c327c7.png"/>
+</p>
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
+---
 
-![Initial Design](https://user-images.githubusercontent.com/1228996/68890012-b0191c80-06e3-11ea-9e8a-e5d040386640.png)
+[![Build Status](https://dev.azure.com/michaeljolley/vulcan/_apis/build/status/vulcan-CD?branchName=master)](https://dev.azure.com/michaeljolley/vulcan/_build/latest?definitionId=10&branchName=master) [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
+
+![Initial Design](https://user-images.githubusercontent.com/1228996/69392554-f77f4a00-0c9b-11ea-8e3f-26ece36e6426.png)
 
 ## Release Notes
 
