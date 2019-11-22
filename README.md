@@ -6,7 +6,7 @@
 
 [![Build Status](https://dev.azure.com/michaeljolley/vulcan/_apis/build/status/vulcan-CD?branchName=master)](https://dev.azure.com/michaeljolley/vulcan/_build/latest?definitionId=10&branchName=master) [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 
-![Initial Design](https://user-images.githubusercontent.com/1228996/69392554-f77f4a00-0c9b-11ea-8e3f-26ece36e6426.png)
+![Initial Design](https://user-images.githubusercontent.com/1228996/69467219-9c596000-0d4c-11ea-9148-050484a06615.png)
 
 ## Release Notes
 
