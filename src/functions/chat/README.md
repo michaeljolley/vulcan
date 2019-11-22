@@ -28,7 +28,9 @@ Tags is an object returned from [tmi.js](https://github.com/tmijs/tmi.js) in the
 
 ## Environment Variables
 
-None currently
+| Variable     | Description                            |
+| ------------ | -------------------------------------- |
+| VULCANHUBURL | Uri to reach the socket.io hub service |
 
 ## Release Notes
 

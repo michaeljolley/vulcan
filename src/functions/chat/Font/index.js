@@ -1,4 +1,5 @@
 const io = require("socket.io-client");
+require("dotenv").config();
 
 const socket = io.connect(process.env.VULCANHUBURL);
 
