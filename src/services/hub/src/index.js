@@ -7,14 +7,48 @@ app.route('/', (req, res) => {
 });
 
 io.on('connection', socket => {
+  /*
+   * Chat message events
+   */
+
   socket.on('onChatMessage', payload => {
-    console.log(`onChatMessage: ${JSON.stringify(payload)}`);
     io.emit('onChatMessage', payload);
   });
 
+  socket.on('onChatMessageWithEmotes', payload => {
+    io.emit('onChatMessageWithEmotes', payload);
+  });
+
   socket.on('newMessage', payload => {
-    console.log(`newMessage: ${JSON.stringify(payload)}`);
     io.emit('newMessage', payload);
+  });
+
+  /*
+   * User events
+   */
+
+  socket.on('updateUser', payload => {
+    io.emit('updateUser', payload);
+  });
+
+  socket.on('refreshUser', payload => {
+    io.emit('refreshUser', payload);
+  });
+
+  /*
+   * Stream events
+   */
+
+  socket.on('streamStart', payload => {
+    io.emit('streamStart', payload);
+  });
+
+  socket.on('streamUpdate', payload => {
+    io.emit('streamUpdate', payload);
+  });
+
+  socket.on('streamEnd', payload => {
+    io.emit('streamEnd', payload);
   });
 });
 

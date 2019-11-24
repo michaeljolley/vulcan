@@ -10,8 +10,8 @@ socket.on('onChatMessage', chatMessageEventArg => {
   }
 
   if (
-    chatMessageEventArg.message &&
-    chatMessageEventArg.message.length > 0 &&
+    chatMessageEventArg.sanitizedMessage &&
+    chatMessageEventArg.sanitizedMessage.length > 0 &&
     chatMessageEventArg.user &&
     chatMessageEventArg.user.login == 'b3_bot'
   ) {
@@ -51,20 +51,13 @@ socket.on('onChatMessage', chatMessageEventArg => {
     chatMessageEventArg.user.display_name || chatMessageEventArg.user.login;
 
   var message = createChatDiv('message');
-  message.innerHTML = chatMessageEventArg.message;
+  message.innerHTML = chatMessageEventArg.sanitizedMessage;
 
   // If this chat message is from the bot then handle it separately from
   // all other skins
   if (chatMessageEventArg.user.login === 'b3_bot') {
     newChatMessage.classList.add('bot');
     name.innerText = 'IO';
-  }
-
-  if (chatMessageEventArg.tags.bits > 0) {
-    newChatMessage.classList.add('bits');
-    var cheer = createChatDiv('cheer');
-    cheer.innerHTML = 'Cheer for ' + chatMessageEventArg.tags.bits + ' bits';
-    newChatMessage.append(cheer);
   }
 
   if (
@@ -77,6 +70,13 @@ socket.on('onChatMessage', chatMessageEventArg => {
     var moderator = createChatDiv('moderator');
     moderator.innerHTML = shieldSVG;
     body.prepend(moderator);
+  }
+
+  if (chatMessageEventArg.tags.bits > 0) {
+    newChatMessage.classList.add('bits');
+    var cheer = createChatDiv('cheer');
+    cheer.innerHTML = 'Cheer for ' + chatMessageEventArg.tags.bits + ' bits';
+    newChatMessage.append(cheer);
   }
 
   bubble.append(message);

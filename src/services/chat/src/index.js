@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const io = require('socket.io-client');
 const tmi = require('tmi.js');
+const chatProcessor = require('./chatProcessor');
 const func = require('./func');
 const userService = require('./user');
 
@@ -25,36 +26,56 @@ const twitchChatClient = new tmi.Client({
 // that provides the dictionary of available commands
 let chatCommands = [
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/GitHub',
-    command: 'github'
-  },
-  {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Font',
-    command: 'font'
+    uri: 'https://vulcan-chat.azurewebsites.net/api/Blog',
+    command: 'blog'
   },
   {
     uri: 'https://vulcan-chat.azurewebsites.net/api/Discord',
     command: 'discord'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Team',
-    command: 'team'
+    uri: 'https://vulcan-chat.azurewebsites.net/api/Font',
+    command: 'font'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Keyboard',
-    command: 'keyboard'
-  },
-  {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Twitter',
-    command: 'twitter'
+    uri: 'https://vulcan-chat.azurewebsites.net/api/GitHub',
+    command: 'github'
   },
   {
     uri: 'https://vulcan-chat.azurewebsites.net/api/Help',
     command: 'help'
   },
   {
+    uri: 'https://vulcan-chat.azurewebsites.net/api/Heroines',
+    command: 'heroines'
+  },
+  {
+    uri: 'https://vulcan-chat.azurewebsites.net/api/Keyboard',
+    command: 'keyboard'
+  },
+  {
+    uri: 'https://vulcan-chat.azurewebsites.net/api/Mod',
+    command: 'mod'
+  },
+  {
     uri: 'https://vulcan-chat.azurewebsites.net/api/Profile',
     command: 'profile'
+  },
+  {
+    uri: 'https://vulcan-chat.azurewebsites.net/api/So',
+    command: 'so'
+  },
+  {
+    uri: 'https://vulcan-chat.azurewebsites.net/api/Team',
+    command: 'team'
+  },
+  {
+    uri: 'https://vulcan-chat.azurewebsites.net/api/Twitter',
+    command: 'twitter'
+  },
+  {
+    uri: 'https://vulcan-chat.azurewebsites.net/api/YouTube',
+    command: 'youtube'
   }
 ];
 
@@ -77,7 +98,7 @@ twitchChatClient.on('message', async (channel, tags, message, self) => {
 
   // if (chatCommands.length === 0) {
   //   try {
-  //     chatCommands = await func.getAvailableCommands();
+  //     chatCommands = (await func.getAvailableCommands()).data;
   //   } catch (err) {
   //     console.log(err);
   //   }
@@ -91,12 +112,15 @@ twitchChatClient.on('message', async (channel, tags, message, self) => {
     console.log(err);
   }
 
+  let hasCommand = false;
+
   const firstWord = message.toLowerCase().split(' ');
 
   // Is this message calling a known command?  If so,
   // submit it to the appropriate function
   const chatCommand = chatCommands.find(f => `!${f.command}` == firstWord);
   if (chatCommand) {
+    hasCommand = true;
     try {
       await func.callChatCommand(chatCommand.uri, channel, tags, message, user);
     } catch (err) {
@@ -104,9 +128,25 @@ twitchChatClient.on('message', async (channel, tags, message, self) => {
     }
   }
 
+  const sanitizedMessage = chatProcessor.processChat(message, tags);
+
   // Send message to SignalR to be processed by
   // anyone who needs it
-  socket.emit('onChatMessage', { channel, tags, message, user });
+  socket.emit('onChatMessage', {
+    channel,
+    tags,
+    message,
+    user,
+    sanitizedMessage: sanitizedMessage.message,
+    hasCommand
+  });
+
+  // If emotes were sent in the message, emit them to the hub
+  if (sanitizedMessage.emotes.length > 0) {
+    socket.emit('onChatMessageWithEmotes', {
+      emotes: sanitizedMessage.emotes
+    });
+  }
 });
 
 twitchChatClient.connect();

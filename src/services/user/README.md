@@ -10,6 +10,7 @@ The user service is runs as a Node.js express app in a Docker container. It resp
 | FAUNADBSECRET     | FaunaDB secret                                        |
 | TWITCHCLIENTID    | Twitch API Client Id. Found at https://dev.twitch.tv/ |
 | TWITCHCLIENTTOKEN | OAuth token for the Twitch channel (not the bot)      |
+| VULCANHUBURL      | Uri to reach the socket.io hub service                |
 
 ## Endpoints
 

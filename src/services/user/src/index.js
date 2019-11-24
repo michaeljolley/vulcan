@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const io = require('socket.io-client');
 const express = require('express');
 const app = express();
 const port = 80;
@@ -10,14 +11,14 @@ const api = require('./api');
 const cache = require('./cache');
 const db = require('./db');
 
+const socket = io.connect(process.env.VULCANHUBURL);
+
 /**
  * Retrieves a user based on the provided user login
  * @param {string} login Unique Twitch user login
  */
 async function getUser(login) {
   let user;
-
-  console.log(login);
 
   // If it exists, get the user from the cache.
   try {
@@ -89,10 +90,6 @@ async function refreshUser(login) {
 
   if (refreshedUser) {
     try {
-      let dbUser = await db.getUser(login);
-
-      refreshedUser = { ...dbUser, ...refreshedUser };
-
       user = await db.saveUser(refreshedUser);
 
       if (user) {
@@ -118,10 +115,6 @@ async function updateUser(login, user) {
   let updatedUser;
 
   try {
-    let dbUser = await db.getUser(login);
-
-    user = { ...dbUser, ...user };
-
     updatedUser = await db.saveUser(user);
 
     if (updatedUser) {
@@ -156,38 +149,8 @@ app.get('/user/:login', async (req, res) => {
 app.post('/user/:login', async (req, res) => {
   const login = req.params.login.toLocaleLowerCase();
 
-  if (!req.body) {
-    res.sendStatus(500);
-    return;
-  }
-
-  let user = req.body;
-
   try {
-    let updatedUser = await updateUser(login, user);
-
-    if (updatedUser) {
-      res.json(updatedUser);
-      return;
-    }
-  } catch (err) {
-    console.log(err);
-  }
-
-  // If the user couldn't be found in any service, return
-  // a 404 (Not Found).
-  res.sendStatus(404);
-});
-
-/**
- * Refreshes a users info in the database & cache from the Twitch API
- * @param {string} login Unique Twitch user login
- */
-app.get('/refresh/:login', async (req, res) => {
-  const login = req.params.login.toLocaleLowerCase();
-
-  try {
-    const user = await refreshUser(login);
+    const user = await updateUser(login, req.body);
 
     if (user) {
       res.json(user);
@@ -203,3 +166,19 @@ app.get('/refresh/:login', async (req, res) => {
 });
 
 app.listen(port, () => console.log(`User service listening on port ${port}.`));
+
+// When we receive a new message to send to chat
+// from the Socket.IO hub, send it out.
+socket.on('updateUser', async payload => {
+  if (payload && payload.user && payload.user.login) {
+    await updateUser(payload.user.login, payload.user);
+  }
+});
+
+// When we receive a new message to send to chat
+// from the Socket.IO hub, send it out.
+socket.on('refreshUser', async payload => {
+  if (payload && payload.user && payload.user.login) {
+    await refreshUser(payload.user.login);
+  }
+});

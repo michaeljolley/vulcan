@@ -6,16 +6,7 @@ const func = {
    * chat functions
    */
   getAvailableCommands: async () => {
-    return new Promise((resolve, reject) => {
-      axios
-        .get(`${process.env.STREAMFUNCTIONSURL}/api/commands`)
-        .then(response => {
-          resolve(response);
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
+    return axios.get(`${process.env.STREAMFUNCTIONSURL}/api/commands`);
   },
 
   /**
