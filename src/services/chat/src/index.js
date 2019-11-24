@@ -85,6 +85,8 @@ socket.on('newMessage', payload => {
   if (twitchChatClient.readyState() === 'OPEN') {
     if (payload.messageType === 'chat') {
       twitchChatClient.say(channelName, payload.message);
+    } else {
+      twitchChatClient.whisper(payload.recipient, payload.message);
     }
   }
 });
