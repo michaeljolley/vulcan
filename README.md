@@ -4,7 +4,7 @@
 
 ---
 
-[![Build Status](https://dev.azure.com/michaeljolley/vulcan/_apis/build/status/vulcan-CD?branchName=master)](https://dev.azure.com/michaeljolley/vulcan/_build/latest?definitionId=10&branchName=master) [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
+[![Build Status](https://dev.azure.com/michaeljolley/vulcan/_apis/build/status/vulcan-CD?branchName=master)](https://dev.azure.com/michaeljolley/vulcan/_build/latest?definitionId=10&branchName=master) [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 
 ![Initial Design](https://user-images.githubusercontent.com/1228996/69489802-d48f9a00-0e43-11ea-841b-d6188360db5c.png)
 
@@ -25,6 +25,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://michaeljolley.com/"><img src="https://avatars2.githubusercontent.com/u/1228996?v=4" width="100px;" alt="Michael Jolley"/><br /><sub><b>Michael Jolley</b></sub></a><br /><a href="https://github.com/MichaelJolley/vulcan/commits?author=MichaelJolley" title="Documentation">📖</a> <a href="#ideas-MichaelJolley" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/MichaelJolley/vulcan/commits?author=MichaelJolley" title="Code">💻</a></td>
     <td align="center"><a href="http://www.codephobia.com"><img src="https://avatars1.githubusercontent.com/u/6385224?v=4" width="100px;" alt="Martin Raymond"/><br /><sub><b>Martin Raymond</b></sub></a><br /><a href="#ideas-codephobia" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/MichaelJolley/vulcan/commits?author=codephobia" title="Code">💻</a></td>
     <td align="center"><a href="https://arnoschutijzer.io"><img src="https://avatars1.githubusercontent.com/u/4173364?v=4" width="100px;" alt="Arno Schutijzer"/><br /><sub><b>Arno Schutijzer</b></sub></a><br /><a href="https://github.com/MichaelJolley/vulcan/commits?author=arnoschutijzer" title="Code">💻</a></td>
+    <td align="center"><a href="https://robinmalfait.com"><img src="https://avatars2.githubusercontent.com/u/1834413?v=4" width="100px;" alt="Robin Malfait"/><br /><sub><b>Robin Malfait</b></sub></a><br /><a href="https://github.com/MichaelJolley/vulcan/commits?author=RobinMalfait" title="Code">💻</a></td>
   </tr>
 </table>
 
