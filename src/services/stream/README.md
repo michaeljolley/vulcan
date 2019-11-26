@@ -19,7 +19,13 @@ Will return a 404 if the stream cannot be found.
 
 ## Socket.IO Events
 
-The service listens to the following endpoints and handles appropriately.
+The service listens to the following events and handles appropriately.
+
+### streamStart
+
+### streamUpdate
+
+### streamEnd
 
 ## Release Notes
 
