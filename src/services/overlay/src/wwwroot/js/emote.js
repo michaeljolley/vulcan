@@ -5,10 +5,10 @@ const socket = io.connect('https://vulcan-hub.azurewebsites.net');
 const emoteQueue = [];
 const container = $('#container');
 
-socket.on('onChatMessageWithEmotes', emoteUrlArray => {
-  if (emoteUrlArray && emoteUrlArray.length > 0) {
-    for (i = 0; i < emoteUrlArray.length; i++) {
-      emoteQueue.push(emoteUrlArray[i]);
+socket.on('onChatMessageWithEmotes', ({ emotes }) => {
+  if (emotes && emotes.length > 0) {
+    for (let i = 0; i < emotes.length; i++) {
+      emoteQueue.push(emotes[i]);
     }
   }
 });
