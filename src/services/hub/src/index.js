@@ -10,7 +10,6 @@ io.on('connection', socket => {
   /*
    * Chat message events
    */
-
   socket.on('onChatMessage', payload => {
     io.emit('onChatMessage', payload);
   });
@@ -26,7 +25,6 @@ io.on('connection', socket => {
   /*
    * User events
    */
-
   socket.on('updateUser', payload => {
     io.emit('updateUser', payload);
   });
@@ -38,7 +36,6 @@ io.on('connection', socket => {
   /*
    * Stream events
    */
-
   socket.on('streamStart', payload => {
     io.emit('streamStart', payload);
   });
@@ -49,6 +46,13 @@ io.on('connection', socket => {
 
   socket.on('streamEnd', payload => {
     io.emit('streamEnd', payload);
+  });
+
+  /*
+   * LED commands
+   */
+  socket.on('lightChanged', payload => {
+    io.emit('lightChanged', payload);
   });
 });
 

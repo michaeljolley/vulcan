@@ -23,10 +23,30 @@ services:
       - "80:80"
     env_file:
       - ./src/services/overlay/.env
+  stream:
+    build:
+      context: ./src/services/stream
+      dockerfile: Dockerfile
+    container_name: vulcan-stream
+    init: true
+    restart: always
+    env_file:
+      - ./src/services/stream/.env
   user:
-    image: vulcan.azurecr.io/vulcan-user:668
+    build:
+      context: ./src/services/user
+      dockerfile: Dockerfile
     container_name: vulcan-user
     init: true
     restart: always
     env_file:
       - ./src/services/user/.env
+  webhook:
+    build:
+      context: ./src/services/webhook
+      dockerfile: Dockerfile
+    container_name: vulcan-webhook
+    init: true
+    restart: always
+    env_file:
+      - ./src/services/webhook/.env

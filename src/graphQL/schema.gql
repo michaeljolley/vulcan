@@ -91,6 +91,12 @@ type User {
   moderatedStreams: [Stream!] @relation(name: "stream_moderators")
   followedStreams: [Stream!] @relation(name: "stream_followers")
 }
+# Represents a webhook
+type Webhook {
+  channel: String!
+  uri: String!
+  event: String!
+}
 
 type Query {
   # Stream Queries
@@ -102,4 +108,9 @@ type Query {
   usersByLogin(login: String!): [User!]
   usersByGitHubHandle(githubHandle: String!): [User!]
   usersByTwitterHandle(twitterHandle: String!): [User!]
+
+  # Webhook Queries
+  allWebhooks: [Webhook!]
+  webhooksByChannel(channel: String!): [Webhook!]
+  webhooksByEvent(event: String!): [Webhook!]
 }
