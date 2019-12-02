@@ -23,6 +23,8 @@ services:
       - "80:80"
     env_file:
       - ./src/services/overlay/.env
+    volumes:
+      - ./assets:/app/src/wwwroot/assets
   stream:
     build:
       context: ./src/services/stream
