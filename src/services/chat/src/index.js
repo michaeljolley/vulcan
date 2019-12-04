@@ -54,6 +54,10 @@ let chatCommands = [
     command: 'keyboard'
   },
   {
+    uri: 'https://vulcan-chat.azurewebsites.net/api/Light',
+    command: 'light'
+  },
+  {
     uri: 'https://vulcan-chat.azurewebsites.net/api/Mod',
     command: 'mod'
   },
@@ -64,6 +68,10 @@ let chatCommands = [
   {
     uri: 'https://vulcan-chat.azurewebsites.net/api/So',
     command: 'so'
+  },
+  {
+    uri: 'https://vulcan-chat.azurewebsites.net/api/Stop',
+    command: 'stop'
   },
   {
     uri: 'https://vulcan-chat.azurewebsites.net/api/Team',
@@ -130,9 +138,21 @@ twitchChatClient.on('message', async (channel, tags, message, self) => {
     }
   }
 
+  // If this isn't an existing command but starts with "!" send to the
+  // sound effect function to see if it should trigger something.
+  if (!hasCommand && firstWord.charAt(0) === '!') {
+    await func.callChatCommand(
+      'https://vulcan-chat.azurewebsites.net/api/_AudioEffects',
+      channel,
+      tags,
+      message,
+      user
+    );
+  }
+
   const sanitizedMessage = chatProcessor.processChat(message, tags);
 
-  // Send message to SignalR to be processed by
+  // Send message to Socket.IO to be processed by
   // anyone who needs it
   socket.emit('onChatMessage', {
     channel,
