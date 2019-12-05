@@ -1,5 +1,5 @@
 {
-  "name": "vulcan-chat",
+  "name": "vulcan-logger",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -24,7 +24,7 @@
     "lokka-transport-http": "^1.6.1",
     "sanitize-html": "^1.20.1",
     "socket.io-client": "^2.3.0",
-    "tmi.js": "^1.5.0"
+    "socketio-wildcard": "^2.0.0"
   },
   "devDependencies": {
     "eslint": "^6.6.0",

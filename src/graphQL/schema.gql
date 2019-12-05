@@ -6,11 +6,11 @@ type ChatMessage {
   stream: Stream!
 }
 
-# Represetns a Twitch cheer
+# Represents a Twitch cheer
 type Cheer {
   user: User!
   bits: Int!
-  stream: Stream!
+  stream: Stream
 }
 
 # Represents a goal to accomplish on stream
@@ -69,7 +69,7 @@ type Subscriber {
   user: User!
   wasGift: Boolean
   cumulativeMonths: Int
-  stream: Stream!
+  stream: Stream
 }
 
 # Represents a Twitch user
@@ -90,7 +90,19 @@ type User {
   contributedStreams: [Stream!] @relation(name: "stream_contributors")
   moderatedStreams: [Stream!] @relation(name: "stream_moderators")
   followedStreams: [Stream!] @relation(name: "stream_followers")
+
+  subscriptions: [Subscriber!] @relation
+  cheers: [Cheer!] @relation
 }
+
+# Represents a viewer
+type Viewer {
+  user: User!
+  stream: Stream!
+  joined: String!
+  parted: String!
+}
+
 # Represents a webhook
 type Webhook {
   channel: String!

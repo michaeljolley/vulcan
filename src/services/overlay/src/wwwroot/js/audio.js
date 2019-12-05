@@ -15,7 +15,7 @@ container.addEventListener('playNext', playQueue, false);
 socket.on('onSoundEffect', mediaEventArg => {
   if (avEnabled) {
     var audio = document.createElement('audio');
-    audio.src = `${_audioPath}${mediaEventArg.clipName}.mp3`;
+    audio.src = `${_audioPath}${mediaEventArg.audioFile}.mp3`;
     audio.id = +new Date();
     audio.addEventListener('ended', audioStop, false);
 

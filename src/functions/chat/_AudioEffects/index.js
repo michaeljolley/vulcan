@@ -38,7 +38,10 @@ module.exports = async function(context, req) {
   // We're essentially getting all chat messages that begin with "!"
   // so we need to check if it happens to be the name of a sound effect.
   if (req.body && req.body.message) {
-    const possibleFileName = req.body.message.toLowerCase().split(" ")[0];
+    const possibleFileName = req.body.message
+      .toLowerCase()
+      .split(" ")[0]
+      .replace("!", "");
 
     fileService.doesFileExist(
       "assets",
@@ -48,8 +51,12 @@ module.exports = async function(context, req) {
         // If no error occurred and the file exists, emit
         // the audio command.
         if (!err && result && result.exists) {
+          const payload = {
+            audioFile: possibleFileName
+          };
+
           // Send a message to the Socket.io
-          socket.emit("onSoundEffect", req.body);
+          socket.emit("onSoundEffect", payload);
         }
       }
     );

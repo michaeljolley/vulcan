@@ -48,11 +48,34 @@ io.on('connection', socket => {
     io.emit('streamEnd', payload);
   });
 
+  socket.on('onRaid', payload => {
+    io.emit('onRaid', payload);
+  });
+
+  socket.on('onJoin', payload => {
+    io.emit('onJoin', payload);
+  });
+
+  socket.on('onPart', payload => {
+    io.emit('onPart', payload);
+  });
+
   /*
    * LED commands
    */
   socket.on('lightChanged', payload => {
     io.emit('lightChanged', payload);
+  });
+
+  /*
+   * Cheer & sub events
+   */
+  socket.on('onCheer', payload => {
+    io.emit('onCheer', payload);
+  });
+
+  socket.on('onSubscription', payload => {
+    io.emit('onSubscription', payload);
   });
 });
 
