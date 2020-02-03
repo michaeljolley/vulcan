@@ -87,6 +87,8 @@ const tmiHandlers = {
     } catch (err) {
       console.log(err);
     }
+    
+    const stream = await getStream();
 
     let hasCommand = false;
 
@@ -103,7 +105,8 @@ const tmiHandlers = {
           channel,
           userstate,
           message,
-          user
+          user,
+          stream
         );
       } catch (err) {
         console.log(err);
@@ -118,7 +121,8 @@ const tmiHandlers = {
         channel,
         userstate,
         message,
-        user
+        user,
+        stream
       );
     }
 
@@ -132,13 +136,15 @@ const tmiHandlers = {
       message,
       user,
       sanitizedMessage: sanitizedMessage.message,
-      hasCommand
+      hasCommand,
+      stream
     });
 
     // If emotes were sent in the message, emit them to the hub
     if (sanitizedMessage.emotes.length > 0) {
       socket.emit('onChatMessageWithEmotes', {
-        emotes: sanitizedMessage.emotes
+        emotes: sanitizedMessage.emotes,
+        stream
       });
     }
   },
@@ -182,12 +188,15 @@ const tmiHandlers = {
       console.log(err);
     }
 
+    const stream = await getStream();
+
     // Send message to Socket.IO to be processed by
     // anyone who needs it
     socket.emit('onRaid', {
       channel,
       viewers,
-      user
+      user,
+      stream
     });
   },
   resub: async (channel, username, months, message, userstate, methods) => {
@@ -245,11 +254,14 @@ const tmiHandlers = {
       console.log(err);
     }
 
+    const stream = await getStream();
+
     // Send message to Socket.IO to be processed by
     // anyone who needs it
     socket.emit('onJoin', {
       channel,
-      user
+      user,
+      stream
     });
   },
   part: async (channel, username, self) => {
@@ -259,12 +271,15 @@ const tmiHandlers = {
     } catch (err) {
       console.log(err);
     }
+    
+    const stream = await getStream();
 
     // Send message to Socket.IO to be processed by
     // anyone who needs it
     socket.emit('onPart', {
       channel,
-      user
+      user,
+      stream
     });
   }
 };

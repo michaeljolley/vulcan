@@ -21,11 +21,6 @@
     "axios": "^0.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-graphql": "^0.9.0",
-    "graphql": "^14.5.8",
-    "graphql-tag": "^2.10.1",
-    "lokka": "^1.7.0",
-    "lokka-transport-http": "^1.6.1",
     "socket.io-client": "^2.3.0"
   },
   "devDependencies": {

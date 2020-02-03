@@ -1,148 +1,65 @@
-const Lokka = require('lokka').Lokka;
-const Transport = require('lokka-transport-http').Transport;
+const mongoose = require('mongoose');
+
+const userSchema = new mongoose.Schema({
+  broadcaster_type: String,
+  comicAvatar: String,
+  display_name: String,
+  githubHandle: String,
+  id: { type: String, required: true, index: true },
+  lastUpdated: String,
+  liveCodersTeamMember: Boolean,
+  login: { type: String, index: true },
+  profile_image_url: String,
+  twitterHandle: String,
+  raidAlert: String
+});
+
+const UserModel = new mongoose.model('User', userSchema);
 
 require('dotenv').config();
 
-const faunaEndpoint = process.env.FAUNADBENDPOINT;
-const faunaSecret = process.env.FAUNADBSECRET;
+const mongoUser = process.env.MONGOUSER;
+const mongoPass = process.env.MONGOPASSWORD;
+const mongoHost = process.env.MONGOHOST;
+const mongoConnectionString = `mongodb+srv://${mongoUser}:${mongoPass}@${mongoHost}/vulcan?retryWrites=true&w=majority`;
 
-const headers = {
-  Authorization: `Bearer ${faunaSecret}`
-};
-const transport = new Transport(faunaEndpoint, { headers });
-
-const client = new Lokka({
-  transport: transport
+mongoose.connect(mongoConnectionString, {
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useFindAndModify: false
+});
+const connection = mongoose.connection;
+connection.once('once', () => {
+  console.log(`MongoDB database connection established successfully`);
 });
 
 const db = {
   saveUser: async function(newUser) {
-    /*
-     * Attempt to get the user first. If it
-     * exists, then perform an update. Otherwise,
-     * perform a create.
-     */
-
-    let existingUser;
-
-    try {
-      existingUser = await this.getUser(newUser.login);
-    } catch (err) {
-      console.log(err);
-    }
-
-    if (existingUser) {
-      const mutation = /* GraphQL */ `
-          ($id: ID!, $user: UserInput!) {
-            updateUser(id: $id, data: $user) {    
-              _id
-              id
-              login
-              broadcaster_type
-              display_name
-              githubHandle
-              lastUpdated
-              liveCodersTeamMember
-              profile_image_url
-              twitterHandle
-              raidAlert
-            }
+    return await new Promise(resolve => {
+      UserModel.findOneAndUpdate(
+        { login: newUser.login },
+        newUser,
+        { upsert: true, new: true },
+        (err, res) => {
+          if (err) {
+            resolve(undefined);
           }
-        `;
-
-      let updatedUser = {
-        ...existingUser,
-        ...newUser,
-        ...{ lastUpdated: new Date().toISOString() }
-      };
-      delete updatedUser._id;
-
-      const variables = {
-        id: existingUser._id,
-        user: updatedUser
-      };
-
-      try {
-        const data = await client.mutate(mutation, variables);
-
-        if (data.updateUser && data.updateUser) {
-          return data.updateUser || undefined;
+          resolve(res);
         }
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-      const mutation = /* GraphQL */ `
-          ($user: UserInput!) {
-            createUser(data: $user) {
-              _id
-              id
-              login
-              broadcaster_type
-              display_name
-              githubHandle
-              lastUpdated
-              liveCodersTeamMember
-              profile_image_url
-              twitterHandle
-              raidAlert
-            }
-          }
-        `;
-
-      const variables = {
-        user: { ...newUser, ...{ lastUpdated: new Date().toISOString() } }
-      };
-
-      try {
-        const data = await client.mutate(mutation, variables);
-
-        if (data.createUser && data.createUser.data) {
-          return data.createUser.data[0] || undefined;
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
-    return undefined;
+      );
+    });
   },
   getUser: async function(login) {
-    const query = /* GraphQL */ `
-      query getUserByLogin($login: String!) {
-        usersByLogin(login: $login) {
-          data {
-            _id
-            id
-            login
-            broadcaster_type
-            display_name
-            githubHandle
-            lastUpdated
-            liveCodersTeamMember
-            profile_image_url
-            twitterHandle
-            raidAlert
-          }
+    login = login.toLocaleLowerCase();
+    return await new Promise(resolve =>
+      UserModel.findOne({ login: login }, (err, res) => {
+        if (err) {
+          resolve(undefined);
         }
-      }
-    `;
-
-    const variables = {
-      login: login
-    };
-
-    try {
-      const data = await client.query(query, variables);
-
-      if (data.usersByLogin && data.usersByLogin.data) {
-        return data.usersByLogin.data[0] || undefined;
-      }
-    } catch (err) {
-      console.log(err);
-    }
-
-    return undefined;
+        resolve(res);
+      })
+    );
   }
 };
 

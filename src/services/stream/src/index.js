@@ -2,12 +2,12 @@ require('dotenv').config();
 
 const io = require('socket.io-client');
 const socket = io.connect(process.env.VULCANHUBURL);
-const streamService = require('./streamService');
+const db = require('./db');
 
 socket.on('streamStart', async payload => {
   if (payload && payload.stream) {
     try {
-      await streamService.saveStream(payload.stream);
+      await db.saveStream(payload.stream);
     } catch (err) {
       console.log(err);
     }
@@ -17,7 +17,7 @@ socket.on('streamStart', async payload => {
 socket.on('streamUpdate', async payload => {
   if (payload && payload.stream) {
     try {
-      await streamService.saveStream(payload.stream);
+      await db.saveStream(payload.stream);
     } catch (err) {
       console.log(err);
     }
@@ -27,7 +27,7 @@ socket.on('streamUpdate', async payload => {
 socket.on('streamEnd', async payload => {
   if (payload && payload.stream) {
     try {
-      await streamService.endStream(payload.stream);
+      await db.endStream(payload.stream);
     } catch (err) {
       console.log(err);
     }
@@ -38,14 +38,25 @@ const express = require('express');
 const app = express();
 const port = 80;
 
-const graphql = require('./graphQL');
-
 app.use(express.json());
 
-app.use(graphql);
+app.get('/stream/:streamDate', async (req, res) => {
+  const streamDate = req.params.streamDate.toLocaleLowerCase();
 
-app.use('/graphql', function(req, res, next) {
-  next();
+  try {
+    const stream = await db.getStream(streamDate);
+
+    if (stream) {
+      res.json(stream);
+      return;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+
+  // If the stream couldn't be found in any service, return
+  // a 404 (Not Found).
+  res.sendStatus(404);
 });
 
 app.listen(port, () =>

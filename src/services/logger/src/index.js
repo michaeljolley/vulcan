@@ -16,37 +16,29 @@ socket.on('*', async data => {
 
   switch (event) {
     case 'onChatMessage':
-      await onChatMessage(payload);
+      await db.onChatMessage(payload);
       break;
     case 'onChatMessageWithEmotes':
-      await onChatMessageWithEmotes(payload);
+      await db.onChatMessageWithEmotes(payload);
       break;
     case 'onCheer':
-      await onCheer(payload);
+      await db.onCheer(payload);
       break;
     case 'onJoin':
-      await onJoin(payload);
+      await db.onJoin(payload);
       break;
     case 'onPart':
-      await onPart(payload);
+      await db.onPart(payload);
       break;
     case 'onRaid':
-      await onRaid(payload);
+      await db.onRaid(payload);
       break;
     case 'onSubscription':
-      await onSubscription(payload);
+      await db.onSubscription(payload);
       break;
     default:
       break;
   }
 });
-
-const onChatMessage = async payload => {};
-const onChatMessageWithEmotes = async payload => {};
-const onCheer = async payload => {};
-const onJoin = async payload => {};
-const onPart = async payload => {};
-const onRaid = async payload => {};
-const onSubscription = async payload => {};
 
 console.log('Logger service listening to hub');

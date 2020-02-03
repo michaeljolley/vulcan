@@ -1,21 +1,23 @@
-const Lokka = require('lokka').Lokka;
-const Transport = require('lokka-transport-http').Transport;
+const mongoose = require('mongoose');
 
 require('dotenv').config();
 
-const faunaEndpoint = process.env.FAUNADBENDPOINT;
-const faunaSecret = process.env.FAUNADBSECRET;
+const mongoUser = process.env.MONGOUSER;
+const mongoPass = process.env.MONGOPASSWORD;
+const mongoHost = process.env.MONGOHOST;
+const mongoConnectionString = `mongodb+srv://${mongoUser}:${mongoPass}@${mongoHost}/test?retryWrites=true&w=majority`;
 
-const headers = {
-  Authorization: `Bearer ${faunaSecret}`
-};
-const transport = new Transport(faunaEndpoint, { headers });
-
-const client = new Lokka({
-  transport: transport
+mongoose.connect(mongoConnectionString, {
+  dbName: 'vulcan',
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useNewUrlParser: true
 });
 
 const db = {
+  getStream: async function(streamDate) {
+    return undefined;
+  },
   query: async function(query, variables) {
     try {
       return await client.query(query, variables);
