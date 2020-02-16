@@ -33,7 +33,7 @@ module.exports = async function(context, req) {
   // }
 
   const message =
-    "I can respond to the following commands: !attention, !avatar {character}, !blog, !candle, !discord, !font, !github, !heroines, !keyboard, !mark, !mod, !profile {github/twitter} {handle}, !pobox, !project, !sfx, !so {user name}, !team, !theme, !twitter, !website, !youtube";
+    "You can send candles, swag, art supplies (for the girls) to our PO Box: Bald. Bearded. Builder. PO Box 795, Odenville, AL 35120";
 
   const payload = {
     message,
