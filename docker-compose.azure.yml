@@ -2,14 +2,14 @@ version: "3.7"
 
 services:
   chat:
-    image: vulcan.azurecr.io/vulcan-chat:685
+    image: vulcan.azurecr.io/vulcan-chat:743
     container_name: vulcan-chat
     init: true
     restart: always
     depends_on:
       - user
   overlay:
-    image: vulcan.azurecr.io/vulcan-overlay:685
+    image: vulcan.azurecr.io/vulcan-overlay:743
     container_name: vulcan-overlay
     init: true
     restart: always
@@ -18,17 +18,17 @@ services:
     volumes:
       - overlay:/app/src/wwwroot/assets
   stream:
-    image: vulcan.azurecr.io/vulcan-stream:685
+    image: vulcan.azurecr.io/vulcan-stream:743
     container_name: vulcan-stream
     init: true
     restart: always
   user:
-    image: vulcan.azurecr.io/vulcan-user:685
+    image: vulcan.azurecr.io/vulcan-user:743
     container_name: vulcan-user
     init: true
     restart: always
   webhook:
-    image: vulcan.azurecr.io/vulcan-webhook:685
+    image: vulcan.azurecr.io/vulcan-webhook:743
     container_name: vulcan-webhook
     init: true
     restart: always

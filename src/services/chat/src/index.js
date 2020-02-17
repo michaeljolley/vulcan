@@ -1,9 +1,9 @@
 require('dotenv').config();
 
-const io = require('socket.io-client');
 const tmi = require('tmi.js');
 const tmiHandlers = require('./tmiHandlers');
 
+const io = require('socket.io-client');
 const socket = io.connect(process.env.VULCANHUBURL);
 
 const channelName = process.env.TWITCHCLIENTUSERNAME;
@@ -32,24 +32,89 @@ socket.on('newMessage', payload => {
   }
 });
 
-twitchChatClient.on('chat', tmiHandlers.chat);
+twitchChatClient.on('chat', (channel, userstate, message, self) => {
+  tmiHandlers.chat(channel, userstate, message, self, socket);
+});
 
-twitchChatClient.on('cheer', tmiHandlers.cheer);
+twitchChatClient.on('cheer', (channel, userstate, message) => {
+  tmiHandlers.cheer(channel, userstate, message, socket);
+});
 
-twitchChatClient.on('giftpaidupgrade', tmiHandlers.giftpaidupgrade);
+twitchChatClient.on(
+  'giftpaidupgrade',
+  (channel, username, sender, userstate) => {
+    tmiHandlers.giftpaidupgrade(channel, username, sender, userstate, socket);
+  }
+);
 
-twitchChatClient.on('raided', tmiHandlers.raided);
+twitchChatClient.on('raided', (channel, username, viewers) => {
+  tmiHandlers.raided(channel, username, viewers, socket);
+});
 
-twitchChatClient.on('resub', tmiHandlers.resub);
+twitchChatClient.on(
+  'resub',
+  (channel, username, months, message, userstate, methods) => {
+    tmiHandlers.resub(
+      channel,
+      username,
+      months,
+      message,
+      userstate,
+      methods,
+      socket
+    );
+  }
+);
 
-twitchChatClient.on('subgift', tmiHandlers.subgift);
+twitchChatClient.on(
+  'subgift',
+  (channel, username, streakMonths, recipient, methods, userstate) => {
+    tmiHandlers.subgift(
+      channel,
+      username,
+      streakMonths,
+      recipient,
+      methods,
+      userstate,
+      socket
+    );
+  }
+);
 
-twitchChatClient.on('submysterygift', tmiHandlers.submysterygift);
+twitchChatClient.on(
+  'submysterygift',
+  (channel, username, numbOfSubs, methods, userstate) => {
+    tmiHandlers.submysterygift(
+      channel,
+      username,
+      numbOfSubs,
+      methods,
+      userstate,
+      socket
+    );
+  }
+);
 
-twitchChatClient.on('subscription', tmiHandlers.subscription);
+twitchChatClient.on(
+  'subscription',
+  (channel, username, method, message, userstate) => {
+    tmiHandlers.subscription(
+      channel,
+      username,
+      method,
+      message,
+      userstate,
+      socket
+    );
+  }
+);
 
-twitchChatClient.on('join', tmiHandlers.join);
+twitchChatClient.on('join', (channel, username, self) => {
+  tmiHandlers.join(channel, username, self, socket);
+});
 
-twitchChatClient.on('part', tmiHandlers.part);
+twitchChatClient.on('part', (channel, username, self) => {
+  tmiHandlers.part(channel, username, self, socket);
+});
 
 twitchChatClient.connect();

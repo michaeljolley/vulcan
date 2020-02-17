@@ -62,4 +62,6 @@ const streamSchema = new mongoose.Schema({
   chatMessages: [chatMessageSchema]
 });
 
-export const StreamModel = new mongoose.model('Stream', streamSchema);
+const StreamModel = new mongoose.model('Stream', streamSchema);
+
+module.exports = StreamModel;

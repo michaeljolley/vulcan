@@ -1,17 +1,41 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}\\src\\services\\webhook\\src\\index.js"
-        }
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach: Chat",
+      "port": 9222,
+      "restart": true,
+      "localRoot": "${workspaceFolder:chat}",
+      "remoteRoot": "/app/chat"
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach: Stream",
+      "port": 9223,
+      "restart": true,
+      "localRoot": "${workspaceFolder:stream}",
+      "remoteRoot": "/app/stream"
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach: User",
+      "port": 9224,
+      "restart": true,
+      "localRoot": "${workspaceFolder:user}",
+      "remoteRoot": "/app/user"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Attach: Chat+Deps",
+      "configurations": ["Attach: Chat", "Attach: Stream", "Attach: User"]
+    }
+  ]
 }

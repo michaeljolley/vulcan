@@ -1,7 +1,7 @@
 const chatProcessor = require('./chatProcessor');
 const func = require('./func');
 const userService = require('./user');
-const streamService = require('./user');
+const streamService = require('./stream');
 
 // Load available functions by calling the stream function
 // that provides the dictionary of available commands
@@ -55,6 +55,10 @@ let chatCommands = [
     command: 'stop'
   },
   {
+    uri: 'https://vulcan-chat.azurewebsites.net/api/Giving',
+    command: 'giving'
+  },
+  {
     uri: 'https://vulcan-chat.azurewebsites.net/api/Team',
     command: 'team'
   },
@@ -69,7 +73,7 @@ let chatCommands = [
 ];
 
 const tmiHandlers = {
-  chat: async (channel, userstate, message, self) => {
+  chat: async (channel, userstate, message, self, socket) => {
     if (self) return;
 
     // if (chatCommands.length === 0) {
@@ -83,16 +87,16 @@ const tmiHandlers = {
     // Get user from user service to send along with payloads
     let user = {};
     try {
-      user = (await userService.getUser(tags.username)).data;
+      user = (await userService.getUser(userstate.login)).data;
     } catch (err) {
       console.log(err);
     }
-    
+
     const stream = await getStream();
 
     let hasCommand = false;
 
-    const firstWord = message.toLowerCase().split(' ');
+    const firstWord = message.toLowerCase().split(' ')[0];
 
     // Is this message calling a known command?  If so,
     // submit it to the appropriate function
@@ -126,7 +130,7 @@ const tmiHandlers = {
       );
     }
 
-    const sanitizedMessage = chatProcessor.processChat(message, tags);
+    const sanitizedMessage = chatProcessor.processChat(message, userstate);
 
     // Send message to Socket.IO to be processed by
     // anyone who needs it
@@ -148,12 +152,12 @@ const tmiHandlers = {
       });
     }
   },
-  cheer: async (channel, userstate, message) => {
+  cheer: async (channel, userstate, message, socket) => {
     await this.chat(channel, userstate, message, false);
 
     let user = {};
     try {
-      user = (await userService.getUser(tags.username)).data;
+      user = (await userService.getUser(userstate.login)).data;
     } catch (err) {
       console.log(err);
     }
@@ -170,7 +174,7 @@ const tmiHandlers = {
       stream
     });
   },
-  giftpaidupgrade: async (channel, username, sender, userstate) => {
+  giftpaidupgrade: async (channel, username, sender, userstate, socket) => {
     let user = {};
     try {
       user = (await userService.getUser(username)).data;
@@ -180,7 +184,7 @@ const tmiHandlers = {
 
     onAnySub(channel, user, false, '', 1);
   },
-  raided: async (channel, username, viewers) => {
+  raided: async (channel, username, viewers, socket) => {
     let user = {};
     try {
       user = (await userService.getUser(username)).data;
@@ -199,7 +203,15 @@ const tmiHandlers = {
       stream
     });
   },
-  resub: async (channel, username, months, message, userstate, methods) => {
+  resub: async (
+    channel,
+    username,
+    months,
+    message,
+    userstate,
+    methods,
+    socket
+  ) => {
     let user = {};
     try {
       user = (await userService.getUser(username)).data;
@@ -215,7 +227,8 @@ const tmiHandlers = {
     streakMonths,
     recipient,
     methods,
-    userstate
+    userstate,
+    socket
   ) => {
     let user = {};
     try {
@@ -226,7 +239,14 @@ const tmiHandlers = {
 
     onAnySub(channel, user, true, '', streakMonths);
   },
-  submysterygift: async (channel, username, numbOfSubs, methods, userstate) => {
+  submysterygift: async (
+    channel,
+    username,
+    numbOfSubs,
+    methods,
+    userstate,
+    socket
+  ) => {
     let user = {};
     try {
       user = (await userService.getUser(username)).data;
@@ -236,7 +256,14 @@ const tmiHandlers = {
 
     onAnySub(channel, user, true, '', 1);
   },
-  subscription: async (channel, username, method, message, userstate) => {
+  subscription: async (
+    channel,
+    username,
+    method,
+    message,
+    userstate,
+    socket
+  ) => {
     let user = {};
     try {
       user = (await userService.getUser(username)).data;
@@ -246,7 +273,7 @@ const tmiHandlers = {
 
     onAnySub(channel, user, false, message, 1);
   },
-  join: async (channel, username, self) => {
+  join: async (channel, username, self, socket) => {
     let user = {};
     try {
       user = (await userService.getUser(username)).data;
@@ -264,14 +291,14 @@ const tmiHandlers = {
       stream
     });
   },
-  part: async (channel, username, self) => {
+  part: async (channel, username, self, socket) => {
     let user = {};
     try {
       user = (await userService.getUser(username)).data;
     } catch (err) {
       console.log(err);
     }
-    
+
     const stream = await getStream();
 
     // Send message to Socket.IO to be processed by
@@ -284,8 +311,7 @@ const tmiHandlers = {
   }
 };
 
-const onAnySub = (channel, user, wasGift, message, cumulativeMonths) => {
-  
+const onAnySub = async (channel, user, wasGift, message, cumulativeMonths) => {
   const stream = await getStream();
 
   // Send message to Socket.IO to be processed by

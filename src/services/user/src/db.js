@@ -21,7 +21,7 @@ require('dotenv').config();
 const mongoUser = process.env.MONGOUSER;
 const mongoPass = process.env.MONGOPASSWORD;
 const mongoHost = process.env.MONGOHOST;
-const mongoConnectionString = `mongodb+srv://${mongoUser}:${mongoPass}@${mongoHost}/vulcan?retryWrites=true&w=majority`;
+const mongoConnectionString = `mongodb://${mongoUser}:${mongoPass}@${mongoHost}:10255/vulcan?ssl=true&retryWrites=true&w=majority`;
 
 mongoose.connect(mongoConnectionString, {
   useCreateIndex: true,
@@ -31,7 +31,7 @@ mongoose.connect(mongoConnectionString, {
 });
 const connection = mongoose.connection;
 connection.once('once', () => {
-  console.log(`MongoDB database connection established successfully`);
+  console.log(`Cosmos database connection established successfully`);
 });
 
 const db = {
