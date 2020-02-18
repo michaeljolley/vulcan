@@ -76,7 +76,7 @@ const tmiHandlers = {
   chat: async (channel, userstate, message, self, socket) => {
     if (self) return;
 
-    const baseChatFunctionUrl = process.env.CHATFUNTIONSBASEURL;
+    const baseChatFunctionUrl = process.env.CHATFUNCTIONSBASEURL;
 
     // if (chatCommands.length === 0) {
     //   try {
@@ -94,7 +94,7 @@ const tmiHandlers = {
       console.log(err);
     }
 
-    // const stream = await getStream();
+    const stream = await getStream();
 
     let hasCommand = false;
 

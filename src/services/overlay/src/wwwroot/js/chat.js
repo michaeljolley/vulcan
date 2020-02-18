@@ -1,110 +1,120 @@
 ﻿'use strict';
 
-const socket = io.connect('https://vulcan-hub.azurewebsites.net');
+let socketIOUrl = '';
 
-socket.on('onChatMessage', chatMessageEventArg => {
-  console.log(JSON.stringify(chatMessageEventArg));
+fetch('/socketio')
+  .then(response => {
+    return response.json();
+  })
+  .then(payload => {
+    socketIOUrl = payload.socketIOUrl;
+    const socket = io.connect(socketIOUrl);
 
-  if (chatMessageEventArg.hasCommand) {
-    return;
-  }
+    socket.on('onChatMessage', chatMessageEventArg => {
+      console.log(JSON.stringify(chatMessageEventArg));
 
-  if (
-    chatMessageEventArg.sanitizedMessage &&
-    chatMessageEventArg.sanitizedMessage.length > 0 &&
-    chatMessageEventArg.user &&
-    chatMessageEventArg.user.login == 'b3_bot'
-  ) {
-    return;
-  }
+      if (chatMessageEventArg.hasCommand) {
+        return;
+      }
 
-  var id = +new Date();
+      if (
+        chatMessageEventArg.sanitizedMessage &&
+        chatMessageEventArg.sanitizedMessage.length > 0 &&
+        chatMessageEventArg.user &&
+        chatMessageEventArg.user.login == 'b3_bot'
+      ) {
+        return;
+      }
 
-  /*
-   * Structure of chat bubble is:
-   * chatMessage
-   *   profile
-   *     profileImg
-   *   body
-   *     bubble
-   *       io / cheer / moderator (optional)
-   *       message
-   *       name
-   */
+      var id = +new Date();
 
-  var newChatMessage = createChatDiv('chatMessage');
-  newChatMessage.id = 'msg' + id.toString();
+      /*
+       * Structure of chat bubble is:
+       * chatMessage
+       *   profile
+       *     profileImg
+       *   body
+       *     bubble
+       *       io / cheer / moderator (optional)
+       *       message
+       *       name
+       */
 
-  var body = createChatDiv('body');
+      var newChatMessage = createChatDiv('chatMessage');
+      newChatMessage.id = 'msg' + id.toString();
 
-  var profile = createChatDiv('profile');
+      var body = createChatDiv('body');
 
-  var profileImg = document.createElement('img');
-  profileImg.src = chatMessageEventArg.user.profile_image_url;
+      var profile = createChatDiv('profile');
 
-  profile.append(profileImg);
+      var profileImg = document.createElement('img');
+      profileImg.src = chatMessageEventArg.user.profile_image_url;
 
-  var bubble = createChatDiv('bubble');
+      profile.append(profileImg);
 
-  var name = createChatDiv('name');
-  name.innerText =
-    chatMessageEventArg.user.display_name || chatMessageEventArg.user.login;
+      var bubble = createChatDiv('bubble');
 
-  var message = createChatDiv('message');
-  message.innerHTML = chatMessageEventArg.sanitizedMessage;
+      var name = createChatDiv('name');
+      name.innerText =
+        chatMessageEventArg.user.display_name || chatMessageEventArg.user.login;
 
-  // If this chat message is from the bot then handle it separately from
-  // all other skins
-  if (chatMessageEventArg.user.login === 'b3_bot') {
-    newChatMessage.classList.add('bot');
-    name.innerText = 'IO';
-  }
+      var message = createChatDiv('message');
+      message.innerHTML = chatMessageEventArg.sanitizedMessage;
 
-  if (
-    chatMessageEventArg.tags.mod === true ||
-    (chatMessageEventArg.tags.badges &&
-      chatMessageEventArg.tags.badges.broadcaster)
-  ) {
-    newChatMessage.classList.add('moderator');
+      // If this chat message is from the bot then handle it separately from
+      // all other skins
+      if (chatMessageEventArg.user.login === 'b3_bot') {
+        newChatMessage.classList.add('bot');
+        name.innerText = 'IO';
+      }
 
-    var moderator = createChatDiv('moderator');
-    moderator.innerHTML = shieldSVG;
-    body.prepend(moderator);
-  }
+      if (
+        chatMessageEventArg.tags.mod === true ||
+        (chatMessageEventArg.tags.badges &&
+          chatMessageEventArg.tags.badges.broadcaster)
+      ) {
+        newChatMessage.classList.add('moderator');
 
-  if (chatMessageEventArg.tags.bits > 0) {
-    newChatMessage.classList.add('bits');
-    var cheer = createChatDiv('cheer');
-    cheer.innerHTML = 'Cheer for ' + chatMessageEventArg.tags.bits + ' bits';
-    newChatMessage.append(cheer);
-  }
+        var moderator = createChatDiv('moderator');
+        moderator.innerHTML = shieldSVG;
+        body.prepend(moderator);
+      }
 
-  bubble.append(message);
-  bubble.append(name);
+      if (chatMessageEventArg.tags.bits > 0) {
+        newChatMessage.classList.add('bits');
+        var cheer = createChatDiv('cheer');
+        cheer.innerHTML =
+          'Cheer for ' + chatMessageEventArg.tags.bits + ' bits';
+        newChatMessage.append(cheer);
+      }
 
-  body.append(bubble);
+      bubble.append(message);
+      bubble.append(name);
 
-  newChatMessage.append(body);
-  newChatMessage.append(profile);
+      body.append(bubble);
 
-  $('#msg' + id).hide();
-  $('.chatBox').append(newChatMessage);
+      newChatMessage.append(body);
+      newChatMessage.append(profile);
 
-  animateCSS(newChatMessage, 'zoomInUp', null);
-  calcPositions();
+      $('#msg' + id).hide();
+      $('.chatBox').append(newChatMessage);
 
-  $('#msg' + id).fadeIn('slow');
+      animateCSS(newChatMessage, 'zoomInUp', null);
+      calcPositions();
 
-  setTimeout(
-    function(id) {
-      $('#msg' + id).fadeOut('slow', () => {
-        $('#msg' + id).remove();
-      });
-    },
-    50000,
-    id
-  );
-});
+      $('#msg' + id).fadeIn('slow');
+
+      setTimeout(
+        function(id) {
+          $('#msg' + id).fadeOut('slow', () => {
+            $('#msg' + id).remove();
+          });
+        },
+        50000,
+        id
+      );
+    });
+  });
 
 function createChatDiv(cssClass) {
   var newDiv = document.createElement('div');
