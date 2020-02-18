@@ -7,67 +7,67 @@ const streamService = require('./stream');
 // that provides the dictionary of available commands
 let chatCommands = [
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Blog',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Blog',
     command: 'blog'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Discord',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Discord',
     command: 'discord'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Font',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Font',
     command: 'font'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/GitHub',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/GitHub',
     command: 'github'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Help',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Help',
     command: 'help'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Heroines',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Heroines',
     command: 'heroines'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Keyboard',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Keyboard',
     command: 'keyboard'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Light',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Light',
     command: 'light'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Mod',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Mod',
     command: 'mod'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Profile',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Profile',
     command: 'profile'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/So',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/So',
     command: 'so'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Stop',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Stop',
     command: 'stop'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Giving',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Giving',
     command: 'giving'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Team',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Team',
     command: 'team'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Twitter',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Twitter',
     command: 'twitter'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/YouTube',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/YouTube',
     command: 'youtube'
   }
 ];

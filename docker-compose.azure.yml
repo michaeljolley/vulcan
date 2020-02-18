@@ -2,22 +2,22 @@ version: "3.7"
 
 services:
   overlay:
-    image: vulcan.azurecr.io/vulcan-overlay:747
+    image: vulcan.azurecr.io/vulcan-overlay:749
     init: true
     restart: always
     ports:
       - "80:80"
   chat:
-    image: vulcan.azurecr.io/vulcan-chat:747
+    image: vulcan.azurecr.io/vulcan-chat:749
     init: true
     restart: always
     depends_on:
       - user
   stream:
-    image: vulcan.azurecr.io/vulcan-stream:747
+    image: vulcan.azurecr.io/vulcan-stream:749
     init: true
     restart: always
   user:
-    image: vulcan.azurecr.io/vulcan-user:747
+    image: vulcan.azurecr.io/vulcan-user:749
     init: true
     restart: always
