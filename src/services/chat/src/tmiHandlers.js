@@ -47,6 +47,10 @@ let chatCommands = [
     command: 'profile'
   },
   {
+    uri: 'https://vulcanfunc.azurewebsites.net/api/POBox',
+    command: 'pobox'
+  },
+  {
     uri: 'https://vulcanfunc.azurewebsites.net/api/So',
     command: 'so'
   },

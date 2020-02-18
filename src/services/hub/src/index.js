@@ -61,6 +61,19 @@ io.on('connection', socket => {
   });
 
   /*
+   * AV commands
+   */
+  socket.on('onSoundEffect', payload => {
+    io.emit('onSoundEffect', payload);
+  });
+  socket.on('stopAudio', payload => {
+    io.emit('stopAudio', payload);
+  });
+  socket.on('avEnabled', payload => {
+    io.emit('avEnabled', payload);
+  });
+
+  /*
    * LED commands
    */
   socket.on('lightChanged', payload => {

@@ -19,9 +19,11 @@ fetch('/socketio')
     const socket = io.connect(payload.socketIOUrl);
 
     socket.on('onSoundEffect', mediaEventArg => {
+      console.log(JSON.stringify(mediaEventArg));
+
       if (avEnabled) {
         var audio = document.createElement('audio');
-        audio.src = `${_audioPath}${mediaEventArg.audioFile}.mp3`;
+        audio.src = `${_audioPath}${mediaEventArg.audioFile}`;
         audio.id = +new Date();
         audio.addEventListener('ended', audioStop, false);
 
