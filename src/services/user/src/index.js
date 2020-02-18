@@ -22,6 +22,7 @@ async function getUser(login) {
 
   // If it exists, get the user from the cache.
   try {
+  }
     user = await cache.getUser(login);
   } catch (err) {
     console.log(err);
@@ -29,7 +30,6 @@ async function getUser(login) {
 
   if (user) {
     return user;
-  }
 
   // If we didn't get the user from the cache, attempt
   // to get it out of the database.

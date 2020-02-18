@@ -89,7 +89,7 @@ const tmiHandlers = {
     // Get user from user service to send along with payloads
     let user = {};
     try {
-      user = (await userService.getUser(userstate.login)).data;
+      user = (await userService.getUser(userstate.username)).data;
     } catch (err) {
       console.log(err);
     }
@@ -159,7 +159,7 @@ const tmiHandlers = {
 
     let user = {};
     try {
-      user = (await userService.getUser(userstate.login)).data;
+      user = (await userService.getUser(userstate.username)).data;
     } catch (err) {
       console.log(err);
     }
