@@ -76,6 +76,8 @@ const tmiHandlers = {
   chat: async (channel, userstate, message, self, socket) => {
     if (self) return;
 
+    const baseChatFunctionUrl = process.env.CHATFUNTIONSBASEURL;
+
     // if (chatCommands.length === 0) {
     //   try {
     //     chatCommands = (await func.getAvailableCommands()).data;
@@ -92,7 +94,7 @@ const tmiHandlers = {
       console.log(err);
     }
 
-    const stream = await getStream();
+    // const stream = await getStream();
 
     let hasCommand = false;
 
@@ -121,7 +123,7 @@ const tmiHandlers = {
     // sound effect function to see if it should trigger something.
     if (!hasCommand && firstWord.charAt(0) === '!') {
       await func.callChatCommand(
-        'https://vulcan-chat.azurewebsites.net/api/_AudioEffects',
+        `${baseChatFunctionUrl}xAudioEffects`,
         channel,
         userstate,
         message,

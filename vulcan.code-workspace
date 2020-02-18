@@ -1,0 +1,123 @@
+{
+  "folders": [
+    {
+      "path": "src/functions/chat"
+    },
+    {
+      "path": "src/functions/stream"
+    },
+    {
+      "path": "src/services/chat"
+    },
+    {
+      "path": "src/services/hub"
+    },
+    {
+      "path": "src/services/logger"
+    },
+    {
+      "path": "src/services/overlay"
+    },
+    {
+      "path": "src/services/stream"
+    },
+    {
+      "path": "src/services/user"
+    },
+    {
+      "path": "src/services/webhook"
+    },
+    {
+      "path": "."
+    }
+  ],
+  "launch": {
+    "configurations": [
+      {
+        "type": "node",
+        "request": "attach",
+        "name": "Attach: Chat",
+        "port": 9222,
+        "restart": true,
+        "localRoot": "${workspaceFolder:chat}",
+        "remoteRoot": "/app/chat"
+      },
+      {
+        "type": "node",
+        "request": "attach",
+        "name": "Attach: Hub",
+        "port": 9224,
+        "restart": true,
+        "localRoot": "${workspaceFolder:hub}",
+        "remoteRoot": "/app/hub"
+      },
+      {
+        "type": "node",
+        "request": "attach",
+        "name": "Attach: Logger",
+        "port": 9225,
+        "restart": true,
+        "localRoot": "${workspaceFolder:logger}",
+        "remoteRoot": "/app/logger"
+      },
+      {
+        "type": "node",
+        "request": "attach",
+        "name": "Attach: Overlay",
+        "port": 9226,
+        "restart": true,
+        "localRoot": "${workspaceFolder:overlay}",
+        "remoteRoot": "/app/overlay"
+      },
+      {
+        "type": "node",
+        "request": "attach",
+        "name": "Attach: User",
+        "port": 9228,
+        "restart": true,
+        "localRoot": "${workspaceFolder:user}",
+        "remoteRoot": "/app/user"
+      },
+      {
+        "type": "node",
+        "request": "attach",
+        "name": "Attach: Stream",
+        "port": 9229,
+        "restart": true,
+        "localRoot": "${workspaceFolder:stream}",
+        "remoteRoot": "/app/stream"
+      },
+      {
+        "type": "node",
+        "request": "attach",
+        "name": "Attach: Webhook",
+        "port": 9230,
+        "restart": true,
+        "localRoot": "${workspaceFolder:webhook}",
+        "remoteRoot": "/app/webhook"
+      }
+    ],
+    "compounds": [
+      {
+        "name": "Attach: All",
+        "configurations": [
+          "Attach: Chat",
+          "Attach: Logger",
+          "Attach: Overlay",
+          "Attach: Stream",
+          "Attach: User",
+          "Attach: Webhook"
+        ]
+      },
+      {
+        "name": "Attach: Chat+Deps",
+        "configurations": ["Attach: Chat", "Attach: Stream", "Attach: User"]
+      }
+    ]
+  },
+  "settings": {
+    "cSpell.words": [
+      "userstate"
+    ]
+  }
+}
