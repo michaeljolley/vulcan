@@ -1,17 +1,23 @@
 ﻿'use strict';
 
-const socket = io.connect('https://vulcan-hub.azurewebsites.net');
-
 const emoteQueue = [];
 const container = $('#container');
 
-socket.on('onChatMessageWithEmotes', ({ emotes }) => {
-  if (emotes && emotes.length > 0) {
-    for (let i = 0; i < emotes.length; i++) {
-      emoteQueue.push(emotes[i]);
-    }
-  }
-});
+fetch('/socketio')
+  .then(response => {
+    return response.json();
+  })
+  .then(payload => {
+    const socket = io.connect(payload.socketIOUrl);
+
+    socket.on('onChatMessageWithEmotes', ({ emotes }) => {
+      if (emotes && emotes.length > 0) {
+        for (let i = 0; i < emotes.length; i++) {
+          emoteQueue.push(emotes[i]);
+        }
+      }
+    });
+  });
 
 setInterval(function() {
   triggerEmote();

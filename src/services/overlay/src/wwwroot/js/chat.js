@@ -1,14 +1,11 @@
 ﻿'use strict';
 
-let socketIOUrl = '';
-
 fetch('/socketio')
   .then(response => {
     return response.json();
   })
   .then(payload => {
-    socketIOUrl = payload.socketIOUrl;
-    const socket = io.connect(socketIOUrl);
+    const socket = io.connect(payload.socketIOUrl);
 
     socket.on('onChatMessage', chatMessageEventArg => {
       console.log(JSON.stringify(chatMessageEventArg));
@@ -69,9 +66,9 @@ fetch('/socketio')
       }
 
       if (
-        chatMessageEventArg.tags.mod === true ||
-        (chatMessageEventArg.tags.badges &&
-          chatMessageEventArg.tags.badges.broadcaster)
+        chatMessageEventArg.userstate.mod === true ||
+        (chatMessageEventArg.userstate.badges &&
+          chatMessageEventArg.userstate.badges.broadcaster)
       ) {
         newChatMessage.classList.add('moderator');
 
@@ -80,11 +77,11 @@ fetch('/socketio')
         body.prepend(moderator);
       }
 
-      if (chatMessageEventArg.tags.bits > 0) {
+      if (chatMessageEventArg.userstate.bits > 0) {
         newChatMessage.classList.add('bits');
         var cheer = createChatDiv('cheer');
         cheer.innerHTML =
-          'Cheer for ' + chatMessageEventArg.tags.bits + ' bits';
+          'Cheer for ' + chatMessageEventArg.userstate.bits + ' bits';
         newChatMessage.append(cheer);
       }
 

@@ -1,11 +1,17 @@
-﻿"use strict";
+﻿'use strict';
 
-const socket = io('http://localhost:5060');
+fetch('/socketio')
+  .then(response => {
+    return response.json();
+  })
+  .then(payload => {
+    const socket = io.connect(payload.socketIOUrl);
 
-socket.on('FollowerCountChanged', (followerCountEventArg) => {
-    var counter = document.getElementById('followerCounter');
-    counter.innerText = followerCountEventArg.followers;
-});
+    socket.on('FollowerCountChanged', followerCountEventArg => {
+      var counter = document.getElementById('followerCounter');
+      counter.innerText = followerCountEventArg.followers;
+    });
+  });
 
 // socket.on('ViewerCountChanged', (viewerCountEventArg) => {
 //     var counter = document.getElementById('viewerCounter');
