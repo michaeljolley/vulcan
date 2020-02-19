@@ -31,6 +31,10 @@ let chatCommands = [
     command: 'heroines'
   },
   {
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Hype',
+    command: 'hype'
+  },
+  {
     uri: 'https://vulcanfunc.azurewebsites.net/api/Keyboard',
     command: 'keyboard'
   },
