@@ -7,7 +7,7 @@ module.exports = async function(context, req) {
   // All chat functions will receive a payload of:
   // {
   //    channel: string,
-  //    tags: {
+  //    userstate: {
   //     badges?: Badges;
   //     color?: string;
   //     "display-name"?: string;
@@ -31,16 +31,21 @@ module.exports = async function(context, req) {
   //    message: string,
   //    user: User
   // }
+  if (req.body && req.body.message && req.body.user && req.body.stream) {
+    const user = req.body.user;
+    const stream = req.body.stream;
 
-  const message =
-    "Moderators can use the following commands: !note {username} {what they taught us}";
+    const username = user.display_name || user.login;
 
-  const payload = {
-    message,
-    messageType: "chat", // or 'whisper'
-    recipient: null // required when messageType === whisper
-  };
+    const message = `@${username}, today's topic is: ${stream.title}`;
 
-  // Send a message to the Socket.io
-  socket.emit("newMessage", payload);
+    const payload = {
+      message,
+      messageType: "chat", // or 'whisper'
+      recipient: null // required when messageType === whisper
+    };
+
+    // Send a message to the Socket.io
+    socket.emit("newMessage", payload);
+  }
 };

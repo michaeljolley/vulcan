@@ -8,20 +8,20 @@ fetch('/socketio')
   })
   .then(payload => {
     const socket = io.connect(payload.socketIOUrl);
-    socket.on('NewAnnouncement', newAnnouncementEventArg => {
+    socket.on('onAnnouncement', newAnnouncementEventArg => {
       const user = newAnnouncementEventArg.user;
       const msg = newAnnouncementEventArg.message;
       addAndStart(msg, undefined, user.profile_image_url, 10);
     });
 
-    socket.on('NewCheer', newCheerEventArg => {
+    socket.on('onCheer', newCheerEventArg => {
       const cheerer = newCheerEventArg.cheerer;
       const displayName = cheerer.user.display_name || cheerer.user.login;
       const msg = `${displayName} just cheered ${cheerer.bits} bits`;
       addAndStart(msg, 'applause', cheerer.user.profile_image_url, 10);
     });
 
-    socket.on('NewRaid', newRaidEventArg => {
+    socket.on('onRaid', newRaidEventArg => {
       const raider = newRaidEventArg.raider;
       const displayName = raider.user.display_name || raider.user.login;
       const msg = `DEFEND! ${displayName} is raiding with ${raider.viewers} accomplices!`;
@@ -37,7 +37,7 @@ fetch('/socketio')
       }
     });
 
-    socket.on('NewSubscriber', newSubscriptionEventArg => {
+    socket.on('onSubscription', newSubscriptionEventArg => {
       const subscriber = newSubscriptionEventArg.subscriber;
       const displayName = subscriber.user.display_name || subscriber.user.login;
       const cumulativeMonths = subscriber.cumulativeMonths;
@@ -50,11 +50,20 @@ fetch('/socketio')
       addAndStart(msg, 'hair', subscriber.user.profile_image_url, 10);
     });
 
-    socket.on('NewFollower', newFollowerEventArg => {
+    socket.on('onFollow', newFollowerEventArg => {
       const follower = newFollowerEventArg.follower;
       const displayName = follower.display_name || follower.login;
       const msg = `Welcome ${displayName}! Thanks for following!`;
       addAndStart(msg, 'ohmy', follower.profile_image_url, 10);
+    });
+
+    socket.on('stopAudio', () => {
+      container.innerHTML = '';
+      audioQueue = [];
+    });
+
+    socket.on('avStateChanged', isEnabled => {
+      avEnabled = isEnabled;
     });
   });
 
@@ -136,15 +145,6 @@ function playAudio(clipName) {
     }
   }
 }
-
-socket.on('StopAudio', () => {
-  container.innerHTML = '';
-  audioQueue = [];
-});
-
-socket.on('avStateChanged', isEnabled => {
-  avEnabled = isEnabled;
-});
 
 function playQueue() {
   if (audioQueue.length > 0) {

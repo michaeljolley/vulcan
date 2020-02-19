@@ -39,16 +39,12 @@ let chatCommands = [
     command: 'light'
   },
   {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/Mod',
-    command: 'mod'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/Profile',
-    command: 'profile'
-  },
-  {
     uri: 'https://vulcanfunc.azurewebsites.net/api/POBox',
     command: 'pobox'
+  },
+  {
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Project',
+    command: 'project'
   },
   {
     uri: 'https://vulcanfunc.azurewebsites.net/api/So',

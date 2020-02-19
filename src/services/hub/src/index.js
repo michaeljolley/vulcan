@@ -33,6 +33,10 @@ io.on('connection', socket => {
     io.emit('refreshUser', payload);
   });
 
+  socket.on('onFollow', payload => {
+    io.emit('onFollow', payload);
+  });
+
   /*
    * Stream events
    */
@@ -69,8 +73,14 @@ io.on('connection', socket => {
   socket.on('stopAudio', payload => {
     io.emit('stopAudio', payload);
   });
-  socket.on('avEnabled', payload => {
-    io.emit('avEnabled', payload);
+  socket.on('avStateChanged', payload => {
+    io.emit('avStateChanged', payload);
+  });
+  socket.on('onAnnouncement', payload => {
+    io.emit('onAnnouncement', payload);
+  });
+  socket.on('onCreditRoll', payload => {
+    io.emit('onCreditRoll', payload);
   });
 
   /*

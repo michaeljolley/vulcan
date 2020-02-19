@@ -33,7 +33,7 @@ module.exports = async function(context, req) {
   // }
 
   const message =
-    "You can catch all our streams on YouTube at https://www.youtube.com/channel/UCn2FoDbv_veJB_UbrF93_jw";
+    "You can catch all our streams on YouTube at https://www.youtube.com/baldbeardedbuilder";
 
   const payload = {
     message,

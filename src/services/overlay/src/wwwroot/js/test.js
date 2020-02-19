@@ -11,16 +11,9 @@ fetch('/socketio')
   .then(payload => {
     const socket = io.connect(payload.socketIOUrl);
 
-    streamNoteSubmitEl.onclick = () => {
-      if (streamIdEl.value && streamIdEl.value.length > 0) {
-        socket.emit('StreamNoteRebuild', streamIdEl.value);
-        console.log(`regen submitted for ${streamIdEl.value}`);
-      }
-    };
-
     creditRollSubmitEl.onclick = () => {
       if (streamIdEl.value && streamIdEl.value.length > 0) {
-        socket.emit('CreditsRoll', streamIdEl.value);
+        socket.emit('onCreditRoll', streamIdEl.value);
         console.log(`credit roll submitted for ${streamIdEl.value}`);
       }
     };

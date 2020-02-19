@@ -7,7 +7,7 @@ fetch('/socketio')
   .then(payload => {
     const socket = io.connect(payload.socketIOUrl);
 
-    socket.on('OnCreditsRoll', streamEventArg => {
+    socket.on('onCreditRoll', streamEventArg => {
       /* Clear the body tag to ensure we're starting over */
       const body = document.getElementById('bodyYo');
       body.innerText = '';

@@ -33,7 +33,7 @@ module.exports = async function(context, req) {
   // }
 
   const message =
-    "You can find Mike on Twitter at https://twitter.com/michaeljolley";
+    "You can find Mike on Twitter at https://twitter.com/baldbeardbuild";
 
   const payload = {
     message,

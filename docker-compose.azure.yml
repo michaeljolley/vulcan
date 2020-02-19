@@ -7,6 +7,8 @@ services:
     restart: always
     ports:
       - "80:80"
+    volumes:
+      - assets:/app/src/wwwroot/assets
   chat:
     image: vulcan.azurecr.io/vulcan-chat:750
     init: true

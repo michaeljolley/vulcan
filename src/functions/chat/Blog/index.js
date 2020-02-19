@@ -32,8 +32,7 @@ module.exports = async function(context, req) {
   //    user: User
   // }
 
-  const message =
-    "Mike's blog and our stream notes can be found at https://michaeljolley.com";
+  const message = "Mike's blog can be found at https://baldbeardedbuilder.com";
 
   const payload = {
     message,
