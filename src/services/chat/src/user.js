@@ -6,7 +6,7 @@ const userService = {
    * @param {string} twitchLogin Unique login of the user with Twitch
    */
   getUser: async twitchLogin => {
-    return axios.get(`http://user/user/${twitchLogin}`);
+    return await axios.get(`http://user/user/${twitchLogin}`);
   }
 };
 

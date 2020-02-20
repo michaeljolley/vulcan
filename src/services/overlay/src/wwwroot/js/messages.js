@@ -63,6 +63,7 @@ fetch('/socketio')
   });
 
 let messageQueue = [];
+let audioQueue = [];
 
 const intro = 'fadeInDown';
 const outro = 'fadeOutDown';

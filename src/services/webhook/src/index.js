@@ -15,20 +15,21 @@ const webhookUrl = process.env.VULCANWEBHOOKURL;
 // Unsubscribe from Webhooks
 // otherwise it will try to send events to a down app
 process.on('SIGINT', () => {
-  log('info', "I'm going bye-bye");
+  console.log("I'm going bye-bye");
   unregisterWebhooks();
   process.exit(0);
 });
 
-// Whever NODEMON restarts our node process
+// Whenever NODEMON restarts our node process
 // We need to kill NGROK otherwise the inspect web doesn't shutdown
 process.on('SIGUSR2', () => {
-  log('info', "I'm reloading!");
+  console.log("I'm reloading!");
   unregisterWebhooks();
   process.exit(0);
 });
 
 const unregisterWebhooks = () => {
+  console.log('unregisterWebhooks');
   if (twitchFollowerWebhook) {
     twitchFollowerWebhook.unsubscribe('users/follows', {
       first: 1,
@@ -38,6 +39,8 @@ const unregisterWebhooks = () => {
 };
 
 const connectTwitchFollowersWebhook = () => {
+  console.log('connectTwitchFollowersWebhook');
+
   twitchFollowerWebhook = new TwitchWebhook({
     callback: webhookUrl,
     client_id: twitchClientId,
@@ -46,6 +49,7 @@ const connectTwitchFollowersWebhook = () => {
       port: 80
     }
   });
+  console.log(`twitchFollowerWebhook setup: ${webhookUrl}`);
 
   twitchFollowerWebhook.on('users/follows', handleFollow);
 
@@ -62,11 +66,10 @@ const connectTwitchFollowersWebhook = () => {
 
 const handleFollow = async payload => {
   const event = payload.event;
+  console.log('handleFollow');
+  console.dir(event);
   if (event && event.data && event.data.length > 0) {
-    const followerEvent = {
-      followData: event.data
-    };
-    socket.emit('onFollowWebhook', followerEvent);
+    socket.emit('onFollowWebhook', event);
   }
 };
 
