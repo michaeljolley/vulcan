@@ -53,6 +53,24 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "mholloway24",
+      "name": "Mike Holloway",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/40776983?v=4",
+      "profile": "https://github.com/mholloway24",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "giacomolorenzo",
+      "name": "Giacomo Lorenzo",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2290916?v=4",
+      "profile": "https://github.com/giacomolorenzo",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,

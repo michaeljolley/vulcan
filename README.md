@@ -28,6 +28,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://arnoschutijzer.io"><img src="https://avatars1.githubusercontent.com/u/4173364?v=4" width="100px;" alt=""/><br /><sub><b>Arno Schutijzer</b></sub></a><br /><a href="https://github.com/MichaelJolley/vulcan/commits?author=arnoschutijzer" title="Code">💻</a></td>
     <td align="center"><a href="https://robinmalfait.com"><img src="https://avatars2.githubusercontent.com/u/1834413?v=4" width="100px;" alt=""/><br /><sub><b>Robin Malfait</b></sub></a><br /><a href="https://github.com/MichaelJolley/vulcan/commits?author=RobinMalfait" title="Code">💻</a></td>
     <td align="center"><a href="https://c-j.tech"><img src="https://avatars0.githubusercontent.com/u/3969086?v=4" width="100px;" alt=""/><br /><sub><b>Chris Jones</b></sub></a><br /><a href="https://github.com/MichaelJolley/vulcan/commits?author=cmjchrisjones" title="Code">💻</a> <a href="#ideas-cmjchrisjones" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/mholloway24"><img src="https://avatars2.githubusercontent.com/u/40776983?v=4" width="100px;" alt=""/><br /><sub><b>Mike Holloway</b></sub></a><br /><a href="https://github.com/MichaelJolley/vulcan/commits?author=mholloway24" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/giacomolorenzo"><img src="https://avatars2.githubusercontent.com/u/2290916?v=4" width="100px;" alt=""/><br /><sub><b>Giacomo Lorenzo</b></sub></a><br /><a href="https://github.com/MichaelJolley/vulcan/issues?q=author%3Agiacomolorenzo" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
