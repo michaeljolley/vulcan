@@ -138,17 +138,20 @@ const tmiHandlers = {
 
     const sanitizedMessage = chatProcessor.processChat(message, userstate);
 
-    // Send message to Socket.IO to be processed by
-    // anyone who needs it
-    socket.emit('onChatMessage', {
-      channel,
-      userstate,
-      message,
-      user,
-      sanitizedMessage: sanitizedMessage.message,
-      hasCommand,
-      stream
-    });
+    if(sanitizedMessage.message.length > 0)
+    {
+      // Send message to Socket.IO to be processed by
+      // anyone who needs it
+      socket.emit('onChatMessage', {
+        channel,
+        userstate,
+        message,
+        user,
+        sanitizedMessage: sanitizedMessage.message,
+        hasCommand,
+        stream
+      });
+    }
 
     // If emotes were sent in the message, emit them to the hub
     if (sanitizedMessage.emotes.length > 0) {
