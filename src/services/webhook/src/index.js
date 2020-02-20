@@ -8,7 +8,8 @@ require('dotenv').config();
 const socket = io.connect(process.env.VULCANHUBURL);
 patch(socket);
 
-const twitchClientUserId = process.env.TWITCHCLIENTID;
+const twitchClientId = process.env.TWITCHCLIENTID;
+const twitchClientUserId = process.env.TWITCHCLIENTUSERID;
 const webhookUrl = process.env.VULCANWEBHOOKURL;
 
 // Unsubscribe from Webhooks
@@ -37,10 +38,9 @@ const unregisterWebhooks = () => {
 };
 
 const connectTwitchFollowersWebhook = () => {
-  console.dir({ webhookUrl, twitchClientUserId });
   twitchFollowerWebhook = new TwitchWebhook({
     callback: webhookUrl,
-    client_id: twitchClientUserId,
+    client_id: twitchClientId,
     lease_seconds: 43200, // 12 hours
     listen: {
       port: 80
