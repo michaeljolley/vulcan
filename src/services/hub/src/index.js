@@ -25,14 +25,6 @@ io.on('connection', socket => {
   /*
    * User events
    */
-  socket.on('updateUser', payload => {
-    io.emit('updateUser', payload);
-  });
-
-  socket.on('refreshUser', payload => {
-    io.emit('refreshUser', payload);
-  });
-
   socket.on('onFollow', payload => {
     io.emit('onFollow', payload);
   });

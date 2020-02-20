@@ -158,8 +158,8 @@ const tmiHandlers = {
       });
     }
   },
-  cheer: async (channel, userstate, message, socket) => {
-    await this.chat(channel, userstate, message, false);
+  cheer: async function(channel, userstate, message, socket) {
+    await this.chat(channel, userstate, message, false, socket);
 
     let user = {};
     try {
@@ -188,7 +188,7 @@ const tmiHandlers = {
       console.log(err);
     }
 
-    onAnySub(channel, user, false, '', 1);
+    onAnySub(channel, user, false, '', 1, socket);
   },
   raided: async (channel, username, viewers, socket) => {
     let user = {};
@@ -225,7 +225,7 @@ const tmiHandlers = {
       console.log(err);
     }
 
-    onAnySub(channel, user, false, message, months);
+    onAnySub(channel, user, false, message, months, socket);
   },
   subgift: async (
     channel,
@@ -243,7 +243,7 @@ const tmiHandlers = {
       console.log(err);
     }
 
-    onAnySub(channel, user, true, '', streakMonths);
+    onAnySub(channel, user, true, '', streakMonths, socket);
   },
   submysterygift: async (
     channel,
@@ -260,7 +260,7 @@ const tmiHandlers = {
       console.log(err);
     }
 
-    onAnySub(channel, user, true, '', 1);
+    onAnySub(channel, user, true, '', 1, socket);
   },
   subscription: async (
     channel,
@@ -277,7 +277,7 @@ const tmiHandlers = {
       console.log(err);
     }
 
-    onAnySub(channel, user, false, message, 1);
+    onAnySub(channel, user, false, message, 1, socket);
   },
   join: async (channel, username, self, socket) => {
     let user = {};
@@ -317,7 +317,14 @@ const tmiHandlers = {
   }
 };
 
-const onAnySub = async (channel, user, wasGift, message, cumulativeMonths) => {
+const onAnySub = async (
+  channel,
+  user,
+  wasGift,
+  message,
+  cumulativeMonths,
+  socket
+) => {
   const stream = await getStream();
 
   // Send message to Socket.IO to be processed by
