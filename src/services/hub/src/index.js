@@ -28,6 +28,9 @@ io.on('connection', socket => {
   socket.on('onFollow', payload => {
     io.emit('onFollow', payload);
   });
+  socket.on('onFollowWebhook', payload => {
+    io.emit('onFollowWebhook', payload);
+  });
 
   /*
    * Stream events

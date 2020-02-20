@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const tmi = require('tmi.js');
 const tmiHandlers = require('./tmiHandlers');
+const userService = require('./user');
 
 const io = require('socket.io-client');
 const socket = io.connect(process.env.VULCANHUBURL);
@@ -28,6 +29,28 @@ socket.on('newMessage', payload => {
       twitchChatClient.say(channelName, payload.message);
     } else {
       twitchChatClient.whisper(payload.recipient, payload.message);
+    }
+  }
+});
+
+socket.on('onFollowWebhook', async payload => {
+  //   {
+  //     "data":
+  //        [{
+  //           "from_id":"1336",
+  //           "from_name":"ebi",
+  //           "to_id":"1337",
+  //           "to_name":"oliver0823nagy",
+  //           "followed_at": "2017-08-22T22:55:24Z"
+  //        }]
+  //  }
+  if (payload && payload.data && payload.data.length > 0) {
+    const follower = await userService.getUser(payload.data[0].from_name);
+    if (follower) {
+      const followPayload = {
+        user: follower
+      };
+      socket.emit('onFollow', followPayload);
     }
   }
 });

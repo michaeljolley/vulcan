@@ -66,7 +66,7 @@ const handleFollow = async payload => {
     const followerEvent = {
       followData: event.data
     };
-    socket.emit('onFollow', followerEvent);
+    socket.emit('onFollowWebhook', followerEvent);
   }
 };
 
