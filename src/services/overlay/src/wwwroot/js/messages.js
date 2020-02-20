@@ -15,43 +15,38 @@ fetch('/socketio')
     });
 
     socket.on('onCheer', newCheerEventArg => {
-      const cheerer = newCheerEventArg.cheerer;
-      const displayName = cheerer.user.display_name || cheerer.user.login;
-      const msg = `${displayName} just cheered ${cheerer.bits} bits`;
-      addAndStart(msg, 'applause', cheerer.user.profile_image_url, 10);
+      const displayName =
+        newCheerEventArg.user.display_name || cheerer.user.login;
+      const msg = `${displayName} just cheered ${newCheerEventArg.userstate.bits} bits`;
+      addAndStart(msg, 'applause', newCheerEventArg.user.profile_image_url, 10);
     });
 
     socket.on('onRaid', newRaidEventArg => {
-      const raider = newRaidEventArg.raider;
-      const displayName = raider.user.display_name || raider.user.login;
-      const msg = `DEFEND! ${displayName} is raiding with ${raider.viewers} accomplices!`;
-      if (raider.user.raidAlert) {
-        addAndStart(
-          msg,
-          raider.user.raidAlert,
-          raider.user.profile_image_url,
-          10
-        );
+      const user = newRaidEventArg.user;
+      const displayName = user.display_name || user.login;
+      const msg = `DEFEND! ${displayName} is raiding with ${newRaidEventArg.viewers} accomplices!`;
+      if (user.raidAlert) {
+        addAndStart(msg, user.raidAlert, user.profile_image_url, 10);
       } else {
-        addAndStart(msg, 'goodbadugly', raider.user.profile_image_url, 10);
+        addAndStart(msg, 'goodbadugly', user.profile_image_url, 10);
       }
     });
 
     socket.on('onSubscription', newSubscriptionEventArg => {
-      const subscriber = newSubscriptionEventArg.subscriber;
-      const displayName = subscriber.user.display_name || subscriber.user.login;
-      const cumulativeMonths = subscriber.cumulativeMonths;
+      const user = newSubscriptionEventArg.user;
+      const displayName = user.display_name || user.login;
+      const cumulativeMonths = newSubscriptionEventArg.cumulativeMonths;
       let msg = '';
       if (cumulativeMonths > 1) {
         msg = `${displayName}'s been in the club for ${cumulativeMonths} months! How's that hairline?`;
       } else {
         msg = `Welcome to the club ${displayName}!`;
       }
-      addAndStart(msg, 'hair', subscriber.user.profile_image_url, 10);
+      addAndStart(msg, 'hair', user.profile_image_url, 10);
     });
 
     socket.on('onFollow', newFollowerEventArg => {
-      const follower = newFollowerEventArg.follower;
+      const follower = newFollowerEventArg.user;
       const displayName = follower.display_name || follower.login;
       const msg = `Welcome ${displayName}! Thanks for following!`;
       addAndStart(msg, 'ohmy', follower.profile_image_url, 10);
