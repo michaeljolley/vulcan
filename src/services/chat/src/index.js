@@ -33,27 +33,27 @@ socket.on('newMessage', payload => {
   }
 });
 
-socket.on('onFollowWebhook', async payload => {
-  //   {
-  //     "data":
-  //        [{
-  //           "from_id":"1336",
-  //           "from_name":"ebi",
-  //           "to_id":"1337",
-  //           "to_name":"oliver0823nagy",
-  //           "followed_at": "2017-08-22T22:55:24Z"
-  //        }]
-  //  }
+const onFollowWebhook = async payload => {
   if (payload && payload.data && payload.data.length > 0) {
-    const follower = await userService.getUser(payload.data[0].from_name);
-    if (follower) {
+    const followerLogin = payload.data[0].from_name;
+
+    let user = {};
+    try {
+      user = (await userService.getUser(followerLogin)).data;
+    } catch (err) {
+      console.log(err);
+    }
+
+    if (user) {
       const followPayload = {
-        user: follower
+        user
       };
       socket.emit('onFollow', followPayload);
     }
   }
-});
+};
+
+socket.on('onFollowWebhook', onFollowWebhook);
 
 twitchChatClient.on('chat', (channel, userstate, message, self) => {
   tmiHandlers.chat(channel, userstate, message, self, socket);
