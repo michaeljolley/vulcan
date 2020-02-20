@@ -33,8 +33,8 @@ module.exports = async function(context, req) {
   // }
 
   // We have to have a user in order to do an FX stop
-  if (req.body && req.body.user) {
-    const user = req.body.user;
+  if (req.body && req.body.userstate) {
+    const user = req.body.userstate;
 
     // Only mods or broadcasters can call the stop command.
     if (isMod(user) || isBroadcaster(user)) {

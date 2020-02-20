@@ -2,11 +2,12 @@ const io = require('socket.io-client');
 const TwitchWebhook = require('twitch-webhook');
 
 const patch = require('socketio-wildcard')(io.Manager);
-patch(socket);
 
 require('dotenv').config();
 
 const socket = io.connect(process.env.VULCANHUBURL);
+patch(socket);
+
 const twitchClientUserId = process.env.TWITCHCLIENTID;
 const webhookUrl = process.env.VULCANWEBHOOKURL;
 
@@ -36,6 +37,7 @@ const unregisterWebhooks = () => {
 };
 
 const connectTwitchFollowersWebhook = () => {
+  console.dir({ webhookUrl, twitchClientUserId });
   twitchFollowerWebhook = new TwitchWebhook({
     callback: webhookUrl,
     client_id: twitchClientUserId,
