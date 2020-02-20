@@ -51,6 +51,10 @@ let chatCommands = [
     command: 'project'
   },
   {
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Sfx',
+    command: 'sfx'
+  },
+  {
     uri: 'https://vulcanfunc.azurewebsites.net/api/So',
     command: 'so'
   },

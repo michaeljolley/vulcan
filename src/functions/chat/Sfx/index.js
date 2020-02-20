@@ -1,7 +1,10 @@
 const io = require("socket.io-client");
+const azure = require("azure-storage");
+
 require("dotenv").config();
 
 const socket = io.connect(process.env.VULCANHUBURL);
+const fileService = azure.createFileService();
 
 module.exports = async function(context, req) {
   // All chat functions will receive a payload of:
@@ -34,7 +37,7 @@ module.exports = async function(context, req) {
   //         "username": "baldbeardedbuilder",
   //         "message-type": "chat"
   //     },
-  //     "message": "!so clarkio",
+  //     "message": "!sfx",
   //     "user": {
   //         "_id": "5e4b06cd7565df3d34232df1",
   //         "login": "baldbeardedbuilder",
@@ -48,25 +51,21 @@ module.exports = async function(context, req) {
   //     "hasCommand": false
   // }
 
-  // We have to have a message to parse in order to do a shout-out.
-  if (req.body && req.body.message && req.body.user) {
-    const user = req.body.user;
-    const userstate = req.body.userstate;
-    const incomingMessage = req.body.message;
+  // We need to get a list of sound clips from storage and
+  // return them in a list.
 
-    // Only mods or broadcasters can call the shout-out
-    // command.
-    if (isMod(userstate) || isBroadcaster(userstate)) {
-      // We need a second command in the message
-      const lowerMessage = incomingMessage.toLocaleLowerCase().trim();
-      const splitMessage = lowerMessage.split(" ");
+  fileService.listFilesAndDirectoriesSegmented(
+    "assets",
+    "audio/clips",
+    null,
+    (err, result) => {
+      if (!err && result.entries && result.entries.files.length > 0) {
+        const availableEffects = result.entries.files.map(
+          m => `!${m.name.replace(".mp3", "")}`
+        );
 
-      // We must have exactly two parameters '!so' and the user's name
-      if (splitMessage.length === 2) {
-        const username = splitMessage[1].replace("@", "");
-
-        const message = `Shout out to @${username}!  Check out their stream at https://twitch.tv/${username} and give them a follow.`;
-
+        const audioCommands = availableEffects.map(m => `!${m}`).join(", ");
+        const message = `The following commands are available as sound effects: ${audioCommands}`;
         const payload = {
           message,
           messageType: "chat", // or 'whisper'
@@ -77,19 +76,5 @@ module.exports = async function(context, req) {
         socket.emit("newMessage", payload);
       }
     }
-  }
+  );
 };
-
-function isMod(userstate) {
-  if (userstate && userstate.badges && userstate.badges.moderator) {
-    return true;
-  }
-  return false;
-}
-
-function isBroadcaster(userstate) {
-  if (userstate && userstate.badges && userstate.badges.broadcaster) {
-    return true;
-  }
-  return false;
-}
