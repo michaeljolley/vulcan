@@ -15,6 +15,10 @@ let chatCommands = [
     command: 'discord'
   },
   {
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Fart',
+    command: 'fart'
+  },
+  {
     uri: 'https://vulcanfunc.azurewebsites.net/api/Font',
     command: 'font'
   },
