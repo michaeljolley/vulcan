@@ -33,7 +33,7 @@ module.exports = async function(context, req) {
   // }
 
   const message =
-    "Moderators can use the following commands: !note {username} {what they taught us}";
+    "baldbeHype baldbeHype baldbeHype baldbeHype baldbeHype baldbeHype baldbeHype baldbeHype baldbeHype baldbeHype baldbeHype baldbeHype";
 
   const payload = {
     message,

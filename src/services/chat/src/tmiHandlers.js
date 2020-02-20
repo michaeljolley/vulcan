@@ -7,67 +7,71 @@ const streamService = require('./stream');
 // that provides the dictionary of available commands
 let chatCommands = [
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Blog',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Blog',
     command: 'blog'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Discord',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Discord',
     command: 'discord'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Font',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Font',
     command: 'font'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/GitHub',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/GitHub',
     command: 'github'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Help',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Help',
     command: 'help'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Heroines',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Heroines',
     command: 'heroines'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Keyboard',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Hype',
+    command: 'hype'
+  },
+  {
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Keyboard',
     command: 'keyboard'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Light',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Light',
     command: 'light'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Mod',
-    command: 'mod'
+    uri: 'https://vulcanfunc.azurewebsites.net/api/POBox',
+    command: 'pobox'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Profile',
-    command: 'profile'
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Project',
+    command: 'project'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/So',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/So',
     command: 'so'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Stop',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Stop',
     command: 'stop'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Giving',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Giving',
     command: 'giving'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Team',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Team',
     command: 'team'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/Twitter',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Twitter',
     command: 'twitter'
   },
   {
-    uri: 'https://vulcan-chat.azurewebsites.net/api/YouTube',
+    uri: 'https://vulcanfunc.azurewebsites.net/api/YouTube',
     command: 'youtube'
   }
 ];
@@ -76,7 +80,7 @@ const tmiHandlers = {
   chat: async (channel, userstate, message, self, socket) => {
     if (self) return;
 
-    const baseChatFunctionUrl = process.env.CHATFUNTIONSBASEURL;
+    const baseChatFunctionUrl = process.env.CHATFUNCTIONSBASEURL;
 
     // if (chatCommands.length === 0) {
     //   try {
@@ -89,12 +93,12 @@ const tmiHandlers = {
     // Get user from user service to send along with payloads
     let user = {};
     try {
-      user = (await userService.getUser(userstate.login)).data;
+      user = (await userService.getUser(userstate.username)).data;
     } catch (err) {
       console.log(err);
     }
 
-    // const stream = await getStream();
+    const stream = await getStream();
 
     let hasCommand = false;
 
@@ -159,7 +163,7 @@ const tmiHandlers = {
 
     let user = {};
     try {
-      user = (await userService.getUser(userstate.login)).data;
+      user = (await userService.getUser(userstate.username)).data;
     } catch (err) {
       console.log(err);
     }

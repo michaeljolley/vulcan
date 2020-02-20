@@ -38,10 +38,10 @@ module.exports = async function(context, req) {
   // We're essentially getting all chat messages that begin with "!"
   // so we need to check if it happens to be the name of a sound effect.
   if (req.body && req.body.message) {
-    const possibleFileName = req.body.message
+    const possibleFileName = `${req.body.message
       .toLowerCase()
       .split(" ")[0]
-      .replace("!", "");
+      .replace("!", "")}.mp3`;
 
     fileService.doesFileExist(
       "assets",
