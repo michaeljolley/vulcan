@@ -62,6 +62,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "giacomolorenzo",
+      "name": "Giacomo Lorenzo",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2290916?v=4",
+      "profile": "https://github.com/giacomolorenzo",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
