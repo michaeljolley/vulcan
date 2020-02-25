@@ -23,8 +23,6 @@
   "dependencies": {
     "axios": "^0.19.0",
     "dotenv": "^8.2.0",
-    "lokka": "^1.7.0",
-    "lokka-transport-http": "^1.6.1",
     "sanitize-html": "^1.20.1",
     "socket.io-client": "^2.3.0",
     "socketio-wildcard": "^2.0.0"
