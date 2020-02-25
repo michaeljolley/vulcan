@@ -16,15 +16,17 @@ const func = {
    * @param {UserState} tags UserState object from tmi.js of the message
    * @param {string} message Message sent
    * @param {UserInfo} user User object from user service
+   * @param {Stream} stream Stream object representing the current stream, if available
    */
-  callChatCommand: async (uri, channel, tags, message, user) => {
+  callChatCommand: async (uri, channel, userstate, message, user, stream) => {
     return axios.post(
       uri,
       {
         channel,
-        tags,
+        userstate,
         message,
-        user
+        user,
+        stream
       },
       {
         headers: {

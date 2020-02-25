@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const db = require('./db');
+const log = require('./log');
 const io = require('socket.io-client');
 
 const socket = io.connect(process.env.VULCANHUBURL);
@@ -16,25 +16,28 @@ socket.on('*', async data => {
 
   switch (event) {
     case 'onChatMessage':
-      await db.onChatMessage(payload);
-      break;
-    case 'onChatMessageWithEmotes':
-      await db.onChatMessageWithEmotes(payload);
+      await log.onChatMessage(payload);
       break;
     case 'onCheer':
-      await db.onCheer(payload);
-      break;
-    case 'onJoin':
-      await db.onJoin(payload);
-      break;
-    case 'onPart':
-      await db.onPart(payload);
+      await log.onCheer(payload);
       break;
     case 'onRaid':
-      await db.onRaid(payload);
+      await log.onRaid(payload);
       break;
     case 'onSubscription':
-      await db.onSubscription(payload);
+      await log.onSubscription(payload);
+      break;
+    case 'onFollow':
+      await log.onFollow(payload);
+      break;
+    case 'streamStart':
+      await log.streamStart(payload);
+      break;
+    case 'streamUpdate':
+      await log.streamUpdate(payload);
+      break;
+    case 'streamEnd':
+      await log.onFollow(payload);
       break;
     default:
       break;

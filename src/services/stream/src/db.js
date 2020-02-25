@@ -30,12 +30,214 @@ const db = {
       })
     );
   },
-  saveStream: async function(stream) {
+  getStreamById: async function(id) {
+    return await new Promise(resolve =>
+      StreamModel.findOne({ id: id }, (err, res) => {
+        if (err) {
+          resolve(undefined);
+        }
+        resolve(res);
+      })
+    );
+  },
+  saveCheer: async function(streamId, payload) {
+    return await new Promise(resolve =>
+      StreamModel.findByIdAndUpdate(
+        streamId,
+        {
+          cheers: [
+            {
+              user: payload.user,
+              bits: payload.userstate.bits
+            }
+          ]
+        },
+        {
+          upsert: false, // Create the object if it doesn't exist?
+          new: true // Should return the newly updated object rather than the original?
+        },
+        (err, res) => {
+          if (err) {
+            resolve(undefined);
+          }
+          resolve(res);
+        }
+      )
+    );
+  },
+  saveChat: async function(streamId, payload) {
+    return await new Promise(resolve =>
+      StreamModel.findByIdAndUpdate(
+        streamId,
+        {
+          chatMessages: [
+            {
+              user: payload.user,
+              timestamp: new Date(),
+              message: payload.message
+            }
+          ]
+        },
+        {
+          upsert: false, // Create the object if it doesn't exist?
+          new: true // Should return the newly updated object rather than the original?
+        },
+        (err, res) => {
+          if (err) {
+            resolve(undefined);
+          }
+          resolve(res);
+        }
+      )
+    );
+  },
+  saveRaid: async function(streamId, payload) {
+    return await new Promise(resolve =>
+      StreamModel.findByIdAndUpdate(
+        streamId,
+        {
+          raiders: [
+            {
+              user: payload.user,
+              viewers: payload.viewers
+            }
+          ]
+        },
+        {
+          upsert: false, // Create the object if it doesn't exist?
+          new: true // Should return the newly updated object rather than the original?
+        },
+        (err, res) => {
+          if (err) {
+            resolve(undefined);
+          }
+          resolve(res);
+        }
+      )
+    );
+  },
+  saveSubscription: async function(streamId, payload) {
+    return await new Promise(resolve =>
+      StreamModel.findByIdAndUpdate(
+        streamId,
+        {
+          subscribers: [
+            {
+              user: payload.user,
+              wasGift: payload.wasGift,
+              cumulativeMonths: payload.cumulativeMonths
+            }
+          ]
+        },
+        {
+          upsert: false, // Create the object if it doesn't exist?
+          new: true // Should return the newly updated object rather than the original?
+        },
+        (err, res) => {
+          if (err) {
+            resolve(undefined);
+          }
+          resolve(res);
+        }
+      )
+    );
+  },
+  saveFollow: async function(streamId, payload) {
+    return await new Promise(resolve =>
+      StreamModel.findByIdAndUpdate(
+        streamId,
+        {
+          followers: [
+            {
+              user
+            }
+          ]
+        },
+        {
+          upsert: false, // Create the object if it doesn't exist?
+          new: true // Should return the newly updated object rather than the original?
+        },
+        (err, res) => {
+          if (err) {
+            resolve(undefined);
+          }
+          resolve(res);
+        }
+      )
+    );
+  },
+  saveStart: async function(payload) {
     return await new Promise(resolve =>
       StreamModel.findOneAndUpdate(
-        { streamDate: stream.streamDate },
-        stream,
-        { upsert: true, new: true },
+        {
+          streamDate: payload.streamDate
+        },
+        payload,
+        {
+          upsert: true, // Create the object if it doesn't exist?
+          new: true // Should return the newly updated object rather than the original?
+        },
+        (err, res) => {
+          if (err) {
+            resolve(undefined);
+          }
+          resolve(res);
+        }
+      )
+    );
+  },
+  saveEnd: async function(streamId, payload) {
+    return await new Promise(resolve =>
+      StreamModel.findByIdAndUpdate(
+        streamId,
+        {
+          ended_at: new Date()
+        },
+        {
+          upsert: false, // Create the object if it doesn't exist?
+          new: true // Should return the newly updated object rather than the original?
+        },
+        (err, res) => {
+          if (err) {
+            resolve(undefined);
+          }
+          resolve(res);
+        }
+      )
+    );
+  },
+  saveUpdate: async function(streamId, payload) {
+    return await new Promise(resolve =>
+      StreamModel.findByIdAndUpdate(
+        streamId,
+        {
+          title: payload.title,
+          replayLink: payload.replayLink
+        },
+        {
+          upsert: false, // Create the object if it doesn't exist?
+          new: true // Should return the newly updated object rather than the original?
+        },
+        (err, res) => {
+          if (err) {
+            resolve(undefined);
+          }
+          resolve(res);
+        }
+      )
+    );
+  },
+  saveContribution: async function(streamId, payload) {
+    return await new Promise(resolve =>
+      StreamModel.findByIdAndUpdate(
+        streamId,
+        {
+          contributors: [payload.user]
+        },
+        {
+          upsert: false, // Create the object if it doesn't exist?
+          new: true // Should return the newly updated object rather than the original?
+        },
         (err, res) => {
           if (err) {
             resolve(undefined);
