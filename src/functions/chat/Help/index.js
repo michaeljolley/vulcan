@@ -33,8 +33,7 @@ module.exports = async function(context, req) {
   // }
 
   const message =
-    "I can respond to the following commands: !attention, !blog, !discord, !fart, !font, !github, !giving, !heroines, !hype, !keyboard, !pobox, !project, !sfx, !so {user name}, !team, !theme, !twitter, !website, !youtube, !vulcan";
-
+    "I can respond to the following commands: !attention, !blog, !discord, !fart, !font, !github, !giving, !heroines, !hype, !keyboard, !pobox, !project, !sfx, !so {user name}, !team, !theme, !twitter, !vulcan, !youtube";
 
   const payload = {
     message,

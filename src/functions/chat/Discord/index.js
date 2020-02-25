@@ -24,10 +24,10 @@ module.exports = async function(context, req) {
   //     "tmi-sent-ts"?: string;
   //     flags?: string;
   //     [paramater: string]: any;
-  // 'message-type'?: "chat" | "action" | "whisper";
-  // username?: string;
-  // bits?: string;
-  // },
+  //      'message-type'?: "chat" | "action" | "whisper";
+  //      username?: string;
+  //      bits?: string;
+  //    },
   //    message: string,
   //    user: User
   // }

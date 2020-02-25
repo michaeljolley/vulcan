@@ -43,8 +43,8 @@ const port = 80;
 
 app.use(express.json());
 
-app.get('/stream/:streamDate', async (req, res) => {
-  const streamDate = req.params.streamDate.toLocaleLowerCase();
+app.post('/stream', async (req, res) => {
+  const streamDate = req.body.streamDate;
 
   try {
     const stream = await getStream(streamDate);
@@ -62,6 +62,43 @@ app.get('/stream/:streamDate', async (req, res) => {
   res.sendStatus(404);
 });
 
+app.post('/stream/:id/:event', async (req, res) => {
+  const id = req.params.id.toLocaleLowerCase();
+  const payload = req.body;
+
+  const stream = payload.stream;
+
+  switch (event) {
+    case 'chat':
+      await db.saveChat(stream.id, payload);
+      break;
+    case 'cheer':
+      await db.saveCheer(stream.id, payload);
+      break;
+    case 'contribution':
+      await db.saveContribution(stream.id, payload);
+      break;
+    case 'raid':
+      await db.saveRaid(stream.id, payload);
+      break;
+    case 'subscription':
+      await db.saveSubscription(stream.id, payload);
+      break;
+    case 'follow':
+      await db.saveFollow(stream.id, payload);
+      break;
+    case 'start':
+      await db.saveStart(payload);
+      break;
+    case 'update':
+      await db.saveUpdate(stream.id, payload);
+      break;
+    case 'end':
+      await db.saveEnd(stream.id, payload);
+      break;
+  }
+});
+
 app.listen(port, () =>
   console.log(`Stream service listening on port ${port}.`)
 );
@@ -70,7 +107,7 @@ app.listen(port, () =>
  * Retrieves a stream based on the provided stream date
  * @param {string} date of the stream
  */
-async function getStream(streamDate) {
+async function getStream(id) {
   let stream;
 
   // If it exists, get the stream from the cache.
