@@ -67,6 +67,10 @@ let chatCommands = [
     command: 'stop'
   },
   {
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Theme',
+    command: 'theme'
+  },
+  {
     uri: 'https://vulcanfunc.azurewebsites.net/api/Giving',
     command: 'giving'
   },
@@ -146,8 +150,7 @@ const tmiHandlers = {
 
     const sanitizedMessage = chatProcessor.processChat(message, userstate);
 
-    if(sanitizedMessage.message.length > 0)
-    {
+    if (sanitizedMessage.message.length > 0) {
       // Send message to Socket.IO to be processed by
       // anyone who needs it
       socket.emit('onChatMessage', {
