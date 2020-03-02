@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+  webhook:
+    image: vulcan.azurecr.io/vulcan-webhook:769
+    init: true
+    restart: always
+    ports:
+      - "80:80"

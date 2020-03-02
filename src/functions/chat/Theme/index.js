@@ -103,7 +103,7 @@ module.exports = async function(context, req) {
 
       // Send a the sfx to Socket.io
       socket.emit("onSoundEffect", {
-        audioFile: "shame"
+        audioFile: "shame.mp3"
       });
       // Send a message to the Socket.io
       socket.emit("newMessage", payload);
