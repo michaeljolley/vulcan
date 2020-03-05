@@ -141,7 +141,11 @@ const tmiHandlers = {
 
     // If this isn't an existing command but starts with "!" send to the
     // sound effect function to see if it should trigger something.
-    if (!hasCommand && firstWord.charAt(0) === '!') {
+    if (
+      !hasCommand &&
+      firstWord.charAt(0) === '!' &&
+      message.toLowerCase().split(' ').length === 1
+    ) {
       await func.callChatCommand(
         `${baseChatFunctionUrl}xAudioEffects`,
         channel,
