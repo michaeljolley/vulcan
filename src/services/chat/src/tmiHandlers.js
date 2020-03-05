@@ -85,6 +85,10 @@ let chatCommands = [
   {
     uri: 'https://vulcanfunc.azurewebsites.net/api/YouTube',
     command: 'youtube'
+  },
+  {
+    uri: 'https://vulcanfunc.azurewebsites.net/api/Vulcan',
+    command: 'vulcan'
   }
 ];
 

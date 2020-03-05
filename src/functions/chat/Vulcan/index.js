@@ -33,7 +33,7 @@ module.exports = async function(context, req) {
   // }
 
   const message =
-    "I can respond to the following commands: !attention, !blog, !discord, !fart, !font, !github, !giving, !heroines, !hype, !keyboard, !pobox, !project, !sfx, !so {user name}, !team, !theme, !twitter, !vulcan, !youtube";
+    "Vulcan is a server-less JavaScript Twitch chat bot that runs our stream. It was built by our community and is completely open sourced at https://github.com/MichaelJolley/vulcan";
 
   const payload = {
     message,
