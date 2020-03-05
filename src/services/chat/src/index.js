@@ -3,6 +3,7 @@ require('dotenv').config();
 const tmi = require('tmi.js');
 const tmiHandlers = require('./tmiHandlers');
 const userService = require('./user');
+const streamService = require('./stream');
 
 const io = require('socket.io-client');
 const socket = io.connect(process.env.VULCANHUBURL);
@@ -37,16 +38,19 @@ const onFollowWebhook = async payload => {
   if (payload && payload.data && payload.data.length > 0) {
     const followerLogin = payload.data[0].from_name;
 
-    let user = {};
+    let user = undefined;
+    let stream = undefined;
     try {
       user = (await userService.getUser(followerLogin)).data;
+      stream = (await streamService.getActiveStream()).data;
     } catch (err) {
       console.log(err);
     }
 
-    if (user) {
+    if (user && stream) {
       const followPayload = {
-        user
+        user,
+        stream
       };
       socket.emit('onFollow', followPayload);
     }

@@ -364,9 +364,7 @@ const getStream = async () => {
     if (streams && streams.data && streams.data.length > 0) {
       stream = streams.data[0];
     }
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
   return stream;
 };
 

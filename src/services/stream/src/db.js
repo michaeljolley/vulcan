@@ -30,16 +30,6 @@ const db = {
       })
     );
   },
-  getStreamById: async function(id) {
-    return await new Promise(resolve =>
-      StreamModel.findOne({ id: id }, (err, res) => {
-        if (err) {
-          resolve(undefined);
-        }
-        resolve(res);
-      })
-    );
-  },
   saveCheer: async function(streamId, payload) {
     return await new Promise(resolve =>
       StreamModel.findByIdAndUpdate(
@@ -143,22 +133,14 @@ const db = {
     );
   },
   saveFollow: async function(streamId, payload) {
+    const user = payload.user;
     return await new Promise(resolve =>
-      StreamModel.findByIdAndUpdate(
-        streamId,
-        {
-          followers: [
-            {
-              user
-            }
-          ]
-        },
-        {
-          upsert: false, // Create the object if it doesn't exist?
-          new: true // Should return the newly updated object rather than the original?
-        },
+      StreamModel.updateOne(
+        { _id: streamId },
+        { $push: { followers: user } },
         (err, res) => {
           if (err) {
+            console.log(err);
             resolve(undefined);
           }
           resolve(res);
@@ -174,11 +156,12 @@ const db = {
         },
         payload,
         {
+          lean: true,
           upsert: true, // Create the object if it doesn't exist?
           new: true // Should return the newly updated object rather than the original?
         },
         (err, res) => {
-          if (err) {
+          if (err === undefined) {
             resolve(undefined);
           }
           resolve(res);
@@ -191,7 +174,7 @@ const db = {
       StreamModel.findByIdAndUpdate(
         streamId,
         {
-          ended_at: new Date()
+          ended_at: new Date().toISOString()
         },
         {
           upsert: false, // Create the object if it doesn't exist?

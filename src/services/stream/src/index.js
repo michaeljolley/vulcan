@@ -7,20 +7,22 @@ const api = require('./api');
 const cache = require('./cache');
 const db = require('./db');
 
-socket.on('streamStart', async payload => {
-  if (payload && payload.stream) {
-    try {
-      await db.saveStream(payload.stream);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-});
-
 socket.on('streamUpdate', async payload => {
   if (payload && payload.stream) {
     try {
-      await db.saveStream(payload.stream);
+      const streamDate = payload.stream.started_at.toLocaleDateString('en-US');
+
+      let stream = await db.getStream(streamDate);
+
+      if (stream) {
+        await db.saveStream(payload.stream);
+      } else {
+        // The stream has started. Save it and emit to socket.io
+        stream = payload.stream;
+        stream.streamDate = streamDate;
+        stream = await db.saveStart(stream);
+        socket.emit('streamStart', stream);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -43,6 +45,25 @@ const port = 80;
 
 app.use(express.json());
 
+app.get('/stream', async (req, res) => {
+  const streamDate = new Date().toLocaleDateString('en-US');
+
+  try {
+    const stream = await getStream(streamDate);
+
+    if (stream) {
+      res.json(stream);
+      return;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+
+  // If the stream couldn't be found in any service, return
+  // a 404 (Not Found).
+  res.sendStatus(404);
+});
+
 app.post('/stream', async (req, res) => {
   const streamDate = req.body.streamDate;
 
@@ -62,39 +83,35 @@ app.post('/stream', async (req, res) => {
   res.sendStatus(404);
 });
 
+/**
+ *
+ * @param id The _id property of the stream
+ */
 app.post('/stream/:id/:event', async (req, res) => {
   const id = req.params.id.toLocaleLowerCase();
+  const event = req.params.event;
   const payload = req.body;
 
   const stream = payload.stream;
 
   switch (event) {
     case 'chat':
-      await db.saveChat(stream.id, payload);
+      await db.saveChat(id, payload);
       break;
     case 'cheer':
-      await db.saveCheer(stream.id, payload);
+      await db.saveCheer(id, payload);
       break;
     case 'contribution':
-      await db.saveContribution(stream.id, payload);
+      await db.saveContribution(id, payload);
       break;
     case 'raid':
-      await db.saveRaid(stream.id, payload);
+      await db.saveRaid(id, payload);
       break;
     case 'subscription':
-      await db.saveSubscription(stream.id, payload);
+      await db.saveSubscription(id, payload);
       break;
     case 'follow':
-      await db.saveFollow(stream.id, payload);
-      break;
-    case 'start':
-      await db.saveStart(payload);
-      break;
-    case 'update':
-      await db.saveUpdate(stream.id, payload);
-      break;
-    case 'end':
-      await db.saveEnd(stream.id, payload);
+      await db.saveFollow(id, payload);
       break;
   }
 });
@@ -105,21 +122,10 @@ app.listen(port, () =>
 
 /**
  * Retrieves a stream based on the provided stream date
- * @param {string} date of the stream
+ * @param {string} streamDate of the stream
  */
-async function getStream(id) {
+async function getStream(streamDate) {
   let stream;
-
-  // If it exists, get the stream from the cache.
-  try {
-    stream = await cache.getStream(streamDate);
-  } catch (err) {
-    console.log(err);
-  }
-
-  if (stream) {
-    return stream;
-  }
 
   // If we didn't get the stream from the cache, attempt
   // to get it out of the database.
@@ -132,15 +138,10 @@ async function getStream(id) {
   // If we got the stream from the database, add it to
   // the cache for future requests and return it.
   if (stream) {
-    try {
-      await cache.storeStream(stream);
-    } catch (err) {
-      console.log(err);
-    }
     return stream;
   }
 
-  // If we didn't have the stream in cache or the database,
+  // If we didn't have the stream in database,
   // make a call out to the Twitch API to retrieve it.
   try {
     stream = await api.getStream(streamDate);
@@ -152,8 +153,7 @@ async function getStream(id) {
   // to both the cache and database for future requests.
   if (stream) {
     try {
-      await cache.storeStream(stream);
-      await db.saveStream(stream);
+      stream = await db.saveStart(stream);
     } catch (err) {
       console.log(err);
     }

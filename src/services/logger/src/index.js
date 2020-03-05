@@ -30,15 +30,6 @@ socket.on('*', async data => {
     case 'onFollow':
       await log.onFollow(payload);
       break;
-    case 'streamStart':
-      await log.streamStart(payload);
-      break;
-    case 'streamUpdate':
-      await log.streamUpdate(payload);
-      break;
-    case 'streamEnd':
-      await log.streamEnd();
-      break;
     default:
       break;
   }

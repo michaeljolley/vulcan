@@ -21,21 +21,13 @@ const log = {
   },
   onFollow: async payload => {
     await sendStreamPayload('follow', payload);
-  },
-  streamStart: async payload => {
-    await sendStreamPayload('start', payload);
-  },
-  streamUpdate: async payload => {
-    await sendStreamPayload('update', payload);
-  },
-  streamEnd: async payload => {
-    await sendStreamPayload('end', payload);
   }
 };
 
 const sendStreamPayload = async (suffix, payload) => {
-  if (payload.stream && payload.stream.id) {
-    await sendPayload(`${streamServiceUrl}${payload.stream.id}/${suffix}`);
+  if (payload.stream && payload.stream._id) {
+    const url = `${streamServiceUrl}${payload.stream._id.toString()}/${suffix}`;
+    await sendPayload(url, payload);
   }
 };
 
@@ -46,7 +38,7 @@ const sendUserPayload = async (suffix, payload) => {
 };
 
 const sendPayload = async (url, payload) => {
-  await axios.post('url', payload);
+  await axios.post(url, payload);
 };
 
 module.exports = log;
