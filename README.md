@@ -31,6 +31,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/mholloway24"><img src="https://avatars2.githubusercontent.com/u/40776983?v=4" width="100px;" alt=""/><br /><sub><b>Mike Holloway</b></sub></a><br /><a href="https://github.com/MichaelJolley/vulcan/commits?author=mholloway24" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/giacomolorenzo"><img src="https://avatars2.githubusercontent.com/u/2290916?v=4" width="100px;" alt=""/><br /><sub><b>Giacomo Lorenzo</b></sub></a><br /><a href="https://github.com/MichaelJolley/vulcan/issues?q=author%3Agiacomolorenzo" title="Bug reports">🐛</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/solenberg"><img src="https://avatars3.githubusercontent.com/u/1253016?v=4" width="100px;" alt=""/><br /><sub><b>R.James Solenberg</b></sub></a><br /><a href="#ideas-solenberg" title="Ideas, Planning, & Feedback">🤔</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-enable -->
