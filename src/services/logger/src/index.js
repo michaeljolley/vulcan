@@ -37,7 +37,7 @@ socket.on('*', async data => {
       await log.streamUpdate(payload);
       break;
     case 'streamEnd':
-      await log.onFollow(payload);
+      await log.streamEnd();
       break;
     default:
       break;

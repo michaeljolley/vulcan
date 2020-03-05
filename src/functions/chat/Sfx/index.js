@@ -61,7 +61,7 @@ module.exports = async function(context, req) {
     (err, result) => {
       if (!err && result.entries && result.entries.files.length > 0) {
         const availableEffects = result.entries.files.map(
-          m => `!${m.name.replace(".mp3", "")}`
+          m => `${m.name.replace(".mp3", "")}`
         );
 
         const audioCommands = availableEffects.map(m => `!${m}`).join(", ");

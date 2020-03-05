@@ -30,3 +30,14 @@ services:
     restart: always
     env_file:
       - ./src/services/user/.env
+  webhook:
+    build:
+      context: ./src/services/webhook
+      dockerfile: Dockerfile
+    container_name: vulcan-webhook
+    init: true
+    restart: always
+    ports:
+      - "80:80"
+    env_file:
+      - ./src/services/webhook/.env
