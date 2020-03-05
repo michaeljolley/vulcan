@@ -43,8 +43,8 @@ io.on('connection', socket => {
     io.emit('streamUpdate', payload);
   });
 
-  socket.on('streamEnd', payload => {
-    io.emit('streamEnd', payload);
+  socket.on('streamEnd', () => {
+    io.emit('streamEnd');
   });
 
   socket.on('onRaid', payload => {

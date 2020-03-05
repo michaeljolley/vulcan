@@ -9,4 +9,13 @@ module.exports = async function(context, req) {
   if (event && event.data && event.data.length > 0) {
     socket.emit("onFollowWebhook", event);
   }
+
+  context.res = {
+    // status: 200, /* Defaults to 200 */
+    body: req.query["hub.challenge"],
+    headers: {
+      "Content-Type": "text/plain"
+    }
+  };
+  context.done();
 };
