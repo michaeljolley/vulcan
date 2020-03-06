@@ -10,7 +10,9 @@ const db = require('./db');
 socket.on('streamUpdate', async payload => {
   if (payload && payload.stream) {
     try {
-      const streamDate = payload.stream.started_at.toLocaleDateString('en-US');
+      const streamDate = payload.stream.started_at.toLocaleDateString('en-US', {
+        timeZone: 'America/Chicago'
+      });
 
       let stream = await db.getStream(streamDate);
 

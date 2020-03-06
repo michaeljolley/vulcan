@@ -1,10 +1,26 @@
 const mongoose = require('mongoose');
 
+const userSchema = new mongoose.Schema({
+  broadcaster_type: String,
+  comicAvatar: String,
+  display_name: String,
+  githubHandle: String,
+  id: { type: String, required: true, index: true },
+  lastUpdated: String,
+  liveCodersTeamMember: Boolean,
+  login: { type: String, index: true },
+  profile_image_url: String,
+  twitterHandle: String,
+  raidAlert: String
+});
+
+const UserModel = new mongoose.model('User', userSchema);
+
 const chatMessageSchema = new mongoose.Schema({
   message: String,
   timestamp: Date,
   user: {
-    ref: 'UserInfo',
+    ref: 'User',
     type: mongoose.Schema.Types.ObjectId
   }
 });
@@ -12,7 +28,7 @@ const chatMessageSchema = new mongoose.Schema({
 const cheerSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'UserInfo'
+    ref: 'User'
   },
   bits: Number
 });
@@ -20,7 +36,7 @@ const cheerSchema = new mongoose.Schema({
 const subscriberSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'UserInfo'
+    ref: 'User'
   },
   wasGift: { type: Boolean, default: false, required: true },
   cumulativeMonths: { type: Number, default: 1, required: true }
@@ -29,7 +45,7 @@ const subscriberSchema = new mongoose.Schema({
 const raiderSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'UserInfo'
+    ref: 'User'
   },
   viewers: Number
 });
@@ -42,12 +58,12 @@ const streamSchema = new mongoose.Schema({
   title: { type: String, required: true },
   replayLink: String,
 
-  moderators: [{ type: mongoose.Schema.Types.ObjectId, ref: 'UserInfo' }],
-  followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'UserInfo' }],
+  moderators: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   subscribers: [subscriberSchema],
   raiders: [raiderSchema],
   cheers: [cheerSchema],
-  contributors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'UserInfo' }],
+  contributors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   chatMessages: [chatMessageSchema]
 });
 

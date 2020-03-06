@@ -42,6 +42,7 @@ const db = {
         .populate('chatMessages.user')
         .exec((err, res) => {
           if (err) {
+            console.dir(err);
             resolve(undefined);
           }
           resolve(res);
