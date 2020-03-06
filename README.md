@@ -5,8 +5,7 @@
 ---
 
 [![Build Status](https://dev.azure.com/michaeljolley/vulcan/_apis/build/status/vulcan-CD?branchName=master)](https://dev.azure.com/michaeljolley/vulcan/_build/latest?definitionId=10&branchName=master) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ![Initial Design](https://user-images.githubusercontent.com/1228996/69489802-d48f9a00-0e43-11ea-841b-d6188360db5c.png)
@@ -36,12 +35,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/solenberg"><img src="https://avatars3.githubusercontent.com/u/1253016?v=4" width="100px;" alt=""/><br /><sub><b>R.James Solenberg</b></sub></a><br /><a href="#ideas-solenberg" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="http://www.vin-e.com"><img src="https://avatars2.githubusercontent.com/u/1275937?v=4" width="100px;" alt=""/><br /><sub><b>Vincent Chavez</b></sub></a><br /><a href="#content-vin-e" title="Content">🖋</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
