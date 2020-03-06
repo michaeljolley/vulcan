@@ -17,15 +17,6 @@ const cheerSchema = new mongoose.Schema({
   bits: Number
 });
 
-const segmentSchema = new mongoose.Schema({
-  timestamp: { type: String, required: true },
-  topic: { type: String, required: true },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'UserInfo'
-  }
-});
-
 const subscriberSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -50,8 +41,6 @@ const streamSchema = new mongoose.Schema({
   ended_at: String,
   title: { type: String, required: true },
   replayLink: String,
-
-  segments: [segmentSchema],
 
   moderators: [{ type: mongoose.Schema.Types.ObjectId, ref: 'UserInfo' }],
   followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'UserInfo' }],

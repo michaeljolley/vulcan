@@ -30,6 +30,9 @@ socket.on('*', async data => {
     case 'onFollow':
       await log.onFollow(payload);
       break;
+    case 'onModerator':
+      await log.onModerator(payload);
+      break;
     default:
       break;
   }

@@ -21,6 +21,9 @@ const log = {
   },
   onFollow: async payload => {
     await sendStreamPayload('follow', payload);
+  },
+  onModerator: async payload => {
+    await sendStreamPayload('moderator', payload);
   }
 };
 

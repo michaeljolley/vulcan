@@ -1,6 +1,17 @@
 version: "3.7"
 
 services:
+  overlay:
+    build:
+      context: ./src/services/overlay
+      dockerfile: Dockerfile
+    container_name: vulcan-overlay
+    init: true
+    restart: always
+    ports:
+      - "3000:80"
+    env_file:
+      - ./src/services/overlay/.env
   chat:
     build:
       context: ./src/services/chat

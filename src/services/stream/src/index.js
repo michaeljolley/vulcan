@@ -39,6 +39,19 @@ socket.on('streamEnd', async payload => {
   }
 });
 
+socket.on('requestCredits', async payload => {
+  if (payload && payload.streamDate) {
+    try {
+      const stream = await db.getFullStream(payload.streamDate);
+      if (stream) {
+        socket.emit('onCreditRoll', { stream });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+});
+
 const express = require('express');
 const app = express();
 const port = 80;
@@ -112,6 +125,9 @@ app.post('/stream/:id/:event', async (req, res) => {
       break;
     case 'follow':
       await db.saveFollow(id, payload);
+      break;
+    case 'moderator':
+      await db.saveModerator(id, payload);
       break;
   }
 });

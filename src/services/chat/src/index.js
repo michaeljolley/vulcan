@@ -47,7 +47,8 @@ const onFollowWebhook = async payload => {
       console.log(err);
     }
 
-    if (user && stream) {
+    if (user && stream && user.followDate === undefined) {
+      user.followDate = new Date().toISOString();
       const followPayload = {
         user,
         stream
