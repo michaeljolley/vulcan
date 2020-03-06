@@ -15,6 +15,10 @@ services:
     restart: always
     depends_on:
       - user
+  logger:
+    image: vulcan.azurecr.io/vulcan-logger:769
+    init: true
+    restart: always
   stream:
     image: vulcan.azurecr.io/vulcan-stream:769
     init: true

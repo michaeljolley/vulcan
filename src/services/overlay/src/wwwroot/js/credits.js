@@ -149,12 +149,7 @@ fetch('/socketio')
         }
 
         /* Contributors */
-        if (
-          stream.contributors ||
-          stream.candleVotes ||
-          stream.segments ||
-          stream.notes
-        ) {
+        if (stream.contributors || stream.chatMessages) {
           const contributorHeader = addParagraph('Contributors', true);
           marquee.append(contributorHeader);
 
@@ -162,18 +157,6 @@ fetch('/socketio')
 
           if (stream.contributors) {
             contributors.push(...stream.contributors);
-          }
-
-          if (stream.candleVotes) {
-            contributors.push(...stream.candleVotes.map(m => m.user));
-          }
-
-          if (stream.segments) {
-            contributors.push(...stream.segments.map(m => m.user));
-          }
-
-          if (stream.notes) {
-            contributors.push(...stream.notes.map(m => m.user));
           }
 
           if (stream.chatMessages) {
@@ -211,7 +194,11 @@ fetch('/socketio')
   });
 
 function addParagraph(title, isHeader, profileImageUrl) {
-  if (title != 'B3_Bot' && title != 'theMichaelJolley') {
+  if (
+    title != 'B3_Bot' &&
+    title != 'theMichaelJolley' &&
+    title != 'BaldBeardedBuilder'
+  ) {
     const p = document.createElement('p');
     if (isHeader) {
       p.classList.add('header');

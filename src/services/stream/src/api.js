@@ -24,12 +24,14 @@ const api = {
       if (response.data) {
         const body = response.data;
         stream = body.data.length > 1 ? body.data : body.data[0];
-        stream = {
-          id: stream.id,
-          started_at: stream.started_at,
-          streamDate: streamDate,
-          title: stream.title
-        };
+        if (stream) {
+          stream = {
+            id: stream.id,
+            started_at: stream.started_at,
+            streamDate: streamDate,
+            title: stream.title
+          };
+        }
       }
     } catch (err) {
       console.log(err);

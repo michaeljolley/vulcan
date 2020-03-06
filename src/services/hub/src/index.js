@@ -77,6 +77,9 @@ io.on('connection', socket => {
   socket.on('onCreditRoll', payload => {
     io.emit('onCreditRoll', payload);
   });
+  socket.on('requestCredits', payload => {
+    io.emit('requestCredits', payload);
+  });
 
   /*
    * LED commands

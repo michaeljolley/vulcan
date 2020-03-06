@@ -106,6 +106,10 @@ const tmiHandlers = {
     //   }
     // }
 
+    const stream = await getStream();
+
+    if (stream === undefined) return;
+
     // Get user from user service to send along with payloads
     let user = {};
     try {
@@ -114,7 +118,14 @@ const tmiHandlers = {
       console.log(err);
     }
 
-    const stream = await getStream();
+    // If this is a moderator, make sure they've been added as a mod
+    // for this stream.
+    if (userstate.mod && stream.moderators.indexOf(user._id) === -1) {
+      socket.emit('onModerator', {
+        user,
+        stream
+      });
+    }
 
     let hasCommand = false;
 
@@ -192,15 +203,17 @@ const tmiHandlers = {
 
     const stream = await getStream();
 
-    // Send message to Socket.IO to be processed by
-    // anyone who needs it
-    socket.emit('onCheer', {
-      channel,
-      userstate,
-      message,
-      user,
-      stream
-    });
+    if (stream && user) {
+      // Send message to Socket.IO to be processed by
+      // anyone who needs it
+      socket.emit('onCheer', {
+        channel,
+        userstate,
+        message,
+        user,
+        stream
+      });
+    }
   },
   giftpaidupgrade: async (channel, username, sender, userstate, socket) => {
     let user = {};
@@ -222,14 +235,16 @@ const tmiHandlers = {
 
     const stream = await getStream();
 
-    // Send message to Socket.IO to be processed by
-    // anyone who needs it
-    socket.emit('onRaid', {
-      channel,
-      viewers,
-      user,
-      stream
-    });
+    if (stream && user) {
+      // Send message to Socket.IO to be processed by
+      // anyone who needs it
+      socket.emit('onRaid', {
+        channel,
+        viewers,
+        user,
+        stream
+      });
+    }
   },
   resub: async (
     channel,
@@ -311,13 +326,15 @@ const tmiHandlers = {
 
     const stream = await getStream();
 
-    // Send message to Socket.IO to be processed by
-    // anyone who needs it
-    socket.emit('onJoin', {
-      channel,
-      user,
-      stream
-    });
+    if (stream && user) {
+      // Send message to Socket.IO to be processed by
+      // anyone who needs it
+      socket.emit('onJoin', {
+        channel,
+        user,
+        stream
+      });
+    }
   },
   part: async (channel, username, self, socket) => {
     let user = {};
@@ -329,13 +346,15 @@ const tmiHandlers = {
 
     const stream = await getStream();
 
-    // Send message to Socket.IO to be processed by
-    // anyone who needs it
-    socket.emit('onPart', {
-      channel,
-      user,
-      stream
-    });
+    if (stream && user) {
+      // Send message to Socket.IO to be processed by
+      // anyone who needs it
+      socket.emit('onPart', {
+        channel,
+        user,
+        stream
+      });
+    }
   }
 };
 
@@ -349,16 +368,18 @@ const onAnySub = async (
 ) => {
   const stream = await getStream();
 
-  // Send message to Socket.IO to be processed by
-  // anyone who needs it
-  socket.emit('onSubscription', {
-    channel,
-    user,
-    wasGift,
-    message,
-    cumulativeMonths,
-    stream
-  });
+  if (stream && user) {
+    // Send message to Socket.IO to be processed by
+    // anyone who needs it
+    socket.emit('onSubscription', {
+      channel,
+      user,
+      wasGift,
+      message,
+      cumulativeMonths,
+      stream
+    });
+  }
 };
 
 const getStream = async () => {
@@ -368,9 +389,7 @@ const getStream = async () => {
     if (streams && streams.data && streams.data.length > 0) {
       stream = streams.data[0];
     }
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
   return stream;
 };
 

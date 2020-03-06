@@ -182,3 +182,9 @@ socket.on('refreshUser', async payload => {
     await refreshUser(payload.user.login);
   }
 });
+
+socket.on('onFollow', async payload => {
+  if (payload && payload.user) {
+    await updateUser(payload.user.login, payload.user);
+  }
+});

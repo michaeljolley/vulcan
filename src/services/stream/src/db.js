@@ -30,31 +30,35 @@ const db = {
       })
     );
   },
-  getStreamById: async function(id) {
+  getFullStream: async function(streamDateArg) {
     return await new Promise(resolve =>
-      StreamModel.findOne({ id: id }, (err, res) => {
-        if (err) {
-          resolve(undefined);
-        }
-        resolve(res);
-      })
+      StreamModel.findOne({ streamDate: streamDateArg })
+        .populate('followers')
+        .populate('subscribers.user')
+        .populate('raiders.user')
+        .populate('cheers.user')
+        .populate('contributors')
+        .populate('moderators')
+        .populate('chatMessages.user')
+        .exec((err, res) => {
+          if (err) {
+            resolve(undefined);
+          }
+          resolve(res);
+        })
     );
   },
   saveCheer: async function(streamId, payload) {
     return await new Promise(resolve =>
-      StreamModel.findByIdAndUpdate(
-        streamId,
+      StreamModel.updateOne(
+        { _id: streamId },
         {
-          cheers: [
-            {
+          $push: {
+            cheers: {
               user: payload.user,
               bits: payload.userstate.bits
             }
-          ]
-        },
-        {
-          upsert: false, // Create the object if it doesn't exist?
-          new: true // Should return the newly updated object rather than the original?
+          }
         },
         (err, res) => {
           if (err) {
@@ -67,20 +71,16 @@ const db = {
   },
   saveChat: async function(streamId, payload) {
     return await new Promise(resolve =>
-      StreamModel.findByIdAndUpdate(
-        streamId,
+      StreamModel.updateOne(
+        { _id: streamId },
         {
-          chatMessages: [
-            {
+          $push: {
+            chatMessages: {
               user: payload.user,
-              timestamp: new Date(),
+              timestamp: new Date().toISOString(),
               message: payload.message
             }
-          ]
-        },
-        {
-          upsert: false, // Create the object if it doesn't exist?
-          new: true // Should return the newly updated object rather than the original?
+          }
         },
         (err, res) => {
           if (err) {
@@ -93,19 +93,15 @@ const db = {
   },
   saveRaid: async function(streamId, payload) {
     return await new Promise(resolve =>
-      StreamModel.findByIdAndUpdate(
-        streamId,
+      StreamModel.updateOne(
+        { _id: streamId },
         {
-          raiders: [
-            {
+          $push: {
+            raiders: {
               user: payload.user,
               viewers: payload.viewers
             }
-          ]
-        },
-        {
-          upsert: false, // Create the object if it doesn't exist?
-          new: true // Should return the newly updated object rather than the original?
+          }
         },
         (err, res) => {
           if (err) {
@@ -118,20 +114,16 @@ const db = {
   },
   saveSubscription: async function(streamId, payload) {
     return await new Promise(resolve =>
-      StreamModel.findByIdAndUpdate(
-        streamId,
+      StreamModel.updateOne(
+        { _id: streamId },
         {
-          subscribers: [
-            {
+          $push: {
+            subscribers: {
               user: payload.user,
               wasGift: payload.wasGift,
               cumulativeMonths: payload.cumulativeMonths
             }
-          ]
-        },
-        {
-          upsert: false, // Create the object if it doesn't exist?
-          new: true // Should return the newly updated object rather than the original?
+          }
         },
         (err, res) => {
           if (err) {
@@ -143,22 +135,14 @@ const db = {
     );
   },
   saveFollow: async function(streamId, payload) {
+    const user = payload.user;
     return await new Promise(resolve =>
-      StreamModel.findByIdAndUpdate(
-        streamId,
-        {
-          followers: [
-            {
-              user
-            }
-          ]
-        },
-        {
-          upsert: false, // Create the object if it doesn't exist?
-          new: true // Should return the newly updated object rather than the original?
-        },
+      StreamModel.updateOne(
+        { _id: streamId },
+        { $push: { followers: user } },
         (err, res) => {
           if (err) {
+            console.log(err);
             resolve(undefined);
           }
           resolve(res);
@@ -174,11 +158,12 @@ const db = {
         },
         payload,
         {
+          lean: true,
           upsert: true, // Create the object if it doesn't exist?
           new: true // Should return the newly updated object rather than the original?
         },
         (err, res) => {
-          if (err) {
+          if (err === undefined) {
             resolve(undefined);
           }
           resolve(res);
@@ -191,7 +176,7 @@ const db = {
       StreamModel.findByIdAndUpdate(
         streamId,
         {
-          ended_at: new Date()
+          ended_at: new Date().toISOString()
         },
         {
           upsert: false, // Create the object if it doesn't exist?
@@ -228,15 +213,37 @@ const db = {
     );
   },
   saveContribution: async function(streamId, payload) {
+    const user = payload.user;
     return await new Promise(resolve =>
-      StreamModel.findByIdAndUpdate(
-        streamId,
+      StreamModel.updateOne(
+        { _id: streamId },
         {
-          contributors: [payload.user]
+          $push: {
+            contributors: {
+              user
+            }
+          }
         },
+        (err, res) => {
+          if (err) {
+            resolve(undefined);
+          }
+          resolve(res);
+        }
+      )
+    );
+  },
+  saveModerator: async function(streamId, payload) {
+    const user = payload.user;
+    return await new Promise(resolve =>
+      StreamModel.updateOne(
+        { _id: streamId },
         {
-          upsert: false, // Create the object if it doesn't exist?
-          new: true // Should return the newly updated object rather than the original?
+          $push: {
+            moderators: {
+              user
+            }
+          }
         },
         (err, res) => {
           if (err) {
