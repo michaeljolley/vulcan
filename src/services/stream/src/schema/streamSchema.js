@@ -53,7 +53,7 @@ const raiderSchema = new mongoose.Schema({
 const streamSchema = new mongoose.Schema({
   id: { type: String, unique: true, required: true },
   started_at: { type: String, required: true },
-  streamDate: { type: String, required: true },
+  streamDate: { type: String, unique: true, required: true },
   ended_at: String,
   title: { type: String, required: true },
   replayLink: String,

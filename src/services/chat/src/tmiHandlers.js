@@ -386,8 +386,13 @@ const getStream = async () => {
   let stream = undefined;
   try {
     const streams = await streamService.getActiveStream();
-    if (streams && streams.data && streams.data.length > 0) {
-      stream = streams.data[0];
+
+    if (streams && streams.data) {
+      if (streams.data.length > 0) {
+        stream = streams.data[0];
+      } else {
+        stream = streams.data;
+      }
     }
   } catch (err) {}
   return stream;

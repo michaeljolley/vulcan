@@ -132,7 +132,6 @@ app.get('/user/:login', async (req, res) => {
 
   try {
     const user = await getUser(login);
-
     if (user) {
       res.json(user);
       return;

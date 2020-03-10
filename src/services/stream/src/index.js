@@ -62,7 +62,6 @@ app.use(express.json());
 
 app.get('/stream', async (req, res) => {
   const streamDate = new Date().toLocaleDateString('en-US');
-
   try {
     const stream = await getStream(streamDate);
 

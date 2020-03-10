@@ -159,15 +159,16 @@ const db = {
         },
         payload,
         {
-          lean: true,
           upsert: true, // Create the object if it doesn't exist?
           new: true // Should return the newly updated object rather than the original?
         },
         (err, res) => {
-          if (err === undefined) {
+          if (err !== undefined) {
+            console.dir(err);
             resolve(undefined);
+          } else {
+            resolve(res);
           }
-          resolve(res);
         }
       )
     );
