@@ -6,23 +6,16 @@ param($Request, $TriggerMetadata)
 # Write to the Azure Functions log stream.
 Write-Host "PowerShell HTTP trigger function processed a request."
 
-# Interact with query parameters or the body of the request.
-$name = $Request.Query.Name
-if (-not $name) {
-    $name = $Request.Body.Name
+$Params = @{
+    ResourceGroupName = 'vulcan'
+    ResourceType      = 'Microsoft.Web/sites/functions'
+    ResourceName      = 'vulcanfunc'
+    ApiVersion        = '2015-08-01'
 }
-
-if ($name) {
-    $status = [HttpStatusCode]::OK
-    $body = "Hello $name"
-}
-else {
-    $status = [HttpStatusCode]::BadRequest
-    $body = "Please pass a name on the query string or in the request body."
-}
+Get-AzureRmResource @Params
 
 # Associate values to output bindings by calling 'Push-OutputBinding'.
 Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
-    StatusCode = $status
-    Body = $body
-})
+        StatusCode = $status
+        Body       = $body
+    })
