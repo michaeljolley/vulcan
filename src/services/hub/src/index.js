@@ -60,6 +60,25 @@ io.on('connection', socket => {
   });
 
   /*
+   * Poll commands
+   */
+  socket.on('pollStart', payload => {
+    io.emit('pollStart', payload);
+  });
+  socket.on('pollStop', payload => {
+    io.emit('pollStop', payload);
+  });
+  socket.on('pollEnd', payload => {
+    io.emit('pollEnd', payload);
+  });
+  socket.on('pollVote', payload => {
+    io.emit('pollVote', payload);
+  });
+  socket.on('pollWinner', payload => {
+    io.emit('pollWinner', payload);
+  });
+
+  /*
    * AV commands
    */
   socket.on('onSoundEffect', payload => {

@@ -49,68 +49,27 @@ module.exports = async function(context, req) {
   // }
 
   // We have to have a message to parse in order to do a shout-out.
-  if (req.body && req.body.message && req.body.user) {
+  if (req.body && req.body.message && req.body.user && req.body.stream) {
     const user = req.body.user;
+    const stream = req.body.stream;
     const incomingMessage = req.body.message;
 
-    // We need a second command in the message
     const lowerMessage = incomingMessage.toLocaleLowerCase().trim();
-    const words = lowerMessage.split(" ");
-    const shamedThemes = [
-      "hotdogstand",
-      "lasers",
-      "powershell",
-      "bbbdark",
-      "bbblight",
-      "bbbgarish",
-      "bbbphrakpanda",
-      "bbbvue"
-    ];
+    const splitMessage = lowerMessage.split(" ");
 
-    if (words.length > 1 && shamedThemes.indexOf(words[1]) !== -1) {
-      const username = user["display-name"] || user.login;
-
-      let chatMessage = "";
-
-      switch (words[1]) {
-        case "hotdogstand":
-          chatMessage = `HotDog Stand!?! Shame on you @${username}`;
-          break;
-        case "lasers":
-          chatMessage = `Lasers!?! Shame on you @${username}`;
-          break;
-        case "powershell":
-          chatMessage = `PowerShell ISE!?! Shame on you @${username}`;
-          break;
-        case "bbbdark":
-          chatMessage = `BBB Dark!?! Shame on you @${username}`;
-          break;
-        case "bbblight":
-          chatMessage = `BBB Light!?! Shame on you @${username}`;
-          break;
-        case "bbbgarish":
-          chatMessage = `BBB Garish!?! Shame on you @${username}`;
-          break;
-        case "bbbgarish":
-          chatMessage = `BBB Vue!?! Shame on you @${username}`;
-          break;
-        case "bbbphrakpanda":
-          chatMessage = `I see what you're trying to do; using my favorite theme against me. Shame on you @${username}`;
-          break;
-      }
+    // We must have more than one parameter that includes a vote or commands
+    // to stop or start the voting
+    if (splitMessage.length > 1) {
+      const secondWord = splitMessage[1];
 
       const payload = {
-        message: chatMessage,
-        messageType: "chat", // or 'whisper'
-        recipient: null // required when messageType === whisper
+        stream,
+        user,
+        choice: secondWord
       };
 
-      // Send a the sfx to Socket.io
-      socket.emit("onSoundEffect", {
-        audioFile: "shame.mp3"
-      });
       // Send a message to the Socket.io
-      socket.emit("newMessage", payload);
+      socket.emit("pollVote", payload);
     }
   }
 };

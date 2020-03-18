@@ -113,6 +113,29 @@ const db = {
       )
     );
   },
+  savePollVote: async function(streamId, payload) {
+    return await new Promise(resolve =>
+      StreamModel.updateOne(
+        { _id: streamId },
+        {
+          $push: {
+            polls: {
+              votes: {
+                user: payload.user,
+                choice: payload.choice
+              }
+            }
+          }
+        },
+        (err, res) => {
+          if (err) {
+            resolve(undefined);
+          }
+          resolve(res);
+        }
+      )
+    );
+  },
   saveSubscription: async function(streamId, payload) {
     return await new Promise(resolve =>
       StreamModel.updateOne(
