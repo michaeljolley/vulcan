@@ -5,106 +5,24 @@ const streamService = require('./stream');
 
 // Load available functions by calling the stream function
 // that provides the dictionary of available commands
-let chatCommands = [
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/Blog',
-    command: 'blog'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/Discord',
-    command: 'discord'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/Fart',
-    command: 'fart'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/Font',
-    command: 'font'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/GitHub',
-    command: 'github'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/Help',
-    command: 'help'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/Heroines',
-    command: 'heroines'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/Hype',
-    command: 'hype'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/Keyboard',
-    command: 'keyboard'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/Light',
-    command: 'light'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/POBox',
-    command: 'pobox'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/Project',
-    command: 'project'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/Sfx',
-    command: 'sfx'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/So',
-    command: 'so'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/Stop',
-    command: 'stop'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/Theme',
-    command: 'theme'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/Giving',
-    command: 'giving'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/Team',
-    command: 'team'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/Twitter',
-    command: 'twitter'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/YouTube',
-    command: 'youtube'
-  },
-  {
-    uri: 'https://vulcanfunc.azurewebsites.net/api/Vulcan',
-    command: 'vulcan'
-  }
-];
+let chatCommands = [];
 
 const tmiHandlers = {
+  streamEnd: () => {
+    chatCommands = [];
+  },
   chat: async (channel, userstate, message, self, socket) => {
     if (self) return;
 
     const baseChatFunctionUrl = process.env.CHATFUNCTIONSBASEURL;
 
-    // if (chatCommands.length === 0) {
-    //   try {
-    //     chatCommands = (await func.getAvailableCommands()).data;
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // }
+    if (chatCommands.length === 0) {
+      try {
+        chatCommands = (await func.getAvailableCommands()).data;
+      } catch (err) {
+        console.log(err);
+      }
+    }
 
     const stream = await getStream();
 
@@ -115,7 +33,7 @@ const tmiHandlers = {
     try {
       user = (await userService.getUser(userstate.username)).data;
     } catch (err) {
-      console.log(err);
+      console.log(`Unable to retrieve user: ${userstate.username}`);
     }
 
     // If this is a moderator, make sure they've been added as a mod
@@ -321,7 +239,7 @@ const tmiHandlers = {
     try {
       user = (await userService.getUser(username)).data;
     } catch (err) {
-      console.log(err);
+      console.log(`Unable to retrieve user: ${username}`);
     }
 
     const stream = await getStream();
@@ -341,7 +259,7 @@ const tmiHandlers = {
     try {
       user = (await userService.getUser(username)).data;
     } catch (err) {
-      console.log(err);
+      console.log(`Unable to retrieve user: ${username}`);
     }
 
     const stream = await getStream();
