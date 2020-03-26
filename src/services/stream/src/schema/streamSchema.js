@@ -25,6 +25,36 @@ const chatMessageSchema = new mongoose.Schema({
   }
 });
 
+const pollSchema = new mongoose.Schema({
+  title: String,
+  choices: [pollChoiceSchema]
+});
+
+const pollChoiceSchema = new mongoose.Schema({
+  label: String,
+  value: String,
+  url: String,
+  isActive: Boolean
+});
+
+const PollModel = new mongoose.model('Poll', pollSchema);
+
+const streamPollSchema = new mongoose.Schema({
+  poll: {
+    ref: 'Poll',
+    type: mongoose.Schema.Types.ObjectId
+  },
+  votes: [pollVoteSchema]
+});
+
+const pollVoteSchema = new mongoose.Schema({
+  user: {
+    ref: 'User',
+    type: mongoose.Schema.Types.ObjectId
+  },
+  choice: String
+});
+
 const cheerSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -58,6 +88,7 @@ const streamSchema = new mongoose.Schema({
   title: { type: String, required: true },
   replayLink: String,
 
+  polls: [streamPollSchema],
   moderators: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   subscribers: [subscriberSchema],

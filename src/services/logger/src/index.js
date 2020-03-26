@@ -33,6 +33,9 @@ socket.on('*', async data => {
     case 'onModerator':
       await log.onModerator(payload);
       break;
+    case 'pollVote':
+      await log.onPollVote(payload);
+      break;
     default:
       break;
   }

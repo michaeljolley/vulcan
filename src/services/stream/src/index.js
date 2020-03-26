@@ -130,6 +130,9 @@ app.post('/stream/:id/:event', async (req, res) => {
     case 'moderator':
       await db.saveModerator(id, payload);
       break;
+    case 'pollVote':
+      await db.savePollVote(id, payload);
+      break;
   }
 });
 

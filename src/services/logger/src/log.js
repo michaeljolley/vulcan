@@ -24,6 +24,9 @@ const log = {
   },
   onModerator: async payload => {
     await sendStreamPayload('moderator', payload);
+  },
+  onPollVote: async payload => {
+    await sendStreamPayload('pollVote', payload);
   }
 };
 

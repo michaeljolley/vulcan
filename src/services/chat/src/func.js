@@ -6,7 +6,8 @@ const func = {
    * chat functions
    */
   getAvailableCommands: async () => {
-    return axios.get(`${process.env.STREAMFUNCTIONSURL}/api/commands`);
+    const baseChatFunctionUrl = process.env.CHATFUNCTIONSBASEURL;
+    return axios.get(`${baseChatFunctionUrl}xAvailableCommands`);
   },
 
   /**

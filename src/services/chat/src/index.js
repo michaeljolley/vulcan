@@ -60,6 +60,8 @@ const onFollowWebhook = async payload => {
 
 socket.on('onFollowWebhook', onFollowWebhook);
 
+socket.on('streamEnd', tmiHandlers.streamEnd);
+
 twitchChatClient.on('chat', (channel, userstate, message, self) => {
   tmiHandlers.chat(channel, userstate, message, self, socket);
 });

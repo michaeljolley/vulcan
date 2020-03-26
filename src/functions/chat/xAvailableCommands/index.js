@@ -1,10 +1,12 @@
 const axios = require("axios");
-const io = require("socket.io-client");
 require("dotenv").config();
 
-const socket = io.connect(process.env.VULCANHUBURL);
-
 module.exports = async function(context, req) {
+  // [{
+  //   uri: 'https://vulcanfunc.azurewebsites.net/api/Blog',
+  //   command: 'blog'
+  // },]
+
   const tenant_id = process.env.AZURETENANTID;
   const app_id = process.env.AZUREAPPID;
   const password = process.env.AZUREPASSWORD;
@@ -37,27 +39,21 @@ module.exports = async function(context, req) {
     })
   ).data.value;
 
-  const commands = functions
+  const response = functions
     .map(m => {
       return {
         uri: m.properties.invoke_url_template,
         command: m.name.toLowerCase().replace(`${funcApp}/`, "")
       };
     })
-    .filter(f => f.command[0] !== "x")
-    .map(m => m.command)
-    .sort()
-    .map(m => `!${m}`)
-    .join(", ");
+    .filter(f => f.command[0] !== "x");
 
-  const message = `I can respond to the following commands: ${commands}`;
-
-  const payload = {
-    message,
-    messageType: "chat", // or 'whisper'
-    recipient: null // required when messageType === whisper
+  context.res = {
+    // status: 200, /* Defaults to 200 */
+    body: response,
+    headers: {
+      "Content-Type": "application/json"
+    }
   };
-
-  // Send a message to the Socket.io
-  socket.emit("newMessage", payload);
+  context.done();
 };
