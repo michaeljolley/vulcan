@@ -4,9 +4,6 @@
       "path": "src/functions/chat"
     },
     {
-      "path": "src/functions/stream"
-    },
-    {
       "path": "src/services/chat"
     },
     {
@@ -116,8 +113,6 @@
     ]
   },
   "settings": {
-    "cSpell.words": [
-      "userstate"
-    ]
+    "cSpell.words": ["userstate"]
   }
 }
