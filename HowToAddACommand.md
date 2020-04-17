@@ -28,7 +28,7 @@ In the new folder, open the `index.js` file, and change the message in the `cons
 
 ### Adding the command to the help command
 
-Add the name of the command into the message in `/src/functions/chat/Help/index.js` so that it will show up when a chat user sends the `!help` command
+This is now generated dynamically, you don't need to do anything here!
 
 ### Adding the command to the tmiHandler
 
