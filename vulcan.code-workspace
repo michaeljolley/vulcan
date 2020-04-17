@@ -16,6 +16,9 @@
       "path": "src/services/overlay"
     },
     {
+      "path": "src/services/pubsub"
+    },
+    {
       "path": "src/services/stream"
     },
     {

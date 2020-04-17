@@ -71,12 +71,16 @@ module.exports = async function(context, req) {
       const username = user["display-name"] || user.login;
 
       let chatMessage = "";
+      let proceed = true;
 
       switch (words[1]) {
         case "hotdogstand":
           chatMessage = `HotDog Stand!?! Shame on you @${username}`;
           break;
         case "lasers":
+          if (user.login === "dot_commie") {
+            proceed = false;
+          }
           chatMessage = `Lasers!?! Shame on you @${username}`;
           break;
         case "powershell":
@@ -94,23 +98,28 @@ module.exports = async function(context, req) {
         case "bbbgarish":
           chatMessage = `BBB Vue!?! Shame on you @${username}`;
           break;
+        case "bbbpoo":
+          chatMessage = `BBB Poo!?! Shame on you @${username}`;
+          break;
         case "bbbphrakpanda":
           chatMessage = `I see what you're trying to do; using my favorite theme against me. Shame on you @${username}`;
           break;
       }
 
-      const payload = {
-        message: chatMessage,
-        messageType: "chat", // or 'whisper'
-        recipient: null // required when messageType === whisper
-      };
+      if (proceed) {
+        const payload = {
+          message: chatMessage,
+          messageType: "chat", // or 'whisper'
+          recipient: null // required when messageType === whisper
+        };
 
-      // Send a the sfx to Socket.io
-      socket.emit("onSoundEffect", {
-        audioFile: "shame.mp3"
-      });
-      // Send a message to the Socket.io
-      socket.emit("newMessage", payload);
+        // Send a the sfx to Socket.io
+        socket.emit("onSoundEffect", {
+          audioFile: "shame.mp3"
+        });
+        // Send a message to the Socket.io
+        socket.emit("newMessage", payload);
+      }
     }
   }
 };
