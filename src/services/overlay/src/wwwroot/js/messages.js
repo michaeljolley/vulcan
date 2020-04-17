@@ -11,7 +11,7 @@ fetch('/socketio')
     socket.on('onAnnouncement', newAnnouncementEventArg => {
       const user = newAnnouncementEventArg.user;
       const msg = newAnnouncementEventArg.message;
-      addAndStart(msg, undefined, user.profile_image_url, 10);
+      addAndStart(msg, undefined, user.profile_image_url, 10, 'purple');
     });
 
     socket.on('onCheer', newCheerEventArg => {
@@ -26,9 +26,9 @@ fetch('/socketio')
       const displayName = user.display_name || user.login;
       const msg = `DEFEND! ${displayName} is raiding with ${newRaidEventArg.viewers} accomplices!`;
       if (user.raidAlert) {
-        addAndStart(msg, user.raidAlert, user.profile_image_url, 10);
+        addAndStart(msg, user.raidAlert, user.profile_image_url, 10, 'red');
       } else {
-        addAndStart(msg, 'goodbadugly', user.profile_image_url, 10);
+        addAndStart(msg, 'goodbadugly', user.profile_image_url, 10, 'red');
       }
     });
 
@@ -65,16 +65,22 @@ fetch('/socketio')
 let messageQueue = [];
 let audioQueue = [];
 
-const intro = 'fadeInDown';
-const outro = 'fadeOutDown';
+const intro = 'bounceInLeft';
+const outro = 'bounceOutLeft';
 let isActive = false;
 
 const messageObj = document.getElementById('message');
-const messageBody = document.getElementById('displayName');
+const messageBody = document.getElementById('messageBody');
 const profileImg = document.getElementById('profileImageUrl');
 
-function addAndStart(m, a, p, t) {
-  messageQueue.push({ message: m, audio: a, profileImageUrl: p, timeout: t });
+function addAndStart(m, a, p, t, c) {
+  messageQueue.push({
+    message: m,
+    audio: a,
+    profileImageUrl: p,
+    timeout: t,
+    class: c
+  });
   if (isActive == false) {
     processMessage(messageQueue[0], false);
   }
@@ -89,8 +95,21 @@ function processMessage(qItem, bypass) {
 
   messageObj.classList.remove(outro);
 
+  if (qItem.profileImageUrl) {
+    profileImg.src = qItem.profileImageUrl;
+    profileImg.classList.remove('hidden');
+  } else {
+    profileImg.classList.add('hidden');
+  }
+
+  if (qItem.class) {
+    messageObj.classList.add(qItem.class);
+  } else {
+    messageObj.classList.remove('purple');
+    messageObj.classList.remove('red');
+  }
+
   messageBody.innerHTML = qItem.message;
-  profileImg.src = qItem.profileImageUrl;
 
   messageObj.classList.add(intro);
 
@@ -156,3 +175,11 @@ function audioStop(e) {
   e.srcElement.dispatchEvent(playNext);
   e.srcElement.remove();
 }
+
+const run = () => {
+  setInterval(() => {
+    addAndStart('test message as an announcement', null, null, 5);
+  }, 6000);
+};
+
+run();
