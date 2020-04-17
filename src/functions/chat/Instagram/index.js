@@ -33,7 +33,7 @@ module.exports = async function(context, req) {
   // }
 
   const message =
-    "You can find Mike on Instagram at https://www.instagram.com/baldbeardedbuilder/";
+    "Watch pre-stream & post-stream videos and more. Follow us on Instagram at https://www.instagram.com/baldbeardedbuilder";
 
   const payload = {
     message,
