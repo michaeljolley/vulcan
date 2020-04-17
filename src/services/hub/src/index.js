@@ -101,6 +101,13 @@ io.on('connection', socket => {
   });
 
   /*
+   * PubSub events
+   */
+  socket.on('pointsRedeemed', payload => {
+    io.emit('pointsRedeemed', payload);
+  });
+
+  /*
    * LED commands
    */
   socket.on('lightChanged', payload => {

@@ -163,7 +163,7 @@ const db = {
     return await new Promise(resolve =>
       StreamModel.updateOne(
         { _id: streamId },
-        { $push: { followers: user } },
+        { $push: { followers: user._id } },
         (err, res) => {
           if (err) {
             console.log(err);
@@ -242,13 +242,7 @@ const db = {
     return await new Promise(resolve =>
       StreamModel.updateOne(
         { _id: streamId },
-        {
-          $push: {
-            contributors: {
-              user
-            }
-          }
-        },
+        { $push: { contributors: user._id } },
         (err, res) => {
           if (err) {
             resolve(undefined);
@@ -263,13 +257,7 @@ const db = {
     return await new Promise(resolve =>
       StreamModel.updateOne(
         { _id: streamId },
-        {
-          $push: {
-            moderators: {
-              user
-            }
-          }
-        },
+        { $push: { moderators: user._id } },
         (err, res) => {
           if (err) {
             resolve(undefined);

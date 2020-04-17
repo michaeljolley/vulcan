@@ -25,11 +25,6 @@ const chatMessageSchema = new mongoose.Schema({
   }
 });
 
-const pollSchema = new mongoose.Schema({
-  title: String,
-  choices: [pollChoiceSchema]
-});
-
 const pollChoiceSchema = new mongoose.Schema({
   label: String,
   value: String,
@@ -37,15 +32,12 @@ const pollChoiceSchema = new mongoose.Schema({
   isActive: Boolean
 });
 
-const PollModel = new mongoose.model('Poll', pollSchema);
-
-const streamPollSchema = new mongoose.Schema({
-  poll: {
-    ref: 'Poll',
-    type: mongoose.Schema.Types.ObjectId
-  },
-  votes: [pollVoteSchema]
+const pollSchema = new mongoose.Schema({
+  title: String,
+  choices: [pollChoiceSchema]
 });
+
+const PollModel = new mongoose.model('Poll', pollSchema);
 
 const pollVoteSchema = new mongoose.Schema({
   user: {
@@ -53,6 +45,14 @@ const pollVoteSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId
   },
   choice: String
+});
+
+const streamPollSchema = new mongoose.Schema({
+  poll: {
+    ref: 'Poll',
+    type: mongoose.Schema.Types.ObjectId
+  },
+  votes: [pollVoteSchema]
 });
 
 const cheerSchema = new mongoose.Schema({
