@@ -2,6 +2,10 @@
 
 let avEnabled = true;
 
+$(document).ready(() => {
+  $('#message').addClass(hidden);
+});
+
 fetch('/socketio')
   .then(response => {
     return response.json();
@@ -67,9 +71,11 @@ let audioQueue = [];
 
 const intro = 'bounceInLeft';
 const outro = 'bounceOutLeft';
+const hidden = 'hid';
 let isActive = false;
 
 const messageObj = document.getElementById('message');
+const userObj = $('.user');
 const messageBody = document.getElementById('messageBody');
 const profileImg = document.getElementById('profileImageUrl');
 
@@ -93,6 +99,7 @@ function processMessage(qItem, bypass) {
 
   isActive = true;
 
+  messageObj.classList.remove(hidden);
   messageObj.classList.remove(outro);
 
   if (qItem.profileImageUrl) {
@@ -103,10 +110,10 @@ function processMessage(qItem, bypass) {
   }
 
   if (qItem.class) {
-    messageObj.classList.add(qItem.class);
+    userObj.addClass(qItem.class);
   } else {
-    messageObj.classList.remove('purple');
-    messageObj.classList.remove('red');
+    userObj.removeClass('purple');
+    userObj.removeClass('red');
   }
 
   messageBody.innerHTML = qItem.message;
@@ -119,6 +126,16 @@ function processMessage(qItem, bypass) {
   }
 
   messageQueue.splice(0, 1);
+
+  qItem.timeout * 1000;
+  $('.timer').attr('style', 'width:100%');
+
+  $('.timer').animate(
+    {
+      width: '0px'
+    },
+    qItem.timeout * 1000
+  );
 
   setTimeout(() => {
     messageObj.classList.remove(intro);
@@ -175,11 +192,3 @@ function audioStop(e) {
   e.srcElement.dispatchEvent(playNext);
   e.srcElement.remove();
 }
-
-const run = () => {
-  setInterval(() => {
-    addAndStart('test message as an announcement', null, null, 5);
-  }, 6000);
-};
-
-run();

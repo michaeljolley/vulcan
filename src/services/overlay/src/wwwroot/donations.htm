@@ -13,13 +13,21 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"
     />
-    <link rel="stylesheet" href="/css/chat.css" />
+    <link rel="stylesheet" href="/css/donations.css" />
   </head>
   <body>
-    <div class="container"></div>
+    <div id="message" class="animated">
+      <div class="user"></div>
+      <div class="timer">
+        <div class="percent"></div>
+      </div>
+      <div id="messageBody" class="name"></div>
+    </div>
+
+    <div id="container"></div>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="/js/socket.io.js"></script>
-    <script src="/js/chat.js"></script>
+    <script src="/js/donations.js"></script>
   </body>
 </html>

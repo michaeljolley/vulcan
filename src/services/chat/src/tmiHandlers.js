@@ -26,7 +26,7 @@ const tmiHandlers = {
 
     const stream = await getStream();
 
-    if (stream === undefined) return;
+    // if (stream === undefined) return;
 
     // Get user from user service to send along with payloads
     let user = {};
