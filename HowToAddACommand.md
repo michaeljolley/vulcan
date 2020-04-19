@@ -6,8 +6,6 @@
   - [Steps (TL; DR)](#steps-tl-dr)
   - [Changes Required](#changes-required)
     - [Adding a command](#adding-a-command)
-    - [Adding the command to the help command](#adding-the-command-to-the-help-command)
-    - [Adding the command to the tmiHandler](#adding-the-command-to-the-tmihandler)
 
 ## Changes Required
 
@@ -24,19 +22,4 @@ In the new folder, open the `index.js` file, and change the message in the `cons
 ```javascript
   const message =
     "The Bald Bearded Builder is currently supporting Backpack Buddies, helping feed underprivileged children who don't know where their next meal comes from. More information about the charity can be found at http://stclairbuddies.org";
-```
-
-### Adding the command to the help command
-
-This is now generated dynamically, you don't need to do anything here!
-
-### Adding the command to the tmiHandler
-
-Lastly, we need to add how to call the function, into tmiHandlers.js, which is located at `src/services/chat/src/tmiHandlers.js`, copy the below, and change the last part of the URI path and the command to match.
-
-```javascript
-{
-  uri: 'https://vulcanfunc.azurewebsites.net/api/Giving',
-  command: 'giving'
-}
 ```
