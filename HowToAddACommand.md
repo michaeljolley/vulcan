@@ -1,12 +1,5 @@
 # How to add chat command to the VULCAN chatbot
 
-## Steps (TL; DR)
-
-- [How to add chat command to the VULCAN chatbot](#how-to-add-chat-command-to-the-vulcan-chatbot)
-  - [Steps (TL; DR)](#steps-tl-dr)
-  - [Changes Required](#changes-required)
-    - [Adding a command](#adding-a-command)
-
 ## Changes Required
 
 ### Adding a command
