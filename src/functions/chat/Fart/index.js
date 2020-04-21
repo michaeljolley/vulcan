@@ -33,7 +33,7 @@ module.exports = async function(context, req) {
   // }
 
   const message =
-    "A well known 'friend' of the stream sent us one of the stinkiest baldbeCandle candles they could find, it was that bad, @BaldBeardedBuilder had to drive home, windows rolled down to clear the smell out of his truck! On his 1 year streamaversary on 19th Jan 2020, he committed that for 50 kids fed via cheers & subs, he will burn the candle live on stream for 15 mins in the name of charity (type !giving for more info, !pobox to find out how to send more candles)! Happy Virtual Candle Sniffing";
+    "A well known 'friend' of the stream sent us one of the stinkiest baldbeCandle candles they could find, it was that bad, @BaldBeardedBuilder had to drive home, windows rolled down to clear the smell out of his truck! On his 1 year streamaversary on 19th Jan 2020, he committed that for every 30 kids fed during a stream, via cheers, subs & donations, he will burn the candle live on stream for 15 mins in the name of charity (type !giving for more info, !pobox to find out how to send more candles)! Happy Virtual Candle Sniffing";
 
   const payload = {
     message,
