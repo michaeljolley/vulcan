@@ -34,16 +34,16 @@ img {
 }
 
 .user {
-  background-color: rgb(11, 115, 131);
+  background-color: rgba(11, 115, 131, 0.75);
   padding: 20px 40px 20px;
 }
 
 .purple {
-  background-color: rgb(164, 100, 200);
+  background-color: rgba(164, 100, 200, 0.75);
 }
 
 .red {
-  background-color: rgb(211, 76, 95);
+  background-color: rgba(211, 76, 95, 0.75);
 }
 
 .hidden {

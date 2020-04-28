@@ -32,7 +32,7 @@ body {
 /**/
 
 .chat {
-  background-color: rgba(11, 115, 131, 1);
+  background-color: rgba(11, 115, 131, 0.75);
   margin-top: 15px;
   padding: 0px;
   /*  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 5% 100%, 0% 0%);
@@ -72,27 +72,27 @@ img.emote {
 
 /* Mod skin start */
 .mod {
-  background-color: rgb(211, 76, 95);
+  background-color: rgba(211, 76, 95, 0.75);
 }
 .mod .profile {
-  background-color: rgb(211, 76, 95);
+  background-color: rgba(211, 76, 95, 0.75);
 }
 /* Mod skin end */
 
-/* Cheer skin start */
-.cheer {
-  background-color: rgba(164, 100, 200, 1);
-}
-.cheer .profile {
-  background-color: rgba(164, 100, 200, 1);
-}
-/* Cheer skin end */
-
 /* VIP skin start */
 .vip {
-  background-color: rgba(99, 169, 228, 1);
+  background-color: rgba(99, 169, 228, 0.75);
 }
 .vip .profile {
-  background-color: rgba(99, 169, 228, 1);
+  background-color: rgba(99, 169, 228, 0.75);
 }
 /* VIP skin end */
+
+/* Cheer skin start */
+.cheer {
+  background-color: rgba(164, 100, 200, 0.75);
+}
+.cheer .profile {
+  background-color: rgba(164, 100, 200, 0.75);
+}
+/* Cheer skin end */
