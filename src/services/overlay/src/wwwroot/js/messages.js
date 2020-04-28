@@ -2,6 +2,10 @@
 
 let avEnabled = true;
 
+$(document).ready(() => {
+  $('#message').addClass(hidden);
+});
+
 fetch('/socketio')
   .then(response => {
     return response.json();
@@ -11,7 +15,7 @@ fetch('/socketio')
     socket.on('onAnnouncement', newAnnouncementEventArg => {
       const user = newAnnouncementEventArg.user;
       const msg = newAnnouncementEventArg.message;
-      addAndStart(msg, undefined, user.profile_image_url, 10);
+      addAndStart(msg, undefined, user.profile_image_url, 10, 'purple');
     });
 
     socket.on('onCheer', newCheerEventArg => {
@@ -26,9 +30,9 @@ fetch('/socketio')
       const displayName = user.display_name || user.login;
       const msg = `DEFEND! ${displayName} is raiding with ${newRaidEventArg.viewers} accomplices!`;
       if (user.raidAlert) {
-        addAndStart(msg, user.raidAlert, user.profile_image_url, 10);
+        addAndStart(msg, user.raidAlert, user.profile_image_url, 10, 'red');
       } else {
-        addAndStart(msg, 'goodbadugly', user.profile_image_url, 10);
+        addAndStart(msg, 'goodbadugly', user.profile_image_url, 10, 'red');
       }
     });
 
@@ -65,16 +69,24 @@ fetch('/socketio')
 let messageQueue = [];
 let audioQueue = [];
 
-const intro = 'fadeInDown';
-const outro = 'fadeOutDown';
+const intro = 'bounceInLeft';
+const outro = 'bounceOutLeft';
+const hidden = 'hid';
 let isActive = false;
 
 const messageObj = document.getElementById('message');
-const messageBody = document.getElementById('displayName');
+const userObj = $('.user');
+const messageBody = document.getElementById('messageBody');
 const profileImg = document.getElementById('profileImageUrl');
 
-function addAndStart(m, a, p, t) {
-  messageQueue.push({ message: m, audio: a, profileImageUrl: p, timeout: t });
+function addAndStart(m, a, p, t, c) {
+  messageQueue.push({
+    message: m,
+    audio: a,
+    profileImageUrl: p,
+    timeout: t,
+    class: c
+  });
   if (isActive == false) {
     processMessage(messageQueue[0], false);
   }
@@ -87,10 +99,24 @@ function processMessage(qItem, bypass) {
 
   isActive = true;
 
+  messageObj.classList.remove(hidden);
   messageObj.classList.remove(outro);
 
+  if (qItem.profileImageUrl) {
+    profileImg.src = qItem.profileImageUrl;
+    profileImg.classList.remove('hidden');
+  } else {
+    profileImg.classList.add('hidden');
+  }
+
+  if (qItem.class) {
+    userObj.addClass(qItem.class);
+  } else {
+    userObj.removeClass('purple');
+    userObj.removeClass('red');
+  }
+
   messageBody.innerHTML = qItem.message;
-  profileImg.src = qItem.profileImageUrl;
 
   messageObj.classList.add(intro);
 
@@ -100,6 +126,16 @@ function processMessage(qItem, bypass) {
   }
 
   messageQueue.splice(0, 1);
+
+  qItem.timeout * 1000;
+  $('.timer').attr('style', 'width:100%');
+
+  $('.timer').animate(
+    {
+      width: '0px'
+    },
+    qItem.timeout * 1000
+  );
 
   setTimeout(() => {
     messageObj.classList.remove(intro);

@@ -1,6 +1,6 @@
 ﻿body {
   font-family: 'PT Sans', sans-serif;
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 400;
   color: #fff;
   margin: 10px 0 0 0;
@@ -19,22 +19,29 @@ div {
   display: inline-block;
 }
 
-img {
-  width: 48px;
-  border: 2px solid rgba(0, 0, 0, 0.5);
-  margin-right: 20px;
-  float: left;
+.user {
+  background-color: rgb(11, 115, 131);
+  position: relative;
+  z-index: 0;
+  height: 80px;
+  width: 100%;
 }
 
 .timer {
-  background-color: rgba(0, 0, 0, 0.2);
+  height: 79px;
+  position: relative;
+  top: -87px;
+  z-index: 5;
   width: 100%;
-  height: 10px;
-  position: absolute;
 }
-
-.user {
-  background-color: rgb(11, 115, 131);
+.percent {
+  background-color: rgba(0, 0, 0, 0.2);
+  height: 100%;
+}
+.name {
+  position: relative;
+  top: -175px;
+  z-index: 10;
   padding: 20px 40px 20px;
 }
 
