@@ -10,6 +10,7 @@
     "azure-storage": "^2.10.3",
     "color-convert": "^2.0.1",
     "dotenv": "^8.2.0",
+    "moment": "^2.24.0",
     "obs-websocket-js": "^4.0.1",
     "socket.io-client": "^2.3.0"
   },
