@@ -101,6 +101,16 @@
         "test",
         "code"
       ]
+    },
+    {
+      "login": "redet-G",
+      "name": "Redet Getachew",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/20116752?v=4",
+      "profile": "https://linkedin.com/in/redet",
+      "contributions": [
+        "test",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
