@@ -167,7 +167,7 @@ const tmiHandlers = {
   resub: async (
     channel,
     username,
-    months,
+    cumulativeMonths,
     message,
     userstate,
     methods,
@@ -180,12 +180,12 @@ const tmiHandlers = {
       console.log(err);
     }
 
-    onAnySub(channel, user, false, message, months, socket);
+    onAnySub(channel, user, false, message, cumulativeMonths, socket);
   },
   subgift: async (
     channel,
     username,
-    streakMonths,
+    cumulativeMonths,
     recipient,
     methods,
     userstate,
@@ -198,7 +198,7 @@ const tmiHandlers = {
       console.log(err);
     }
 
-    onAnySub(channel, user, true, '', streakMonths, socket);
+    onAnySub(channel, user, true, '', cumulativeMonths, socket);
   },
   submysterygift: async (
     channel,
@@ -220,6 +220,7 @@ const tmiHandlers = {
   subscription: async (
     channel,
     username,
+    cumulativeMonths,
     method,
     message,
     userstate,
@@ -232,7 +233,7 @@ const tmiHandlers = {
       console.log(err);
     }
 
-    onAnySub(channel, user, false, message, 1, socket);
+    onAnySub(channel, user, false, message, cumulativeMonths, socket);
   },
   join: async (channel, username, self, socket) => {
     let user = {};

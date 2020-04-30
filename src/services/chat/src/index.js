@@ -87,7 +87,7 @@ twitchChatClient.on(
     tmiHandlers.resub(
       channel,
       username,
-      months,
+      userstate['msg-param-streak-months'],
       message,
       userstate,
       methods,
@@ -102,7 +102,7 @@ twitchChatClient.on(
     tmiHandlers.subgift(
       channel,
       username,
-      streakMonths,
+      userstate['msg-param-months'],
       recipient,
       methods,
       userstate,
@@ -131,6 +131,7 @@ twitchChatClient.on(
     tmiHandlers.subscription(
       channel,
       username,
+      userstate['msg-param-streak-months'],
       method,
       message,
       userstate,
