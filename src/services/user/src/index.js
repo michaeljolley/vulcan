@@ -31,25 +31,6 @@ async function getUser(login) {
     return user;
   }
 
-  // If we didn't get the user from the cache, attempt
-  // to get it out of the database.
-  try {
-    user = await db.getUser(login);
-  } catch (err) {
-    console.log(err);
-  }
-
-  // If we got the user from the database, add it to
-  // the cache for future requests and return it.
-  if (user) {
-    try {
-      await cache.storeUser(user);
-    } catch (err) {
-      console.log(err);
-    }
-    return user;
-  }
-
   // If we didn't have the user in cache or the database,
   // make a call out to the Twitch API to retrieve it.
   try {
