@@ -4,6 +4,31 @@ require("dotenv").config();
 
 const socket = io.connect(process.env.VULCANHUBURL);
 
+function formatMomentDuration(duration) {
+  let val = duration;
+
+  const days = duration.days();
+  const hours = duration.hours();
+  const minutes = duration.minutes();
+
+  const daysString = days > 0 ? `${days} day${days !== 1 ? "s" : ""}` : ``;
+  const hoursString =
+    hours > 0
+      ? `${daysString.length > 0 ? ", " : ""}${hours} hour${
+          hours !== 1 ? "s" : ""
+        }`
+      : ``;
+  const minutesString =
+    minutes > 0
+      ? `
+  ${
+    daysString.length > 0 || hoursString.length > 0 ? " and " : ""
+  }${minutes} minute${minutes !== 1 ? "s" : ""}`
+      : ``;
+
+  return `${daysString}${hoursString}${minutesString}`;
+}
+
 module.exports = async function (context, req) {
   // All chat functions will receive a payload of:
   // {
@@ -42,7 +67,9 @@ module.exports = async function (context, req) {
     const startedAt = moment(stream.started_at);
     const now = moment(new Date());
 
-    const streamLength = moment.duration(startedAt.diff(now)).humanize();
+    const streamLength = formatMomentDuration(
+      moment.duration(now.diff(startedAt))
+    );
 
     const message = `@${username}, we've been streaming for ${streamLength} today. Will the madness never end!?!`;
 
