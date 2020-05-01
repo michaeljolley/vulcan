@@ -65,7 +65,7 @@ module.exports = async function (context, req) {
     const username = user.display_name || user.login;
 
     const startedAt = moment(stream.started_at);
-    const now = moment(new Date());
+    const now = moment.utc();
 
     const streamLength = formatMomentDuration(
       moment.duration(now.diff(startedAt))
