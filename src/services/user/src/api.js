@@ -1,4 +1,6 @@
 const axios = require('axios');
+const { getTwitchAccessToken } = require('@jlengstorf/get-twitch-oauth');
+
 const twitchAPIUserEndpoint = 'https://api.twitch.tv/helix/users';
 
 require('dotenv').config();
@@ -8,10 +10,17 @@ const twitchClientId = process.env.TWITCHCLIENTID;
 
 const api = {
   getUser: async function(login) {
+    const { access_token } = await getTwitchAccessToken({
+        client_id: twitchClientId,
+        client_secret: twitchClientToken,
+        grant_type: 'client_credentials',
+        scopes: ''
+      });
+
     const url = `${twitchAPIUserEndpoint}?login=${login}`;
 
     const headers = {
-      Authorization: `Bearer ${twitchClientToken}`,
+      Authorization: `Bearer ${access_token}`,
       'Content-Type': 'application/json',
       'Client-ID': twitchClientId
     };
