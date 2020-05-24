@@ -50,7 +50,11 @@ module.exports = async function(context, req) {
 
   // We have to have a message to parse in order to do a shout-out.
   if (req.body && req.body.message && req.body.user) {
-    const user = req.body.user;
+    
+    const stream = req.body.stream;
+
+    if (stream === undefined) return;
+    
     const userstate = req.body.userstate;
     const incomingMessage = req.body.message;
 

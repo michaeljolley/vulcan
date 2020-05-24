@@ -21,7 +21,7 @@ const api = {
     const url = `${twitchAPIStreamEndpoint}?user_id=${twitchClientUserId}&first=1`;
 
     const headers = {
-      Authorization: `Bearer ${twitchClientToken}`,
+      Authorization: `Bearer ${access_token}`,
       'Content-Type': 'application/json',
       'Client-ID': twitchClientId
     };

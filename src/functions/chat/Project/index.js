@@ -35,6 +35,8 @@ module.exports = async function(context, req) {
     const user = req.body.user;
     const stream = req.body.stream;
 
+    if (stream === undefined) return;
+    
     const username = user.display_name || user.login;
 
     const message = `@${username}, today's topic is: ${stream.title}`;

@@ -53,6 +53,10 @@ module.exports = async function(context, req) {
 
   // We need to get a list of sound clips from storage and
   // return them in a list.
+  
+  const stream = req.body.stream;
+
+  if (stream === undefined) return;
 
   fileService.listFilesAndDirectoriesSegmented(
     "assets",

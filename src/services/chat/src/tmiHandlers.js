@@ -26,8 +26,6 @@ const tmiHandlers = {
 
     const stream = await getStream();
 
-    // if (stream === undefined) return;
-
     // Get user from user service to send along with payloads
     let user = {};
     try {
@@ -38,7 +36,7 @@ const tmiHandlers = {
 
     // If this is a moderator, make sure they've been added as a mod
     // for this stream.
-    if (userstate.mod && stream.moderators.indexOf(user._id) === -1) {
+    if (userstate.mod && stream && stream.moderators.indexOf(user._id) === -1) {
       socket.emit('onModerator', {
         user,
         stream
@@ -68,10 +66,13 @@ const tmiHandlers = {
       }
     }
 
+    if (stream === undefined) return;
+
     // If this isn't an existing command but starts with "!" send to the
     // sound effect function to see if it should trigger something.
     if (
       !hasCommand &&
+      stream &&
       firstWord.charAt(0) === '!' &&
       message.toLowerCase().split(' ').length === 1
     ) {
