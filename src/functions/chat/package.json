@@ -6,6 +6,7 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
+    "@jlengstorf/get-twitch-oauth": "^1.0.1",
     "axios": "^0.19.2",
     "azure-storage": "^2.10.3",
     "color-convert": "^2.0.1",

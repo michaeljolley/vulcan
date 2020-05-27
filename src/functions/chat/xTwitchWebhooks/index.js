@@ -1,4 +1,6 @@
 const axios = require("axios");
+const { getTwitchAccessToken } = require('@jlengstorf/get-twitch-oauth');
+
 const twitchAPIStreamEndpoint = "https://api.twitch.tv/helix/webhooks/hub";
 
 require("dotenv").config();
@@ -8,13 +10,24 @@ const twitchClientId = process.env.TWITCHCLIENTID;
 const twitchClientUserId = process.env.TWITCHCLIENTUSERID;
 const webhookUrl = process.env.VULCANWEBHOOKURL;
 
-const headers = {
+
+let headers = {
   Authorization: `Bearer ${twitchClientToken}`,
   "Content-Type": "application/json",
   "Client-ID": twitchClientId
 };
 
 module.exports = async function(context, myTimer) {
+
+  const { access_token } = await getTwitchAccessToken({
+    client_id: twitchClientId,
+    client_secret: twitchClientToken,
+    grant_type: 'client_credentials',
+    scopes: ''
+  });
+
+  headers.Authorization = `Bearer ${access_token}`;
+
   await subscribeToFollowers();
   await subscribeToStreamEvents();
 };
