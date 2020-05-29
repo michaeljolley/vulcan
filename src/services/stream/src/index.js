@@ -134,6 +134,7 @@ app.post('/stream/:id/:event', async (req, res) => {
       await db.savePollVote(id, payload);
       break;
   }
+  res.sendStatus(200);
 });
 
 app.listen(port, () =>

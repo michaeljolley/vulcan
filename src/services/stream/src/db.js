@@ -63,6 +63,7 @@ const db = {
         },
         (err, res) => {
           if (err) {
+            console.log(`saveCheer: ${err}`);
             resolve(undefined);
           }
           resolve(res);

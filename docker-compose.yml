@@ -41,17 +41,6 @@ services:
     restart: always
     env_file:
       - ./src/services/stream/.env
-  pubsub:
-    build:
-      context: ./src/services/pubsub
-      dockerfile: Dockerfile
-    container_name: vulcan-pubsub
-    init: true
-    restart: always
-    env_file:
-      - ./src/services/pubsub/.env
-    depends_on:
-      - user
   user:
     build:
       context: ./src/services/user

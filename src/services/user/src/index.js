@@ -43,12 +43,14 @@ async function getUser(login) {
   // to both the cache and database for future requests.
   if (user) {
     try {
-      await cache.storeUser(user);
-      await db.saveUser(user);
+      user = await db.saveUser(user);
+      if (user) {
+        await cache.storeUser(user);
+        return user;
+      }
     } catch (err) {
       console.log(err);
     }
-    return user;
   }
 
   return undefined;

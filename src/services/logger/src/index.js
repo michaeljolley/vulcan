@@ -8,8 +8,8 @@ const socket = io.connect(process.env.VULCANHUBURL);
 const patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
 
-// When we receive an event from the hub service,
-// process any associated web hooks.
+// // When we receive an event from the hub service,
+// // process any associated web hooks.
 socket.on('*', async data => {
   const event = data.data[0];
   const payload = data.data[1];
