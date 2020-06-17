@@ -106,6 +106,13 @@ io.on('connection', socket => {
   socket.on('pointsRedeemed', payload => {
     io.emit('pointsRedeemed', payload);
   });
+  
+  /*
+   * Timer commands
+   */
+  socket.on('onTimerStart', payload => {
+    io.emit('onTimerStart', payload);
+  });
 
   /*
    * LED commands
