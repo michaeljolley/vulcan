@@ -26,11 +26,13 @@ fetch('/socketio')
        * }
       */
 
-      startTimer(newTimerEventArg.timer);
+      startTimer(newTimerEventArg);
     });
   });
 
 const startTimer = (timer) => {
+  stopTimer();
+
   secondsRemaining = Math.floor(timer.length / 1000);
   totalSeconds = secondsRemaining;
   currentTimer = timer;
@@ -38,26 +40,32 @@ const startTimer = (timer) => {
   const minutes = Math.floor(secondsRemaining / 60);
   const seconds = Math.floor(secondsRemaining % 60);
 
-  messageBody.innerText = `${minutes}:${seconds}`;
+  messageBody.innerText = `${minutes}:${(seconds < 10 ? '0' : '') + seconds}`;
   
-  timeBar.removeClass('hidden');
+  timeBar.classList.remove('hidden');
 
   // Animate making the timer bar the full width of the page.
   for (let i = 0; i !== 100; i++) {
-    percent.style.width = `${i}%`;
+    percentBar.style.width = `${i}%`;
   }
 
   interval = setInterval(processSecond, 1000);
 }
 const stopTimer = () => {
-  timeBar.addClass('hidden');
+  clearInterval(interval);
+
+  secondsRemaining = 0;
+  totalSeconds = 0;
+  showLabelTimer = 0;
+  currentTimer = undefined;
+  
+  timeBar.classList.add('hidden');
 }
 
 const processSecond = () => {
   secondsRemaining--;
 
   if (secondsRemaining === 0) {
-    clearInterval(interval);
     stopTimer();
     return;
   }
@@ -74,12 +82,12 @@ const processSecond = () => {
   const minutes = Math.floor(secondsRemaining / 60);
   const seconds = Math.floor(secondsRemaining % 60);
 
-  let message = `${minutes}:${seconds}`;
+  let message = `${minutes}:${(seconds < 10 ? '0' : '') + seconds}`;
 
   if (showLabelTimer > 0) {
-    message = timer.goal;
+    message = currentTimer.goal;
   }
 
   messageBody.innerText = message;
-  percent.style.width = `${percent}%`;
+  percentBar.style.width = `${percent}%`;
 }
