@@ -58,8 +58,8 @@ const stopTimer = () => {
   totalSeconds = 0;
   showLabelTimer = 0;
   currentTimer = undefined;
-  
-  timeBar.classList.add('hidden');
+
+  timeBar.classList.add('hidden'); 
 }
 
 const processSecond = () => {
