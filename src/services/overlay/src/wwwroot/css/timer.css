@@ -24,6 +24,7 @@ div {
   height: 65px;
   position: absolute;
   right: 0px;
+  transition: width 1s linear;
 }
 #messageBody {
   position: relative;
