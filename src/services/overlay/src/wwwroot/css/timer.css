@@ -1,0 +1,34 @@
+﻿body {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+div {
+  display: inline-block;
+}
+
+.hidden {
+  display: none;
+}
+
+#timeBar {
+  width: 100%;
+}
+
+#timer {
+  background-color: rgba(11, 115, 131, 0.75);
+  height: 65px;
+  position: absolute;
+  right: 0px;
+}
+#messageBody {
+  position: relative;
+  z-index: 10;
+  margin: 5px 10px;
+  font-size: 1.5em;
+  font-weight: bold;
+}
