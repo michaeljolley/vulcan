@@ -68,7 +68,8 @@ module.exports = async function(context, req) {
       "bbblight",
       "bbbgarish",
       "bbbphrakpanda",
-      "bbbvue"
+      "bbbvue",
+      "bbbpoo"
     ];
 
     if (words.length > 1 && shamedThemes.indexOf(words[1]) !== -1) {
@@ -99,7 +100,7 @@ module.exports = async function(context, req) {
         case "bbbgarish":
           chatMessage = `BBB Garish!?! Shame on you @${username}`;
           break;
-        case "bbbgarish":
+        case "bbbvue":
           chatMessage = `BBB Vue!?! Shame on you @${username}`;
           break;
         case "bbbpoo":
