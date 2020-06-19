@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const socket = io.connect(process.env.VULCANHUBURL);
 
-module.exports = async function(context, req) {
+module.exports = async function (context, req) {
   // All chat functions will receive a payload of:
   // {
   //    channel: string,
@@ -33,12 +33,12 @@ module.exports = async function(context, req) {
   // }
 
   const message =
-    "Want to support the BBB stream by repping the merch? Visit https://baldbeardedbuilder.threadless.com/ to get your gear.";
+    "Want to support the BBB stream by repping the merch? Visit the online store at https://baldbeardedbuilder.threadless.com/ to get your gear.";
 
   const payload = {
     message,
     messageType: "chat", // or 'whisper'
-    recipient: null // required when messageType === whisper
+    recipient: null, // required when messageType === whisper
   };
 
   // Send a message to the Socket.io
