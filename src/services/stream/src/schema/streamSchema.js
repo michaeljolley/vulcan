@@ -63,6 +63,15 @@ const cheerSchema = new mongoose.Schema({
   bits: Number
 });
 
+const donationSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  amount: Number,
+  message: String
+});
+
 const subscriberSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -94,6 +103,7 @@ const streamSchema = new mongoose.Schema({
   subscribers: [subscriberSchema],
   raiders: [raiderSchema],
   cheers: [cheerSchema],
+  donations: [donationSchema],
   contributors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   chatMessages: [chatMessageSchema]
 });

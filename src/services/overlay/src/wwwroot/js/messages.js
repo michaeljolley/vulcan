@@ -22,7 +22,7 @@ fetch('/socketio')
       const displayName =
         newCheerEventArg.user.display_name || cheerer.user.login;
       const msg = `${displayName} just cheered ${newCheerEventArg.userstate.bits} bits`;
-      addAndStart(msg, 'applause', newCheerEventArg.user.profile_image_url, 10);
+      addAndStart(msg, 'cheer', newCheerEventArg.user.profile_image_url, 10);
     });
 
     socket.on('onRaid', newRaidEventArg => {
@@ -54,6 +54,14 @@ fetch('/socketio')
       const displayName = follower.display_name || follower.login;
       const msg = `Welcome ${displayName}! Thanks for following!`;
       addAndStart(msg, 'ohmy', follower.profile_image_url, 10);
+    });
+    
+    socket.on('onDonation', newDonationEventArg => {
+      const donator = newDonationEventArg.user;
+      const amount = `$${newDonationEventArg.amount}`;
+      const displayName = donator.display_name || donator.login;
+      const msg = `${displayName} just donated ${amount}! You're the GOAT!`;
+      addAndStart(msg, 'donate', donator.profile_image_url, 10);
     });
 
     socket.on('stopAudio', () => {
@@ -154,7 +162,7 @@ function processMessage(qItem, bypass) {
   }, qItem.timeout * 1000);
 }
 
-const _audioPath = '/assets/audio/clips/';
+const _audioPath = '/assets/audio/alerts/';
 const container = document.getElementById('container');
 const playNext = new CustomEvent('playNext', {
   bubbles: true

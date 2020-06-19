@@ -27,6 +27,9 @@ socket.on('*', async data => {
     case 'onSubscription':
       await log.onSubscription(payload);
       break;
+    case 'onDonation':
+      await log.onDonation(payload);
+      break;
     case 'onFollow':
       await log.onFollow(payload);
       break;

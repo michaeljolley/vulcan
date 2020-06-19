@@ -1,0 +1,38 @@
+{
+  "name": "vulcan-streamelements",
+  "version": "1.0.0",
+  "description": "Stream Elements websocket client for Vulcan chat bot.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js",
+    "debug:pkg": "nodemon -L --watch package.json --exec 'npm i'",
+    "debug:app": "nodemon -L -e js,ts,htm --watch src --exec 'npm run build && node --inspect=0.0.0.0:9229 dist/index.js'",
+    "debug": "npm-run-all --parallel debug:pkg debug:app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaeljolley/vulcan.git"
+  },
+  "author": "Michael Jolley <mike@sparcapp.io>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/michaeljolley/vulcan/issues"
+  },
+  "homepage": "https://github.com/michaeljolley/vulcan#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "socket.io-client": "^2.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "minimist": ">=1.2.2",
+    "prettier": "^1.18.2"
+  }
+}

@@ -22,6 +22,9 @@
       "path": "src/services/stream"
     },
     {
+      "path": "src/services/streamelements"
+    },
+    {
       "path": "src/services/user"
     },
     {

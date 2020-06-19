@@ -159,6 +159,28 @@ const db = {
       )
     );
   },
+  saveSubscription: async function(streamId, payload) {
+    return await new Promise(resolve =>
+      StreamModel.updateOne(
+        { _id: streamId },
+        {
+          $push: {
+            donations: {
+              user: payload.user,
+              amount: payload.amount,
+              message: payload.message
+            }
+          }
+        },
+        (err, res) => {
+          if (err) {
+            resolve(undefined);
+          }
+          resolve(res);
+        }
+      )
+    );
+  },
   saveFollow: async function(streamId, payload) {
     const user = payload.user;
     return await new Promise(resolve =>

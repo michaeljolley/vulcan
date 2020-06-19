@@ -26,6 +26,10 @@ services:
     image: vulcan.azurecr.io/vulcan-stream:873
     init: true
     restart: always
+  streamelements:
+    image: vulcan.azurecr.io/vulcan-streamelements:873
+    init: true
+    restart: always
   user:
     image: vulcan.azurecr.io/vulcan-user:873
     init: true

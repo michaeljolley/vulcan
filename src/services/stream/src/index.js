@@ -124,6 +124,9 @@ app.post('/stream/:id/:event', async (req, res) => {
     case 'subscription':
       await db.saveSubscription(id, payload);
       break;
+    case 'donation':
+      await db.saveDonation(id, payload);
+      break;
     case 'follow':
       await db.saveFollow(id, payload);
       break;

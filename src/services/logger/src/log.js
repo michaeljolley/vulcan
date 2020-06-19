@@ -19,6 +19,9 @@ const log = {
   onSubscription: async payload => {
     await sendStreamPayload('subscription', payload);
   },
+  onDonation: async payload => {
+    await sendStreamPayload('donation', payload);
+  },
   onFollow: async payload => {
     await sendStreamPayload('follow', payload);
   },

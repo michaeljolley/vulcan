@@ -122,7 +122,7 @@ io.on('connection', socket => {
   });
 
   /*
-   * Cheer & sub events
+   * Cheer, sub & donation events
    */
   socket.on('onCheer', payload => {
     io.emit('onCheer', payload);
@@ -131,6 +131,10 @@ io.on('connection', socket => {
   socket.on('onSubscription', payload => {
     io.emit('onSubscription', payload);
   });
+
+  socket.on('onDonation', payload => {
+    io.emit('onDonation', payload);
+  })
 });
 
 http.listen(80, function() {
