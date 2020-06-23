@@ -2,20 +2,20 @@ version: "3.7"
 
 services:
   chat:
-    image: vulcan.azurecr.io/vulcan-chat:873
+    image: vulcan.azurecr.io/vulcan-chat:882
     init: true
     restart: always
     depends_on:
       - user
   logger:
-    image: vulcan.azurecr.io/vulcan-logger:873
+    image: vulcan.azurecr.io/vulcan-logger:882
     init: true
     restart: always
     depends_on:
       - stream
       - user
   overlay:
-    image: vulcan.azurecr.io/vulcan-overlay:873
+    image: vulcan.azurecr.io/vulcan-overlay:882
     init: true
     restart: always
     ports:
@@ -23,14 +23,14 @@ services:
     volumes:
       - assets:/app/src/wwwroot/assets
   stream:
-    image: vulcan.azurecr.io/vulcan-stream:873
+    image: vulcan.azurecr.io/vulcan-stream:882
     init: true
     restart: always
   streamelements:
-    image: vulcan.azurecr.io/vulcan-streamelements:873
+    image: vulcan.azurecr.io/vulcan-streamelements:882
     init: true
     restart: always
   user:
-    image: vulcan.azurecr.io/vulcan-user:873
+    image: vulcan.azurecr.io/vulcan-user:882
     init: true
     restart: always

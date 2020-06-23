@@ -159,7 +159,7 @@ const db = {
       )
     );
   },
-  saveSubscription: async function(streamId, payload) {
+  saveDonation: async function(streamId, payload) {
     return await new Promise(resolve =>
       StreamModel.updateOne(
         { _id: streamId },
