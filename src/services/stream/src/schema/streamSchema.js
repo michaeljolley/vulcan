@@ -68,8 +68,14 @@ const donationSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  amount: Number,
-  message: String
+  amount: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  message: {
+    type: String, required: false 
+  }
 });
 
 const subscriberSchema = new mongoose.Schema({

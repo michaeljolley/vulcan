@@ -160,26 +160,35 @@ const db = {
     );
   },
   saveDonation: async function(streamId, payload) {
-    return await new Promise(resolve =>
-      StreamModel.updateOne(
-        { _id: streamId },
-        {
-          $push: {
-            donations: {
-              user: payload.user,
-              amount: payload.amount,
-              message: payload.message
+
+    try { 
+      const amount = parseFloat(payload.amount);
+      
+      return await new Promise(resolve =>
+        StreamModel.updateOne(
+          { _id: streamId },
+          {
+            $push: {
+              donations: {
+                user: payload.user,
+                amount: amount,
+                message: payload.message
+              }
             }
+          },
+          (err, res) => {
+            if (err) {
+              console.dir(err)
+              resolve(undefined);
+            }
+            resolve(res);
           }
-        },
-        (err, res) => {
-          if (err) {
-            resolve(undefined);
-          }
-          resolve(res);
-        }
-      )
-    );
+        )
+      );
+    }
+    catch (err) {
+      return undefined;
+    }
   },
   saveFollow: async function(streamId, payload) {
     const user = payload.user;

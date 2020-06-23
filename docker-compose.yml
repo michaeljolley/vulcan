@@ -41,6 +41,15 @@ services:
     restart: always
     env_file:
       - ./src/services/stream/.env
+  streamelements:
+    build:
+      context: ./src/services/streamelements
+      dockerfile: Dockerfile
+    container_name: vulcan-streamelements
+    init: true
+    restart: always
+    env_file:
+      - ./src/services/streamelements/.env
   user:
     build:
       context: ./src/services/user

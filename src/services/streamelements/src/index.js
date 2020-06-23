@@ -1,17 +1,21 @@
 const io = require('socket.io-client');
 const axios = require('axios');
-
 const dotenv = require('dotenv');
 
 dotenv.config();
 
 let JWT = process.env.STREAMELEMENTSJWT;
+let HUBURL = process.env.VULCANHUBURL;
 
 const streamElementsSocket = io('https://realtime.streamelements.com', {
     transports: ['websocket']
 });
 
-const hubSocket = io.connect(process.env.VULCANHUBURL);
+const hubSocket = io(HUBURL);
+
+hubSocket.on('connect', () => {
+  console.log('Successfully connected to the Vulcan hub websocket');
+})
 
 // Socket connected
 streamElementsSocket.on('connect', onConnect);
@@ -22,15 +26,12 @@ streamElementsSocket.on('authenticated', onAuthenticated);
 
 streamElementsSocket.on('event:test', (data) => {
     data.event.test = true;
-    
     switch (data.listener) {
       case 'tip-latest':
         onDonation(data.event);
     }
 });
 streamElementsSocket.on('event', (data) => {
-  
-  console.dir(data)
     switch (data.type) {
       case 'tip':
         onDonation(data.data);
@@ -48,7 +49,7 @@ streamElementsSocket.on('event', (data) => {
 // });
 
 function onConnect() {
-    console.log('Successfully connected to the websocket');
+    console.log('Successfully connected to the StreamElements websocket');
     streamElementsSocket.emit('authenticate', {
         method: 'jwt',
         token: JWT
@@ -69,8 +70,6 @@ function onAuthenticated(data) {
 }
 
 const onDonation = async (data) => {
-  
-  // Go get the user from the user service
   try {
     const user = await getUser(data.name);
 
@@ -89,5 +88,5 @@ const onDonation = async (data) => {
 }
 
 const getUser = async twitchLogin => {
-  return await axios.get(`http://user/user/${twitchLogin}`);
+  return (await axios.get(`http://user/user/${twitchLogin}`)).data;
 }
