@@ -22,12 +22,15 @@ streamElementsSocket.on('authenticated', onAuthenticated);
 
 streamElementsSocket.on('event:test', (data) => {
     data.event.test = true;
-    switch (data.type) {
+    
+    switch (data.listener) {
       case 'tip-latest':
         onDonation(data.event);
     }
 });
 streamElementsSocket.on('event', (data) => {
+  
+  console.dir(data)
     switch (data.type) {
       case 'tip':
         onDonation(data.data);
