@@ -33,7 +33,7 @@ module.exports = async function (context, req) {
   // }
 
   const message =
-    "Want to support the BBB stream by repping the merch? Visit the online store at https://baldbeardedbuilder.threadless.com/ or https://bbb.dev/shop to get your gear.";
+    "Want to support the BBB stream by repping the merch? Visit the online store at https://bbb.dev/shop to get your gear.";
 
   const payload = {
     message,
