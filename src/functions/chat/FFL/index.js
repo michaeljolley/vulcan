@@ -33,12 +33,12 @@ module.exports = async function (context, req) {
   // }
 
   const message =
-    "Want to support the stream? Pick up some merch at https://bbb.dev/shop";
+    "Check out the entire Family Friendly Live team and give them all a follow at https://familyfriendly.live";
 
   const payload = {
     message,
     messageType: "chat", // or 'whisper'
-    recipient: null, // required when messageType === whisper
+    recipient: null // required when messageType === whisper
   };
 
   // Send a message to the Socket.io

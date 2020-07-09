@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const socket = io.connect(process.env.VULCANHUBURL);
 
-module.exports = async function(context, req) {
+module.exports = async function (context, req) {
   // All chat functions will receive a payload of:
   // {
   //    channel: string,
@@ -33,7 +33,7 @@ module.exports = async function(context, req) {
   // }
 
   const message =
-    "Mike is using the MassDrop ALT mechanical keyboard.  You can find it at https://drop.com/buy/massdrop-alt-mechanical-keyboard";
+    "Mike is using the Drop ALT mechanical keyboard.  You can find it at https://drop.com/buy/massdrop-alt-mechanical-keyboard";
 
   const payload = {
     message,

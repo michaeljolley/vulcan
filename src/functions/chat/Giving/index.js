@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const socket = io.connect(process.env.VULCANHUBURL);
 
-module.exports = async function(context, req) {
+module.exports = async function (context, req) {
   // All chat functions will receive a payload of:
   // {
   //    channel: string,
@@ -33,7 +33,7 @@ module.exports = async function(context, req) {
   // }
 
   const message =
-    "The Bald Bearded Builder is currently supporting Backpack Buddies, helping feed underprivileged children who don't know where their next meal comes from. Please consider donating at http://bbb.dev/bpb. More information about the charity can be found at http://stclairbuddies.org";
+    "The Bald Bearded Builder is currently supporting Backpack Buddies, helping feed underprivileged children who don't know where their next meal comes from. Please consider donating at http://bbb.dev/bpb and learning more about the charity at http://stclairbuddies.org";
 
   const payload = {
     message,
