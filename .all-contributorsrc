@@ -132,6 +132,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Konvay",
+      "name": "Paris",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/991302?v=4",
+      "profile": "https://github.com/Konvay",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
