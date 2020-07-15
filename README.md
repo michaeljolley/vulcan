@@ -5,7 +5,7 @@
 ---
 
 [![Build Status](https://dev.azure.com/michaeljolley/vulcan/_apis/build/status/vulcan-CD?branchName=master)](https://dev.azure.com/michaeljolley/vulcan/_build/latest?definitionId=10&branchName=master) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ![Initial Design](https://user-images.githubusercontent.com/1228996/69489802-d48f9a00-0e43-11ea-841b-d6188360db5c.png)
@@ -40,6 +40,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://linkedin.com/in/redet"><img src="https://avatars0.githubusercontent.com/u/20116752?v=4" width="100px;" alt=""/><br /><sub><b>Redet Getachew</b></sub></a><br /><a href="https://github.com/MichaelJolley/vulcan/commits?author=redet-G" title="Tests">⚠️</a> <a href="https://github.com/MichaelJolley/vulcan/commits?author=redet-G" title="Code">💻</a></td>
     <td align="center"><a href="http://www.antonedvard.com"><img src="https://avatars2.githubusercontent.com/u/5489879?v=4" width="100px;" alt=""/><br /><sub><b>Anton Kristensen</b></sub></a><br /><a href="#ideas-antonedvard" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/MichaelJolley/vulcan/commits?author=antonedvard" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/ElliottBrand"><img src="https://avatars2.githubusercontent.com/u/47930099?v=4" width="100px;" alt=""/><br /><sub><b>Steve Elliott</b></sub></a><br /><a href="https://github.com/MichaelJolley/vulcan/commits?author=ElliottBrand" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/Konvay"><img src="https://avatars1.githubusercontent.com/u/991302?v=4" width="100px;" alt=""/><br /><sub><b>Paris</b></sub></a><br /><a href="#ideas-Konvay" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 
